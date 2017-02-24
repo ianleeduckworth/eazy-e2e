@@ -1,6 +1,0 @@
-C:\Code\EazyE2E\EazyE2E\bin\Debug\EazyE2E.exe.config
-C:\Code\EazyE2E\EazyE2E\bin\Debug\EazyE2E.exe
-C:\Code\EazyE2E\EazyE2E\bin\Debug\EazyE2E.pdb
-C:\Code\EazyE2E\EazyE2E\obj\Debug\EazyE2E.csprojResolveAssemblyReference.cache
-C:\Code\EazyE2E\EazyE2E\obj\Debug\EazyE2E.exe
-C:\Code\EazyE2E\EazyE2E\obj\Debug\EazyE2E.pdb
