@@ -1,0 +1,5 @@
+C:\Code\EazyE2E\EazyE2E\bin\Release\EazyE2E.exe.config
+C:\Code\EazyE2E\EazyE2E\bin\Release\EazyE2E.exe
+C:\Code\EazyE2E\EazyE2E\bin\Release\EazyE2E.pdb
+C:\Code\EazyE2E\EazyE2E\obj\Release\EazyE2E.exe
+C:\Code\EazyE2E\EazyE2E\obj\Release\EazyE2E.pdb
