@@ -44,6 +44,11 @@ namespace EazyE2E.Element
             _invokePattern?.Invoke();
         }
 
+        public void BringIntoFocus()
+        {
+            this.BackingAutomationElement.SetFocus();
+        }
+
         public EzElement FindChildByName(string name, SearchType type = SearchType.Children)
         {
             return new EzElement(_backingAutomationElement.FindFirst(type == SearchType.Children ? TreeScope.Children : TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name)));
