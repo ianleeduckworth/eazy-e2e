@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Automation;
 using EazyE2E.Enums;
+using EazyE2E.Helper;
 
 namespace EazyE2E.Element
 {
@@ -58,6 +60,10 @@ namespace EazyE2E.Element
         {
             return new EzElement(_backingAutomationElement.FindFirst(type == SearchType.Children ? TreeScope.Children : TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
         }
+        public EzElement FindChildByMultipleCriteria(IList<SearchTypeProperty> properties, SearchType type = SearchType.Children)
+        {
+            return new EzElement(_backingAutomationElement.FindFirst(type == SearchType.Children ? TreeScope.Children : TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
+        }
 
         public IEnumerable<EzElement> FindChildrenByName(string name, SearchType type = SearchType.Children)
         {
@@ -67,6 +73,11 @@ namespace EazyE2E.Element
         public IEnumerable<EzElement> FindChildrenByAutomationId(string name, SearchType type = SearchType.Children)
         {
             return ConvertCollection(_backingAutomationElement.FindAll(type == SearchType.Children ? TreeScope.Children : TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
+        }
+
+        public IEnumerable<EzElement> FindChildrenByMultipleCriteria(IList<SearchTypeProperty> properties, SearchType type = SearchType.Children)
+        {
+            return ConvertCollection(_backingAutomationElement.FindAll(type == SearchType.Children ? TreeScope.Children : TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
         }
 
         public IEnumerable<EzElement> GetAllChildren()
