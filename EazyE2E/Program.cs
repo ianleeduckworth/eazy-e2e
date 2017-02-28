@@ -18,14 +18,14 @@ namespace EazyE2E
             //setup
             var process = new EzProcess("Calculator");
             var root = new EzRoot(process).RootElement;
-            var displayPane = root.FindChildByAutomationId("CalculatorResults", SearchType.Descendants);
+            var displayPane = root.FindDescendantByAutomationId("CalculatorResults");
 
             //get the clear button
-            var clear = root.FindChildByAutomationId("clearButton", SearchType.Descendants);
+            var clear = root.FindDescendantByAutomationId("clearButton");
 
             //get parent elements for numbers and operators respectfully
-            var numbers = root.FindChildByAutomationId("NumberPad", SearchType.Descendants);
-            var standardOperators = root.FindChildByAutomationId("StandardOperators", SearchType.Descendants);
+            var numbers = root.FindDescendantByAutomationId("NumberPad");
+            var standardOperators = root.FindDescendantByAutomationId("StandardOperators");
 
             //get numbers buttons based on numbers object
             var oneButton = numbers.FindChildByAutomationId("num1Button");
