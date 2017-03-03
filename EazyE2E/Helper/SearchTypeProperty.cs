@@ -10,7 +10,7 @@ namespace EazyE2E.Helper
 {
     public class SearchTypeProperty
     {
-        public SearchType SearchType { get; set; }
+        public PropertyType PropertyType { get; set; }
         public string Name { get; set; }
     }
 }

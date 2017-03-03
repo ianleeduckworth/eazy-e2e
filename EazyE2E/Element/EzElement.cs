@@ -53,39 +53,79 @@ namespace EazyE2E.Element
 
         public EzElement FindChildByName(string name, SearchType type = SearchType.Children)
         {
-            return new EzElement(_backingAutomationElement.FindFirst(type == SearchType.Children ? TreeScope.Children : TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name)));
+            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, name)));
         }
 
-        public EzElement FindChildByAutomationId(string name, SearchType type = SearchType.Children)
+        public EzElement FindDescendantByName(string name)
         {
-            return new EzElement(_backingAutomationElement.FindFirst(type == SearchType.Children ? TreeScope.Children : TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
-        }
-        public EzElement FindChildByMultipleCriteria(IList<SearchTypeProperty> properties, SearchType type = SearchType.Children)
-        {
-            return new EzElement(_backingAutomationElement.FindFirst(type == SearchType.Children ? TreeScope.Children : TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
+            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name)));
         }
 
-        public IEnumerable<EzElement> FindChildrenByName(string name, SearchType type = SearchType.Children)
+        public EzElement FindChildByAutomationId(string name)
         {
-            return ConvertCollection(_backingAutomationElement.FindAll(type == SearchType.Children ? TreeScope.Children : TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name)));
+            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
         }
 
-        public IEnumerable<EzElement> FindChildrenByAutomationId(string name, SearchType type = SearchType.Children)
+        public EzElement FindDescendantByAutomationId(string name)
         {
-            return ConvertCollection(_backingAutomationElement.FindAll(type == SearchType.Children ? TreeScope.Children : TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
+            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
+        }
+        public EzElement FindChildByMultipleCriteria(params SearchTypeProperty[] properties)
+        {
+            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
         }
 
-        public IEnumerable<EzElement> FindChildrenByMultipleCriteria(IList<SearchTypeProperty> properties, SearchType type = SearchType.Children)
+        public EzElement FindDescendantByMultipleCriteria(params SearchTypeProperty[] properties)
         {
-            return ConvertCollection(_backingAutomationElement.FindAll(type == SearchType.Children ? TreeScope.Children : TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
+            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
+        }
+
+        public IEnumerable<EzElement> FindChildrenByName(string name)
+        {
+            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, name)));
+        }
+
+        public IEnumerable<EzElement> FindDescendantsByName(string name)
+        {
+            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name)));
+        }
+
+        public IEnumerable<EzElement> FindChildrenByAutomationId(string name)
+        {
+            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Children, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
+        }
+
+        public IEnumerable<EzElement> FindDescendantsByAutomationId(string name)
+        {
+            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
+        }
+
+        public IEnumerable<EzElement> FindChildrenByMultipleCriteria(params SearchTypeProperty[] properties)
+        {
+            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Children, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
+        }
+
+        public IEnumerable<EzElement> FindDescendantsByMultipleCriteria(params SearchTypeProperty[] properties)
+        {
+            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
         }
 
         public IEnumerable<EzElement> GetAllChildren()
         {
             //this is super dumb.  Figure out a better way to do this.
             return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Children, new NotCondition(new PropertyCondition(AutomationElement.ClassNameProperty, "dfsjkdsfjkdfskjfsdjkdsfjkfsdjkdsfsdfjkdfskjdsfjkdsfjkdsfjkdsfjkdfskjsdfkjsdfjksdfkjfdkdsf"))));
-        } 
-        
+        }
+
+        /// <summary>
+        /// USE THIS METHOD WITH CAUTION.  IT WILL RETURN A COLLECTION OF EVERY DESCENDANT OF AN ELEMENT WICH CAN HAVE A HUGE PERFORMANCE IMPACT
+        /// </summary>
+        /// <returns>An IEnumerable of type EzElement</returns>
+        public IEnumerable<EzElement> GetAllDescendants()
+        {
+            //this is super dumb.  Figure out a better way to do this.
+            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new NotCondition(new PropertyCondition(AutomationElement.ClassNameProperty, "dfsjkdsfjkdfskjfsdjkdsfjkfsdjkdsfsdfjkdfskjdsfjkdsfjkdsfjkdsfjkdfskjsdfkjsdfjksdfkjfdkdsf"))));
+        }
+
         private IEnumerable<EzElement> ConvertCollection(AutomationElementCollection collection)
         {
             return from object c in collection select new EzElement(c as AutomationElement);
