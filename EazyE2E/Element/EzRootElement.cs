@@ -25,7 +25,7 @@ namespace EazyE2E.Element
         }
         private EzElement Set(string processName)
         {
-            return new EzElement(AutomationElement.RootElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, processName)));
+            return new EzElement(AutomationElement.RootElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, processName)));
         }
 
 
