@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
 using EazyE2E.Element;
 
 namespace EazyE2E.HardwareManipulation
@@ -39,6 +36,9 @@ namespace EazyE2E.HardwareManipulation
             private static readonly object LockObj = new object();
             private static KeyboardKey _instance;
 
+            /// <summary>
+            /// Gets the current (and only) instance of this class.  Use this object to perform keyboard related tasks
+            /// </summary>
             public static KeyboardKey Instance
             {
                 get
