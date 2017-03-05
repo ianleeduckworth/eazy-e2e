@@ -25,22 +25,31 @@ namespace EazyE2E.Console
                 //get the clear button
                 var clear = root.FindDescendantByAutomationId("clearButton");
 
-                //get parent elements for numbers and operators respectfully
-                var numbers = root.FindDescendantByAutomationId("NumberPad");
-                var standardOperators = root.FindDescendantByAutomationId("StandardOperators");
+            //get parent elements for numbers and operators respectfully
+            var numbers = root.FindDescendantByAutomationId("NumberPad");
+            var standardOperators = root.FindDescendantByAutomationId("StandardOperators");
+            var navBtn = root.FindDescendantByAutomationId("NavButton");
 
-                clear.Click();
-                EzKeyboardFunctions.PressKey(displayPane, Key.NumPad7);
-                var result = displayPane.Name.Split(' ')[2].Trim() == "7";
-                System.Console.WriteLine(result
-                    ? "Display pane is currently displaying 7"
-                    : $"There was an error.  Display pane is currenly displaying: ${displayPane.Name}");
-                Thread.Sleep(1000);
-                EzKeyboardFunctions.PressKey(displayPane, Key.Back);
-                result = displayPane.Name.Split(' ')[2].Trim() == "0";
-                System.Console.WriteLine(result
-                    ? "Display pane is currently displaying nothing, which is correct."
-                    : $"There ws an error.  Display pane is currently displaying: ${displayPane.Name}");
+            ExecWrapper(navBtn, "NavButton"); //click the nav button to launch the flyout
+            var standardButton = root.FindDescendantByName("Standard Calculator");
+            EzMouseFunctions.MoveMouse(standardButton); //hover over the standard button so the scrolls will actually work
+
+            Console.WriteLine("Scrolling down 8 times");
+            EzMouseFunctions.ScrollDown(navBtn, 8);
+            Thread.Sleep(1000);
+
+            Console.WriteLine("Scrolling up 8 times");
+            EzMouseFunctions.ScrollUp(navBtn, 8);
+            Thread.Sleep(1000);
+
+            //clear.Click();
+            //EzKeyboardFunctions.PressKey(displayPane, Key.NumPad7);
+            //var result = displayPane.Name.Split(' ')[2].Trim() == "7";
+            //Console.WriteLine(result ? "Display pane is currently displaying 7" : $"There was an error.  Display pane is currenly displaying: ${displayPane.Name}");
+            //Thread.Sleep(1000);
+            //EzKeyboardFunctions.PressKey(displayPane, Key.Back);
+            //result = displayPane.Name.Split(' ')[2].Trim() == "0";
+            //Console.WriteLine(result ? "Display pane is currently displaying nothing, which is correct." : $"There ws an error.  Display pane is currently displaying: ${displayPane.Name}");
 
                 //get numbers buttons based on numbers object
                 //var oneButton = numbers.FindChildByAutomationId("num1Button");
