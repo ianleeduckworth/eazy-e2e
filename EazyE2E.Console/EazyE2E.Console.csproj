@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{78498BC8-49D4-4E39-9973-858D37634CBE}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{4516BF23-ABB6-4006-AF72-901CA32082BB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EazyE2E</RootNamespace>
-    <AssemblyName>EazyE2E</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>EazyE2E.Console</RootNamespace>
+    <AssemblyName>EazyE2E.Console</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
@@ -22,7 +22,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,46 +32,32 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="UIAutomationClient" />
-    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Element\EzElement.cs" />
-    <Compile Include="Element\EzGrid.cs" />
-    <Compile Include="Element\EzGridItem.cs" />
-    <Compile Include="Element\EzList.cs" />
-    <Compile Include="Element\EzListItem.cs" />
-    <Compile Include="Element\EzRootElement.cs" />
-    <Compile Include="Enums\SearchType.cs" />
-    <Compile Include="Enums\PropertyType.cs" />
-    <Compile Include="HardwareManipulation\EzMouseFunctions.cs" />
-    <Compile Include="Helper\TypeChecker.cs" />
-    <Compile Include="Helper\SearchTypeHelper.cs" />
-    <Compile Include="Helper\SearchTypeProperty.cs" />
-    <Compile Include="HardwareManipulation\EzKeyboardFunctions.cs" />
-    <Compile Include="Process\EzProcess.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EazyE2E\EazyE2E.csproj">
+      <Project>{78498BC8-49D4-4E39-9973-858D37634CBE}</Project>
+      <Name>EazyE2E</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

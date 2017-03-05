@@ -12,22 +12,22 @@ namespace EazyE2E.Element
 {
     public class EzRoot
     {
-        public EzElement RootElement;
+        private readonly EzProcess _process;
+        private EzElement _rootElement;
 
-        public EzRoot(string processName)
-        {
-            RootElement = Set(processName);
-        }
+        public EzElement RootElement => _rootElement ?? (_rootElement = GetRootElement());
 
         public EzRoot(EzProcess process)
         {
-            RootElement = Set(process.ProcessName);
+            _process = process;
         }
-        private EzElement Set(string processName)
+
+        public EzElement GetRootElement()
         {
-            return new EzElement(AutomationElement.RootElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, processName)));
+            var propertyCondition = new PropertyCondition(AutomationElement.ProcessIdProperty, _process.ProcessId);
+            var element = AutomationElement.RootElement.FindFirst(TreeScope.Subtree, propertyCondition);
+            if (element == null) throw new NullReferenceException("Root element not found.");
+            return new EzElement(element);
         }
-
-
     }
 }
