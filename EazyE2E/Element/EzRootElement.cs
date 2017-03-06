@@ -22,11 +22,15 @@ namespace EazyE2E.Element
             _process = process;
         }
 
+        /// <summary>
+        /// Gets the root element of the process passed in during instantiation
+        /// </summary>
+        /// <returns></returns>
         public EzElement GetRootElement()
         {
             var propertyCondition = new PropertyCondition(AutomationElement.ProcessIdProperty, _process.ProcessId);
-            var element = AutomationElement.RootElement.FindFirst(TreeScope.Subtree, propertyCondition);
-            if (element == null) throw new NullReferenceException("Root element not found.");
+            var element = AutomationElement.RootElement.FindFirst(TreeScope.Subtree, propertyCondition); //todo use TreeScope.Children instead of TreeScope.Subtree
+            if (element == null) throw new NullReferenceException($"Root element not found where process name is ${_process.ProcessName}.");
             return new EzElement(element);
         }
     }

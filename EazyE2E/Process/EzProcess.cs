@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
 
 namespace EazyE2E.Process
 {
@@ -13,6 +11,8 @@ namespace EazyE2E.Process
         private System.Diagnostics.Process _process;
 
         public int ProcessId => _process.Id;
+        public string ProcessPath => _processFullPath;
+        public string ProcessName => _processName;
         public string Arguments { get; set; } = string.Empty;
         public ProcessWindowStyle WindowStyle { get; set; } = ProcessWindowStyle.Normal;
 
