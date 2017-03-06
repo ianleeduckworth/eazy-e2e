@@ -3,7 +3,9 @@ using System.Runtime.ConstrainedExecution;
 using System.Threading;
 using System.Windows.Input;
 using EazyE2E.Element;
+using EazyE2E.Enums;
 using EazyE2E.HardwareManipulation;
+using EazyE2E.LongSearch;
 using EazyE2E.Process;
 
 namespace EazyE2E.Console
@@ -13,7 +15,7 @@ namespace EazyE2E.Console
         [STAThread]
         static void Main()
         {
-            string calculatorPath = "C:\\Windows\\System32\\calc.exe";
+            var calculatorPath = "C:\\Windows\\System32\\calc.exe";
             using (var process = new EzProcess(calculatorPath, "Calculator"))
             {
                 process.StartProcess();
@@ -22,34 +24,39 @@ namespace EazyE2E.Console
                 var root = new EzRoot(process).RootElement;
                 var displayPane = root.FindDescendantByAutomationId("CalculatorResults");
 
+                var foo = LongSearch.LongSearch.PerformSearch(displayPane, 
+                    new LongSearchItem {PropertyType = PropertyType.AutomationId, ParamName = "test"},
+                    new LongSearchItem {PropertyType = PropertyType.AutomationId, ParamName = "test2"},
+                    new LongSearchItem {PropertyType = PropertyType.Name, ParamName = "test3"});
+
                 //get the clear button
                 var clear = root.FindDescendantByAutomationId("clearButton");
 
-            //get parent elements for numbers and operators respectfully
-            var numbers = root.FindDescendantByAutomationId("NumberPad");
-            var standardOperators = root.FindDescendantByAutomationId("StandardOperators");
-            var navBtn = root.FindDescendantByAutomationId("NavButton");
+                //get parent elements for numbers and operators respectfully
+                var numbers = root.FindDescendantByAutomationId("NumberPad");
+                var standardOperators = root.FindDescendantByAutomationId("StandardOperators");
+                var navBtn = root.FindDescendantByAutomationId("NavButton");
 
-            ExecWrapper(navBtn, "NavButton"); //click the nav button to launch the flyout
-            var standardButton = root.FindDescendantByName("Standard Calculator");
-            EzMouseFunctions.MoveMouse(standardButton); //hover over the standard button so the scrolls will actually work
+                ExecWrapper(navBtn, "NavButton"); //click the nav button to launch the flyout
+                var standardButton = root.FindDescendantByName("Standard Calculator");
+                EzMouseFunctions.MoveMouse(standardButton); //hover over the standard button so the scrolls will actually work
 
-            Console.WriteLine("Scrolling down 8 times");
-            EzMouseFunctions.ScrollDown(navBtn, 8);
-            Thread.Sleep(1000);
+                System.Console.WriteLine("Scrolling down 8 times");
+                EzMouseFunctions.ScrollDown(navBtn, 8);
+                Thread.Sleep(1000);
 
-            Console.WriteLine("Scrolling up 8 times");
-            EzMouseFunctions.ScrollUp(navBtn, 8);
-            Thread.Sleep(1000);
+                System.Console.WriteLine("Scrolling up 8 times");
+                EzMouseFunctions.ScrollUp(navBtn, 8);
+                Thread.Sleep(1000);
 
-            //clear.Click();
-            //EzKeyboardFunctions.PressKey(displayPane, Key.NumPad7);
-            //var result = displayPane.Name.Split(' ')[2].Trim() == "7";
-            //Console.WriteLine(result ? "Display pane is currently displaying 7" : $"There was an error.  Display pane is currenly displaying: ${displayPane.Name}");
-            //Thread.Sleep(1000);
-            //EzKeyboardFunctions.PressKey(displayPane, Key.Back);
-            //result = displayPane.Name.Split(' ')[2].Trim() == "0";
-            //Console.WriteLine(result ? "Display pane is currently displaying nothing, which is correct." : $"There ws an error.  Display pane is currently displaying: ${displayPane.Name}");
+                //clear.Click();
+                //EzKeyboardFunctions.PressKey(displayPane, Key.NumPad7);
+                //var result = displayPane.Name.Split(' ')[2].Trim() == "7";
+                //Console.WriteLine(result ? "Display pane is currently displaying 7" : $"There was an error.  Display pane is currenly displaying: ${displayPane.Name}");
+                //Thread.Sleep(1000);
+                //EzKeyboardFunctions.PressKey(displayPane, Key.Back);
+                //result = displayPane.Name.Split(' ')[2].Trim() == "0";
+                //Console.WriteLine(result ? "Display pane is currently displaying nothing, which is correct." : $"There ws an error.  Display pane is currently displaying: ${displayPane.Name}");
 
                 //get numbers buttons based on numbers object
                 //var oneButton = numbers.FindChildByAutomationId("num1Button");

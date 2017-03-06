@@ -66,6 +66,11 @@ namespace EazyE2E.Element
             return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
         }
 
+        public EzElement FindChildByClass(string name)
+        {
+            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.ClassNameProperty, name)));
+        }
+
         public EzElement FindDescendantByAutomationId(string name)
         {
             return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
