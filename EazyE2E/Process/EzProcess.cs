@@ -23,6 +23,9 @@ namespace EazyE2E.Process
         }
 
 
+        /// <summary>
+        /// Starts the process based on the path given when instantiating EzProcess
+        /// </summary>
         public void StartProcess()
         {
             var start = new ProcessStartInfo
