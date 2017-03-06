@@ -9,7 +9,14 @@ namespace EazyE2E.LongSearch
 {
     public class LongSearchItem
     {
-        public PropertyType PropertyType { get; set; }
-        public string ParamName { get; set; }
+        public LongSearchItem(PropertyType type, string paramName)
+        {
+            this.PropertyType = type;
+            this.ParamName = paramName;
+        }
+
+        public PropertyType PropertyType { get; }
+
+        public string ParamName { get; }
     }
 }
