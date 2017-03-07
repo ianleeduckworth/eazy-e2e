@@ -24,6 +24,11 @@ namespace EazyE2E.Element
             _gridItemPattern = element.GetCurrentPattern(GridItemPattern.Pattern) as GridItemPattern;
         }
 
+        /// <summary>
+        /// Backing UI Automation GridItemPattern
+        /// </summary>
+        public GridItemPattern GridItemPattern => _gridItemPattern;
+
         public int RowNum => _gridItemPattern.Current.Row;
         public int RowSpan => _gridItemPattern.Current.RowSpan;
         public int ColumnNum => _gridItemPattern.Current.Column;

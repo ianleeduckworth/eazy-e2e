@@ -23,6 +23,10 @@ namespace EazyE2E.Element
             TypeChecker.CheckElementType(element, ControlType.DataGrid);
             _gridPattern = element.GetCurrentPattern(GridPattern.Pattern) as GridPattern;
         }
+        /// <summary>
+        /// Backing UI Automation GridPattern
+        /// </summary>
+        public GridPattern GridPattern => _gridPattern;
 
         public int ColumnCount => _gridPattern.Current.ColumnCount;
         public int RowCount => _gridPattern.Current.RowCount;

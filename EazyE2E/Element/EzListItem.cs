@@ -35,6 +35,19 @@ namespace EazyE2E.Element
             SetBackingProperties();
         }
 
+        /// <summary>
+        /// Backing UI Automation SelectionItemPattern
+        /// </summary>
+        public SelectionItemPattern SelectionItemPattern => _selectionItemPattern;
+        /// <summary>
+        /// Backing UI Automation ScrollItemPattern
+        /// </summary>
+        public ScrollItemPattern ScrollItemPattern => _scrollItemPattern;
+        /// <summary>
+        /// Backing UI Automation VirtualizedItemPattern
+        /// </summary>
+        public VirtualizedItemPattern VirtualizedItemPattern => _virtualizedItemPattern;
+
         public EzList Container => _container;
 
         public void ScrollItemIntoView()

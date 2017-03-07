@@ -27,6 +27,15 @@ namespace EazyE2E.Element
             _selectionPattern = element.GetCurrentPattern(SelectionPattern.Pattern) as SelectionPattern;
         }
 
+        /// <summary>
+        /// Backing UI Automation ScrollPattern
+        /// </summary>
+        public ScrollPattern ScrollPattern => _scrollPattern;
+        /// <summary>
+        /// Backing UI Automation SelectionPattern
+        /// </summary>
+        public SelectionPattern SelectionPattern => _selectionPattern;
+
         public double VerticalScrollPct => _scrollPattern.Current.VerticalScrollPercent;
         public double HorizontalScrollPct => _scrollPattern.Current.HorizontalScrollPercent;
         public double VerticalViewSize => _scrollPattern.Current.VerticalViewSize;
