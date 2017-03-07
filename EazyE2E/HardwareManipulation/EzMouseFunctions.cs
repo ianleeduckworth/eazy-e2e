@@ -18,6 +18,12 @@ namespace EazyE2E.HardwareManipulation
         private const int MOUSEEVENTF_RIGHTUP = 0x10;
         private const int MOUSEEVENTF_WHEEL = 0x0800;
 
+        /// <summary>
+        /// Allows the user to set the amount of time inbetween mouse events.
+        /// <para>NOTE THAT A VALUE OF LESS THAN 100 IS NOT RECOMMENDED BECAUSE APPLICATIONS GENERALLY CANNOT REACT QUICKLY ENOUGH AND YOU MAY GET INCORRECT CLICKS</para>
+        /// </summary>
+        public static int TimeInbetweenMouseEvents { get; set; }
+
         private static void DoMouseClick()
         {
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
@@ -50,6 +56,12 @@ namespace EazyE2E.HardwareManipulation
             if (shouldMoveCursor) MoveCursorToPoint(element);
         }
 
+        private static void TearDown()
+        {
+            var sleep = TimeInbetweenMouseEvents == 0 ? 100 : TimeInbetweenMouseEvents;
+            Thread.Sleep(sleep);
+        }
+
         /// <summary>
         /// Physically moves the mouse to the center point of the passed in EzElement
         /// </summary>
@@ -58,6 +70,7 @@ namespace EazyE2E.HardwareManipulation
         {
             //prep takes care of everything; brings the element into view and moves the cursor to the point it needs
             PrepElement(element);
+            TearDown();
         }
 
         /// <summary>
@@ -68,6 +81,7 @@ namespace EazyE2E.HardwareManipulation
         public static void MoveMouse(int x, int y)
         {
             SetCursorPos(x, y);
+            TearDown();
         }
 
         /// <summary>
@@ -78,6 +92,7 @@ namespace EazyE2E.HardwareManipulation
         {
             PrepElement(element);
             DoMouseClick();
+            TearDown();
         }
 
         /// <summary>
@@ -88,6 +103,7 @@ namespace EazyE2E.HardwareManipulation
         {
             PrepElement(element);
             DoMouseRightClick();
+            TearDown();
         }
 
         /// <summary>
@@ -101,6 +117,7 @@ namespace EazyE2E.HardwareManipulation
             DoMouseClick();
             Thread.Sleep(spacing);
             DoMouseClick();
+            TearDown();
         }
 
         /// <summary>
@@ -112,6 +129,7 @@ namespace EazyE2E.HardwareManipulation
         {
             PrepElement(element, false);
             DoMouseScroll(wheelClicks, true);
+            TearDown();
         }
 
         /// <summary>
@@ -123,6 +141,7 @@ namespace EazyE2E.HardwareManipulation
         {
             PrepElement(element, false);
             DoMouseScroll(wheelClicks, false);
+            TearDown();
         }
     }
 }

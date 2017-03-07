@@ -1,9 +1,13 @@
 ﻿using System;
+using System.CodeDom;
+using System.Diagnostics;
 using System.Runtime.ConstrainedExecution;
 using System.Threading;
 using System.Windows.Input;
 using EazyE2E.Element;
+using EazyE2E.Enums;
 using EazyE2E.HardwareManipulation;
+using EazyE2E.LongSearch;
 using EazyE2E.Process;
 
 namespace EazyE2E.Console
@@ -13,73 +17,45 @@ namespace EazyE2E.Console
         [STAThread]
         static void Main()
         {
-            string calculatorPath = "C:\\Windows\\System32\\calc.exe";
+            var calculatorPath = "C:\\Windows\\System32\\calc.exe";
             using (var process = new EzProcess(calculatorPath, "Calculator"))
             {
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
                 process.StartProcess();
 
                 //var root = new EzRoot("Calculator").RootElement;
                 var root = new EzRoot(process).RootElement;
-                var displayPane = root.FindDescendantByAutomationId("CalculatorResults");
 
-                //get the clear button
-                var clear = root.FindDescendantByAutomationId("clearButton");
+                var testSevenBtn2 = LongSearch.LongSearch.PerformSearch(root, new LongSearchItem(PropertyType.AutomationId, "NumberPad"), new LongSearchItem(PropertyType.AutomationId, "num7Button"));
 
-            //get parent elements for numbers and operators respectfully
-            var numbers = root.FindDescendantByAutomationId("NumberPad");
-            var standardOperators = root.FindDescendantByAutomationId("StandardOperators");
-            var navBtn = root.FindDescendantByAutomationId("NavButton");
+                //find the number we want to click
+                var numberPad = root.FindChildByAutomationId("NumberPad");
+                var sevenBtn = numberPad.FindChildByAutomationId("num7Button");
+                var nineBtn = numberPad.FindChildByAutomationId("num9Button");
 
-            ExecWrapper(navBtn, "NavButton"); //click the nav button to launch the flyout
-            var standardButton = root.FindDescendantByName("Standard Calculator");
-            EzMouseFunctions.MoveMouse(standardButton); //hover over the standard button so the scrolls will actually work
+                //find the operators that we will need to use
+                var stdOperations = root.FindChildByAutomationId("StandardOperators");
+                var plusBtn = stdOperations.FindChildByAutomationId("plusButton");
+                var equalBtn = stdOperations.FindChildByAutomationId("equalButton");
 
-            Console.WriteLine("Scrolling down 8 times");
-            EzMouseFunctions.ScrollDown(navBtn, 8);
-            Thread.Sleep(1000);
+                //find the display pane for verification
+                var displayPane = root.FindChildByAutomationId("CalculatorResults");
 
-            Console.WriteLine("Scrolling up 8 times");
-            EzMouseFunctions.ScrollUp(navBtn, 8);
-            Thread.Sleep(1000);
+                //do the work
 
-            //clear.Click();
-            //EzKeyboardFunctions.PressKey(displayPane, Key.NumPad7);
-            //var result = displayPane.Name.Split(' ')[2].Trim() == "7";
-            //Console.WriteLine(result ? "Display pane is currently displaying 7" : $"There was an error.  Display pane is currenly displaying: ${displayPane.Name}");
-            //Thread.Sleep(1000);
-            //EzKeyboardFunctions.PressKey(displayPane, Key.Back);
-            //result = displayPane.Name.Split(' ')[2].Trim() == "0";
-            //Console.WriteLine(result ? "Display pane is currently displaying nothing, which is correct." : $"There ws an error.  Display pane is currently displaying: ${displayPane.Name}");
+                sevenBtn.Click();
+                plusBtn.Click();
+                nineBtn.Click();
+                equalBtn.Click();
 
-                //get numbers buttons based on numbers object
-                //var oneButton = numbers.FindChildByAutomationId("num1Button");
-                //var twoButton = numbers.FindChildByAutomationId("num2Button");
-                //var fiveButton = numbers.FindChildByAutomationId("num5Button");
-                //var sevenButton = numbers.FindChildByAutomationId("num7Button");
-                //var nineButton = numbers.FindChildByAutomationId("num9Button");
 
-                //get operator buttons based on standardOperators object
-                //var plusButton = standardOperators.FindChildByAutomationId("plusButton");
-                //var minusButton = standardOperators.FindChildByAutomationId("minusButton");
-                //var multiplyButton = standardOperators.FindChildByAutomationId("multiplyButton");
-                //var equalsButton = standardOperators.FindChildByAutomationId("equalButton");
+                //verify the result
+                var result = displayPane.Name == "Display is 16";
+                System.Console.WriteLine(result ? $"Test passed.  Result pane should say 16 and it says '{displayPane.Name}'" : $"Error occurred.  Result pane should say 16 but instead it says '{displayPane.Name}'");
 
-                //click the buttons
-                //ExecWrapper(clear, "clear");
-                //ExecWrapper(sevenButton, "7");
-                //ExecWrapper(plusButton, "+");
-                //ExecWrapper(nineButton, "9");
-                //ExecWrapper(minusButton, "-");
-                //ExecWrapper(oneButton, "1");
-                //ExecWrapper(twoButton, "2");
-                //ExecWrapper(multiplyButton, "x");
-                //ExecWrapper(fiveButton, "5");
-                //ExecWrapper(equalsButton, "=");
-
-                //var result = displayPane.Name == "Display is 20";
-                //Console.WriteLine(result ? "Test passed.  Calculator output is 20" : $"Test failed.  Calculator output is {displayPane.Name.Split(' ')[2].Trim()} where it should have been 20");
-
-                System.Console.Write("Press Enter to exit");
+                stopwatch.Stop();
+                System.Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} miliseconds");
                 System.Console.ReadLine();
             }
         }
