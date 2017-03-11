@@ -5,6 +5,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Automation;
+using System.Windows.Automation.Peers;
 using EazyE2E.Enums;
 using EazyE2E.Helper;
 
@@ -21,6 +22,14 @@ namespace EazyE2E.Element
         public string AutomationId => _backingAutomationElement.Current.AutomationId;
         public string ClassName => _backingAutomationElement.Current.ClassName;
         public ControlType Type => _backingAutomationElement.Current.ControlType;
+
+        public EzElement(EzElement element)
+        {
+            _backingAutomationElement = element._backingAutomationElement;
+            object pattern;
+            element.BackingAutomationElement.TryGetCurrentPattern(InvokePattern.Pattern, out pattern);
+            _invokePattern = pattern as InvokePattern;
+        }
 
         public EzElement(EzRoot root)
         {
@@ -51,11 +60,17 @@ namespace EazyE2E.Element
             this.BackingAutomationElement.SetFocus();
         }
 
-        public EzElement FindChildByName(string name, SearchType type = SearchType.Children)
+        public EzElement FindChildByName(string name, bool searchRaw = false)
         {
-            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, name)));
-        }
+            if (!searchRaw) return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, name)));
 
+            var walker = TreeWalker.RawViewWalker;
+            var firstChild = walker.GetFirstChild(_backingAutomationElement);
+            if (firstChild.Current.Name == name) return new EzElement(firstChild);
+
+            return null;
+        }
+            
         public EzElement FindDescendantByName(string name)
         {
             return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name)));

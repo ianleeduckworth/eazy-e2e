@@ -12,6 +12,12 @@ namespace EazyE2E.Element
     {
         private readonly GridItemPattern _gridItemPattern;
 
+        public EzGridItem(EzElement element) : base(element)
+        {
+            TypeChecker.CheckElementType(element.BackingAutomationElement, ControlType.DataItem);
+            _gridItemPattern = element.BackingAutomationElement.GetCurrentPattern(GridItemPattern.Pattern) as GridItemPattern;
+        }
+
         public EzGridItem(EzRoot root) : base(root)
         {
             TypeChecker.CheckElementType(root.RootElement.BackingAutomationElement, ControlType.DataItem);

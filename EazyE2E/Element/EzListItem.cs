@@ -13,6 +13,16 @@ namespace EazyE2E.Element
 
         private bool _parentCanSelectMultiple;
 
+        public EzListItem(EzElement element) : base(element)
+        {
+            TypeChecker.CheckElementType(element.BackingAutomationElement, ControlType.ListItem);
+            _selectionItemPattern = element.BackingAutomationElement.GetCurrentPattern(SelectionItemPattern.Pattern) as SelectionItemPattern;
+            _scrollItemPattern = element.BackingAutomationElement.GetCurrentPattern(ScrollItemPattern.Pattern) as ScrollItemPattern;
+            _virtualizedItemPattern = element.BackingAutomationElement.GetCurrentPattern(VirtualizedItemPattern.Pattern) as VirtualizedItemPattern;
+            _virtualizedItemPattern?.Realize();
+
+            SetBackingProperties();
+        }
         public EzListItem(EzRoot root) : base(root)
         {
             TypeChecker.CheckElementType(root.RootElement.BackingAutomationElement, ControlType.ListItem);

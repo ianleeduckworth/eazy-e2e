@@ -13,6 +13,13 @@ namespace EazyE2E.Element
         private readonly ScrollPattern _scrollPattern;
         private readonly SelectionPattern _selectionPattern;
 
+        public EzList(EzElement element) : base(element)
+        {
+            TypeChecker.CheckElementType(element.BackingAutomationElement, ControlType.List);
+            _scrollPattern = element.BackingAutomationElement.GetCurrentPattern(ScrollPattern.Pattern) as ScrollPattern;
+            _selectionPattern = element.BackingAutomationElement.GetCurrentPattern(SelectionPattern.Pattern) as SelectionPattern;
+        }
+
         public EzList(EzRoot root) : base(root)
         {
             TypeChecker.CheckElementType(root.RootElement.BackingAutomationElement, ControlType.List);
