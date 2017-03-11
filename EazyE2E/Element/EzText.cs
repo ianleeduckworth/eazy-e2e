@@ -1,5 +1,8 @@
-﻿using System.Windows.Automation;
+﻿using System;
+using System.Runtime.Remoting.Messaging;
+using System.Windows.Automation;
 using System.Windows.Automation.Text;
+using EazyE2E.ElementHelper;
 using EazyE2E.Helper;
 
 namespace EazyE2E.Element
@@ -12,33 +15,39 @@ namespace EazyE2E.Element
     {
         private readonly TextPattern _textPattern;
 
-        private string _fontName;
-        private double? _fontSize;
-        private int? _fontWeight;
-        private string _backgroundColor;
-        private int? _foregroundColor;
-        private HorizontalTextAlignment? _horizontalAlignment;
-        private bool? _isHidden;
-        private bool? _isReadOnly;
-        private bool? _isItalic;
-        private bool? _isSubscript;
-        private bool? _isSuperscript;
-        private int? _firstLineIndentation;
-        private double? _indentationLeading;
-        private double? _indentationTrailing;
-        private double? _marginTop;
-        private double? _marginBottom;
-        private OutlineStyles? _outlineStyle;
-        private int? _overlineColor;
-        private TextDecorationLineStyle? _overlineStyle;
-        private int? _strikethroughColor;
-        private TextDecorationLineStyle? _strikethroughStyle;
-        private int? _underlineColor;
-        private TextDecorationLineStyle? _underlineStyle;
-        private double[] _tabStops;
-        private FlowDirections? _textFlowDirection;
+        private EzTextResult<string> _fontName;
+        private EzTextResult<double> _fontSize;
+        private EzTextResult<int> _fontWeight;
+        private EzTextResult<int> _backgroundColor;
+        private EzTextResult<int> _foregroundColor;
+        private EzTextResult<HorizontalTextAlignment> _horizontalAlignment;
+        private EzTextResult<bool> _isHidden;
+        private EzTextResult<bool> _isReadOnly;
+        private EzTextResult<bool> _isItalic;
+        private EzTextResult<bool> _isSubscript;
+        private EzTextResult<bool> _isSuperscript;
+        private EzTextResult<int> _firstLineIndentation;
+        private EzTextResult<double> _indentationLeading;
+        private EzTextResult<double> _indentationTrailing;
+        private EzTextResult<double> _marginTop;
+        private EzTextResult<double> _marginBottom;
+        private EzTextResult<OutlineStyles> _outlineStyle;
+        private EzTextResult<int> _overlineColor;
+        private EzTextResult<TextDecorationLineStyle> _overlineStyle;
+        private EzTextResult<int> _strikethroughColor;
+        private EzTextResult<TextDecorationLineStyle> _strikethroughStyle;
+        private EzTextResult<int> _underlineColor;
+        private EzTextResult<TextDecorationLineStyle> _underlineStyle;
+        private EzTextResult<double[]> _tabStops;
+        private EzTextResult<FlowDirections> _textFlowDirection;
         private string _value;
 
+
+        public EzText(EzElement element) : base(element)
+        {
+            TypeChecker.CheckElementType(element.BackingAutomationElement, ControlType.Text);
+            _textPattern = element.BackingAutomationElement.GetCurrentPattern(TextPattern.Pattern) as TextPattern;
+        }
 
         public EzText(EzRoot root) : base(root)
         {
@@ -60,103 +69,127 @@ namespace EazyE2E.Element
         /// <summary>
         /// Gets the name of the font used for the text element
         /// </summary>
-        public string FontName => _fontName ?? (_fontName = (string)_textPattern.DocumentRange.GetAttributeValue(TextPattern.FontNameAttribute));
+        public EzTextResult<string> FontName => GetEzTextProp(_fontName, TextPattern.FontNameAttribute);
+
         /// <summary>
         /// Gets the font size used for the text element
         /// </summary>
-        public double FontSize => (double)(_fontSize ?? (_fontSize = (double)_textPattern.DocumentRange.GetAttributeValue(TextPattern.FontSizeAttribute)));
+        public EzTextResult<double> FontSize => GetEzTextProp(_fontSize, TextPattern.FontSizeAttribute);
+
         /// <summary>
         /// Gets the font weight used for the text element
         /// </summary>
-        public int FontWeight => (int)(_fontWeight ?? (_fontWeight = (int)_textPattern.DocumentRange.GetAttributeValue(TextPattern.FontWeightAttribute)));
+        public EzTextResult<int> FontWeight => GetEzTextProp(_fontWeight, TextPattern.FontWeightAttribute);
+
         /// <summary>
         /// Gets the background color used for the text element
         /// </summary>
-        public string BackgroundColor => _backgroundColor ?? (_backgroundColor = (string)_textPattern.DocumentRange.GetAttributeValue(TextPattern.BackgroundColorAttribute));
+        public EzTextResult<int> BackgroundColor => GetEzTextProp(_backgroundColor, TextPattern.BackgroundColorAttribute);
+
         /// <summary>
         /// Gets the foreground color used for the text element
         /// </summary>
-        public int ForegroundColor => (int)(_foregroundColor ?? (_foregroundColor = (int)_textPattern.DocumentRange.GetAttributeValue(TextPattern.ForegroundColorAttribute)));
+        public EzTextResult<int> ForegroundColor => GetEzTextProp(_foregroundColor, TextPattern.ForegroundColorAttribute);
+
         /// <summary>
         /// Gets the horizontal alighment used for the text element
         /// </summary>
-        public HorizontalTextAlignment HorizontalAlignment => (HorizontalTextAlignment)(_horizontalAlignment ?? (_horizontalAlignment = (HorizontalTextAlignment)_textPattern.DocumentRange.GetAttributeValue(TextPattern.HorizontalTextAlignmentAttribute)));
+        public EzTextResult<HorizontalTextAlignment> HorizontalAlignment => GetEzTextProp(_horizontalAlignment, TextPattern.HorizontalTextAlignmentAttribute);
+
         /// <summary>
         /// Checks whether or not the text is hidden
         /// </summary>
-        public bool IsHidden => (bool)(_isHidden ?? (_isHidden = (bool)_textPattern.DocumentRange.GetAttributeValue(TextPattern.IsHiddenAttribute)));
+        public EzTextResult<bool> IsHidden => GetEzTextProp(_isHidden, TextPattern.IsHiddenAttribute);
+
         /// <summary>
         /// Checks whether or not the text is readonly
         /// </summary>
-        public bool IsReadOnly => (bool)(_isReadOnly ?? (_isReadOnly = (bool)_textPattern.DocumentRange.GetAttributeValue(TextPattern.IsReadOnlyAttribute)));
+        public EzTextResult<bool> IsReadOnly => GetEzTextProp(_isReadOnly, TextPattern.IsReadOnlyAttribute);
+
         /// <summary>
         /// Checks whether or not the text is italic
         /// </summary>
-        public bool IsItalic => (bool)(_isItalic ?? (_isItalic = (bool)_textPattern.DocumentRange.GetAttributeValue(TextPattern.IsItalicAttribute)));
+        public EzTextResult<bool> IsItalic => GetEzTextProp(_isItalic, TextPattern.IsItalicAttribute);
+
         /// <summary>
         /// Checks whether or not the text is subscript
         /// </summary>
-        public bool IsSubscript => (bool)(_isSubscript ?? (_isSubscript = (bool)_textPattern.DocumentRange.GetAttributeValue(TextPattern.IsSubscriptAttribute)));
+        public EzTextResult<bool> IsSubscript => GetEzTextProp(_isSubscript, TextPattern.IsSubscriptAttribute);
+
         /// <summary>
         /// Checks whether or not the text is superscript
         /// </summary>
-        public bool IsSuperscript => (bool)(_isSuperscript ?? (_isSuperscript = (bool)_textPattern.DocumentRange.GetAttributeValue(TextPattern.IsSuperscriptAttribute)));
+        public EzTextResult<bool> IsSuperscript => GetEzTextProp(_isSuperscript, TextPattern.IsSuperscriptAttribute);
+
         /// <summary>
         /// Gets the first line's indentation for the text element
         /// </summary>
-        public int FirstLineIndentation => (int)(_firstLineIndentation ?? (_firstLineIndentation = (int)_textPattern.DocumentRange.GetAttributeValue(TextPattern.IndentationFirstLineAttribute)));
+        public EzTextResult<int> FirstLineIndentation => GetEzTextProp(_firstLineIndentation, TextPattern.IndentationFirstLineAttribute);
+
         /// <summary>
         /// Gets the leading indentation for the text element
         /// </summary>
-        public double IndentationLeading => (double)(_indentationLeading ?? (_indentationLeading = (double)_textPattern.DocumentRange.GetAttributeValue(TextPattern.IndentationLeadingAttribute)));
+        public EzTextResult<double> IndentationLeading => GetEzTextProp(_indentationLeading, TextPattern.IndentationLeadingAttribute);
+
         /// <summary>
         /// Gets the trailing indentation for the text element
         /// </summary>
-        public double IndentationTrailing => (double)(_indentationTrailing ?? (_indentationTrailing = (double)_textPattern.DocumentRange.GetAttributeValue(TextPattern.IndentationTrailingAttribute)));
+        public EzTextResult<double> IndentationTrailing => GetEzTextProp(_indentationTrailing, TextPattern.IndentationTrailingAttribute);
+
         /// <summary>
         /// Gets the top margin for the text element
         /// </summary>
-        public double MarginTop => (double)(_marginTop ?? (_marginTop = (double)_textPattern.DocumentRange.GetAttributeValue(TextPattern.MarginTopAttribute)));
+        public EzTextResult<double> MarginTop => GetEzTextProp(_marginTop, TextPattern.MarginTopAttribute);
+
         /// <summary>
         /// Gets the bottom margin for the text element
         /// </summary>
-        public double MarginBottom => (double)(_marginBottom ?? (_marginBottom = (double)_textPattern.DocumentRange.GetAttributeValue(TextPattern.MarginBottomAttribute)));
+        public EzTextResult<double> MarginBottom => GetEzTextProp(_marginBottom, TextPattern.MarginBottomAttribute);
+
         /// <summary>
         /// Gets the outline style of the text element
         /// </summary>
-        public OutlineStyles OutlineStyle => (OutlineStyles)(_outlineStyle ?? (_outlineStyle = (OutlineStyles)_textPattern.DocumentRange.GetAttributeValue(TextPattern.OutlineStylesAttribute)));
+        public EzTextResult<OutlineStyles> OutlineStyle => GetEzTextProp(_outlineStyle, TextPattern.OutlineStylesAttribute);
+
         /// <summary>
         /// Gets the overline color of the text element
         /// </summary>
-        public int OverlineColor => (int)(_overlineColor ?? (_overlineColor = (int)_textPattern.DocumentRange.GetAttributeValue(TextPattern.OverlineColorAttribute)));
+        public EzTextResult<int> OverlineColor => GetEzTextProp(_overlineColor, TextPattern.OverlineColorAttribute);
+
         /// <summary>
         /// Gets the overline style of the text element
         /// </summary>
-        public TextDecorationLineStyle OverlineStyle => (TextDecorationLineStyle)(_overlineStyle ?? (_overlineStyle = (TextDecorationLineStyle)_textPattern.DocumentRange.GetAttributeValue(TextPattern.OverlineStyleAttribute)));
+        public EzTextResult<TextDecorationLineStyle> OverlineStyle => GetEzTextProp(_overlineStyle, TextPattern.OverlineStyleAttribute);
+
         /// <summary>
         /// Gets the strikethrough color of the text element
         /// </summary>
-        public int StrikethroughColor => (int)(_strikethroughColor ?? (_strikethroughColor = (int)_textPattern.DocumentRange.GetAttributeValue(TextPattern.StrikethroughColorAttribute)));
+        public EzTextResult<int> StrikethroughColor => GetEzTextProp(_strikethroughColor, TextPattern.StrikethroughColorAttribute);
+
         /// <summary>
         /// Gets the strikethrough style of the text element
         /// </summary>
-        public TextDecorationLineStyle StrikethroughStyle => (TextDecorationLineStyle)(_strikethroughStyle ?? (_strikethroughStyle = (TextDecorationLineStyle)_textPattern.DocumentRange.GetAttributeValue(TextPattern.StrikethroughStyleAttribute)));
+        public EzTextResult<TextDecorationLineStyle> StrikethroughStyle => GetEzTextProp(_strikethroughStyle, TextPattern.StrikethroughStyleAttribute);
+
         /// <summary>
         /// Gets the underline color of the text element
         /// </summary>
-        public int UnderlineColor => (int)(_underlineColor ?? (_underlineColor = (int)_textPattern.DocumentRange.GetAttributeValue(TextPattern.UnderlineColorAttribute)));
+        public EzTextResult<int> UnderlineColor => GetEzTextProp(_underlineColor, TextPattern.UnderlineColorAttribute);
+
         /// <summary>
         /// Gets the underline style of the text element
         /// </summary>
-        public TextDecorationLineStyle UnderlineStyle => (TextDecorationLineStyle)(_underlineStyle ?? (_underlineStyle = (TextDecorationLineStyle)_textPattern.DocumentRange.GetAttributeValue(TextPattern.UnderlineStyleAttribute)));
+        public EzTextResult<TextDecorationLineStyle> UnderlineStyle => GetEzTextProp(_underlineStyle, TextPattern.UnderlineStyleAttribute);
+
         /// <summary>
         /// Gets an array of tab stops in points in the text element
         /// </summary>
-        public double[] TabStops => _tabStops.Length == 0 ? _tabStops = (double[])_textPattern.DocumentRange.GetAttributeValue(TextPattern.TabsAttribute) : _tabStops;
+        public EzTextResult<double[]> TabStops => GetEzTextProp(_tabStops, TextPattern.TabsAttribute);
+
         /// <summary>
         /// Gets the flow direction of the text in the text element
         /// </summary>
-        public FlowDirections TextFlowDirection => (FlowDirections)(_textFlowDirection ?? (_textFlowDirection = (FlowDirections)_textPattern.DocumentRange.GetAttributeValue(TextPattern.TextFlowDirectionsAttribute)));
+        public EzTextResult<FlowDirections> TextFlowDirection => GetEzTextProp(_textFlowDirection, TextPattern.TextFlowDirectionsAttribute);
 
         /// <summary>
         /// Gets the current value of the text element's text
@@ -200,5 +233,36 @@ namespace EazyE2E.Element
             _textFlowDirection = null;
             _value = null;
         }
+
+        private EzTextResult<T> GetEzTextProp<T>(EzTextResult<T> instance, AutomationTextAttribute attribute)
+        {
+            if (instance != null) return instance;
+
+            var result = new EzTextResult<T>();
+            instance = SetResult(result, _textPattern.DocumentRange.GetAttributeValue(attribute));
+
+            return instance;
+        }
+
+        private EzTextResult<T> SetResult<T>(EzTextResult<T> objectToSet, object input)
+        {
+            objectToSet.NotSupported = input == AutomationElement.NotSupported;
+            if (objectToSet.NotSupported)
+            {
+                objectToSet.Result = default(T);
+                return objectToSet;
+            }
+
+            objectToSet.IsMixed = input == TextPattern.MixedAttributeValue;
+            if (objectToSet.IsMixed)
+            {
+                objectToSet.Result = default(T);
+                return objectToSet;
+            }
+
+            objectToSet.Result = (T)input;
+            return objectToSet;
+        }
+
     }
 }
