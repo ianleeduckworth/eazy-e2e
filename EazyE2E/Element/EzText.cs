@@ -244,7 +244,7 @@ namespace EazyE2E.Element
             return instance;
         }
 
-        private EzTextResult<T> SetResult<T>(EzTextResult<T> objectToSet, object input)
+        private static EzTextResult<T> SetResult<T>(EzTextResult<T> objectToSet, object input)
         {
             objectToSet.NotSupported = input == AutomationElement.NotSupported;
             if (objectToSet.NotSupported)
