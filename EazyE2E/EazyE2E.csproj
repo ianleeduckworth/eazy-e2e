@@ -63,6 +63,7 @@
     <Compile Include="Enums\SearchType.cs" />
     <Compile Include="Enums\PropertyType.cs" />
     <Compile Include="HardwareManipulation\EzMouseFunctions.cs" />
+    <Compile Include="Helper\RawViewWalker.cs" />
     <Compile Include="Helper\TypeChecker.cs" />
     <Compile Include="Helper\SearchTypeHelper.cs" />
     <Compile Include="Helper\SearchTypeProperty.cs" />
