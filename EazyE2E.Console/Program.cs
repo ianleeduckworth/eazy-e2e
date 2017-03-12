@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.ConstrainedExecution;
 using System.Threading;
 using System.Windows.Input;
@@ -22,12 +23,11 @@ namespace EazyE2E.Console
             {
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
+
                 process.StartProcess();
 
                 //var root = new EzRoot("Calculator").RootElement;
                 var root = new EzRoot(process).RootElement;
-
-                var testSevenBtn2 = LongSearch.LongSearch.PerformSearch(root, new LongSearchItem(PropertyType.AutomationId, "NumberPad"), new LongSearchItem(PropertyType.AutomationId, "num7Button"));
 
                 //find the number we want to click
                 var numberPad = root.FindChildByAutomationId("NumberPad");
@@ -44,15 +44,34 @@ namespace EazyE2E.Console
 
                 //do the work
 
-                sevenBtn.Click();
-                plusBtn.Click();
-                nineBtn.Click();
-                equalBtn.Click();
+                var textElement = sevenBtn.FindChildByName("7", true);
+                var text = new EzText(textElement);
 
+                text.FontSize.HandleResult(() =>
+                {
+                    System.Console.WriteLine("Action was unsupported");
+                }, () =>
+                {
+                    System.Console.WriteLine("Return value was mixed");
+                }, res =>
+                {
+                    System.Console.WriteLine("Font size is " + res.ToString(CultureInfo.InvariantCulture));
+                });
+
+                text.FontSize.HandleResult(() =>
+                {
+                    System.Console.WriteLine("Action was unsupported");
+                }, () =>
+                {
+                    System.Console.WriteLine("Return value was mixed");
+                }, res =>
+                {
+                    System.Console.WriteLine("Font size is " + res.ToString(CultureInfo.InvariantCulture));
+                });
 
                 //verify the result
-                var result = displayPane.Name == "Display is 16";
-                System.Console.WriteLine(result ? $"Test passed.  Result pane should say 16 and it says '{displayPane.Name}'" : $"Error occurred.  Result pane should say 16 but instead it says '{displayPane.Name}'");
+                var result = displayPane.Name == "Display is 7";
+                System.Console.WriteLine(result ? $"Test passed.  Result pane should say 7 and it says '{displayPane.Name}'" : $"Error occurred.  Result pane should say 7 but instead it says '{displayPane.Name}'");
 
                 stopwatch.Stop();
                 System.Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} miliseconds");
