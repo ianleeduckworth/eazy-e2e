@@ -16,7 +16,6 @@ namespace EazyE2E.Performance
         }
 
         public MemoryType Type { get; }
-
         public long Amount { get; }
     }
 }
