@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using EazyE2E.Process;
 
 namespace EazyE2E.Performance
@@ -105,20 +106,23 @@ namespace EazyE2E.Performance
         /// <param name="amount">The threshold of failure; if the memory metric goes higher than this amount, the ifFail method will be called</param>
         /// <param name="ifFail">Action to do if a failure occurs.  Returns the memory type being profiled for, the original failure threshold, and the amount that caused the failure</param>
         /// <param name="ifSuccess">Action to do if the profile succeeds.  Returns the original memory type being profiled and the failure threshold</param>
-        public void StartSyncWatch(MemoryType type, int timeInSeconds, long amount, Action<MemoryType, long, long> ifFail, Action<MemoryType, long> ifSuccess)
+        public void StartSyncWatch(MemoryType type, long amount, int timeInSeconds, IfFail ifFail, SingularSuccess ifSuccess)
         {
-            for (var i = 0; i < timeInSeconds; i++)
+            var timeInMiliseconds = timeInSeconds*1000;
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            do
             {
                 if (CheckMemory(type, amount))
                 {
-                    ifFail(type, amount, GetMemoryFromType(type));
+                    ifFail(type, amount, GetMemoryFromType(type), (int)stopwatch.ElapsedMilliseconds / 1000);
                     return;
                 }
+            } while (stopwatch.ElapsedMilliseconds < timeInMiliseconds);
+            stopwatch.Stop();
 
-                Thread.Sleep(1000); //todo I don't really like Thread.sleep... convert to stopwatch?
-            }
-
-            ifSuccess(type, amount);
+            ifSuccess(type, amount, timeInSeconds);
         }
 
         /// <summary>
@@ -130,22 +134,31 @@ namespace EazyE2E.Performance
         /// <param name="ifFail">Action to do if a failure occurs.  Returns the memory type being profiled for, the original failure threshold, and the amount that caused the failure</param>
         /// <param name="ifSuccess">Action to do if the profile succeeds.  Returns the original array of MemoryWatches being profiled for.  Each MemoryWatch contains a MemoryType and a failure threshold</param>
         /// <param name="watches">A list of items to watch.  Each item is composed of a memory type an an amount to watch for</param>
-        public void StartSyncWatch(int timeInSeconds, Action<MemoryType, long, long> ifFail, Action<MemoryWatch[]> ifSuccess, params MemoryWatch[] watches)
+        public void StartSyncWatch(IEnumerable<MemoryWatch> watches, int timeInSeconds, IfFail ifFail, MultiSuccess ifSuccess)
         {
-            for (var i = 0; i < timeInSeconds; i++)
+            var timeInMiliseconds = timeInSeconds * 1000;
+            var stopwatch = new Stopwatch();
+            var memoryWatches = watches as MemoryWatch[] ?? watches.ToArray();
+            stopwatch.Start();
+
+            do
             {
-                var failure = watches.FirstOrDefault(x => CheckMemory(x.Type, x.Amount));
+                var failure = memoryWatches.FirstOrDefault(x => CheckMemory(x.Type, x.Amount));
                 if (failure != null)
                 {
-                    ifFail(failure.Type, failure.Amount, GetMemoryFromType(failure.Type));
+                    ifFail(failure.Type, failure.Amount, GetMemoryFromType(failure.Type), (int)stopwatch.ElapsedMilliseconds / 1000);
                     return;
                 }
+            } while (stopwatch.ElapsedMilliseconds < timeInMiliseconds);
+            stopwatch.Stop();
 
-                Thread.Sleep(1000); //todo I don't really like Thread.sleep... convert to stopwatch?
-            }
-
-            ifSuccess(watches);
+            ifSuccess(memoryWatches, timeInSeconds);
         }
+
+        //named delegates to get correct parameter names for the end user
+        public delegate void IfFail(MemoryType type, long original, long actual, int timeAtFailure);
+        public delegate void SingularSuccess(MemoryType type, long original, int time);
+        public delegate void MultiSuccess(IEnumerable<MemoryWatch> watches, int time);
 
         // Note that for this method, true = a failure,  false = a success for the memory type checked.
         private bool CheckMemory(MemoryType type, long amount)
