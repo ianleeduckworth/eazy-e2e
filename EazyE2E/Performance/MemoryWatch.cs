@@ -9,7 +9,14 @@ namespace EazyE2E.Performance
 {
     public class MemoryWatch
     {
-        public MemoryType Type { get; set; }
-        public long Amount { get; set; }
+        public MemoryWatch(MemoryType type, long amount)
+        {
+            Amount = amount;
+            Type = type;
+        }
+
+        public MemoryType Type { get; }
+
+        public long Amount { get; }
     }
 }
