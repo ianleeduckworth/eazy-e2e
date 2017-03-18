@@ -68,7 +68,10 @@
     <Compile Include="Logwatch\EzLogwatch.cs" />
     <Compile Include="LongSearch\LongSearch.cs" />
     <Compile Include="LongSearch\LongSearchItem.cs" />
+    <Compile Include="Performance\EzPerformanceMonitor.cs" />
+    <Compile Include="Performance\MemoryWatch.cs" />
     <Compile Include="Process\EzProcess.cs" />
+    <Compile Include="Process\MemoryType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

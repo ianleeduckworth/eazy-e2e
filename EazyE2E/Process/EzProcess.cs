@@ -10,6 +10,7 @@ namespace EazyE2E.Process
         private readonly string _processName;
         private System.Diagnostics.Process _process;
 
+        public System.Diagnostics.Process Process => _process;
         public int ProcessId => _process.Id;
         public string ProcessPath => _processFullPath;
         public string ProcessName => _processName;
