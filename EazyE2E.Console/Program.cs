@@ -1,6 +1,9 @@
 ﻿using System;
 using System.CodeDom;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Threading;
 using System.Windows.Input;
@@ -8,6 +11,7 @@ using EazyE2E.Element;
 using EazyE2E.Enums;
 using EazyE2E.HardwareManipulation;
 using EazyE2E.LongSearch;
+using EazyE2E.Performance;
 using EazyE2E.Process;
 
 namespace EazyE2E.Console
@@ -22,49 +26,30 @@ namespace EazyE2E.Console
             {
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
+
                 process.StartProcess();
 
-                //var root = new EzRoot("Calculator").RootElement;
-                var root = new EzRoot(process).RootElement;
+                var perfMon = new EzPerformanceMonitor(process);
 
-                var testSevenBtn2 = LongSearch.LongSearch.PerformSearch(root, new LongSearchItem(PropertyType.AutomationId, "NumberPad"), new LongSearchItem(PropertyType.AutomationId, "num7Button"));
+                var memoryWatches = new List<MemoryWatch>
+                {
+                    new MemoryWatch(MemoryType.PagedMemorySize, 30000000),
+                    new MemoryWatch(MemoryType.NonpagedSystemMemorySize, 30000000)
+                };
 
-                //find the number we want to click
-                var numberPad = root.FindChildByAutomationId("NumberPad");
-                var sevenBtn = numberPad.FindChildByAutomationId("num7Button");
-                var nineBtn = numberPad.FindChildByAutomationId("num9Button");
-
-                //find the operators that we will need to use
-                var stdOperations = root.FindChildByAutomationId("StandardOperators");
-                var plusBtn = stdOperations.FindChildByAutomationId("plusButton");
-                var equalBtn = stdOperations.FindChildByAutomationId("equalButton");
-
-                //find the display pane for verification
-                var displayPane = root.FindChildByAutomationId("CalculatorResults");
-
-                //do the work
-
-                sevenBtn.Click();
-                plusBtn.Click();
-                nineBtn.Click();
-                equalBtn.Click();
-
-
-                //verify the result
-                var result = displayPane.Name == "Display is 16";
-                System.Console.WriteLine(result ? $"Test passed.  Result pane should say 16 and it says '{displayPane.Name}'" : $"Error occurred.  Result pane should say 16 but instead it says '{displayPane.Name}'");
+                perfMon.StartSyncWatch(memoryWatches, 10, (type, original, actual, timeAtFailure) =>
+                {
+                    System.Console.WriteLine($"Test failed.  {type} exceeded the threshold of {original}.  Measured value was {actual} when failure occured at {timeAtFailure} seconds into profile.");
+                }, (watches, time) =>
+                {
+                    var stringifiedTypes = watches.Select(x => x.Type.ToString()).Aggregate((w, n) => w + ", " + n);
+                    System.Console.WriteLine($"Test passed.  Memory metrics {stringifiedTypes} were below their thresholds during the entire {time} second profile.");
+                });
 
                 stopwatch.Stop();
                 System.Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} miliseconds");
                 System.Console.ReadLine();
             }
-        }
-
-        private static void ExecWrapper(EzElement element, string outputKey)
-        {
-            element.Click();
-            System.Console.WriteLine($"Clicking {outputKey} element");
-            Thread.Sleep(1000);
         }
     }
 }
