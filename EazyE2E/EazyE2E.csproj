@@ -65,6 +65,7 @@
     <Compile Include="Helper\SearchTypeHelper.cs" />
     <Compile Include="Helper\SearchTypeProperty.cs" />
     <Compile Include="HardwareManipulation\EzKeyboardFunctions.cs" />
+    <Compile Include="Logwatch\EzLogwatch.cs" />
     <Compile Include="LongSearch\LongSearch.cs" />
     <Compile Include="LongSearch\LongSearchItem.cs" />
     <Compile Include="Process\EzProcess.cs" />

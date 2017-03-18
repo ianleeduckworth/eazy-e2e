@@ -27,8 +27,6 @@ namespace EazyE2E.Console
                 //var root = new EzRoot("Calculator").RootElement;
                 var root = new EzRoot(process).RootElement;
 
-                var testSevenBtn2 = LongSearch.LongSearch.PerformSearch(root, new LongSearchItem(PropertyType.AutomationId, "NumberPad"), new LongSearchItem(PropertyType.AutomationId, "num7Button"));
-
                 //find the number we want to click
                 var numberPad = root.FindChildByAutomationId("NumberPad");
                 var sevenBtn = numberPad.FindChildByAutomationId("num7Button");
