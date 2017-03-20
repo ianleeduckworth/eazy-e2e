@@ -75,7 +75,6 @@ namespace EazyE2E.Logwatch
 
         public void StartSyncWatch(string watchText, int timeInSeconds, IfFail ifFail, IfSuccessSingular ifSuccess)
         {
-            var foo = _process.StandardOutput.ReadLine();
             SetupWatch(watchText);
             var totalMiliseconds = timeInSeconds * 1000;
 
