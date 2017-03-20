@@ -10,6 +10,7 @@ using System.Windows.Input;
 using EazyE2E.Element;
 using EazyE2E.Enums;
 using EazyE2E.HardwareManipulation;
+using EazyE2E.Logwatch;
 using EazyE2E.LongSearch;
 using EazyE2E.Performance;
 using EazyE2E.Process;
@@ -29,22 +30,27 @@ namespace EazyE2E.Console
 
                 process.StartProcess();
 
-                var perfMon = new EzPerformanceMonitor(process);
+                using (var logMonitor = new EzLogMonitor(process))
+                {
+                    logMonitor.StartSyncWatch("This is a test", 20, (type, text, message, occurance) =>
+                    {
+                        System.Console.WriteLine($"Watch text: '{text}' was hit after {occurance} seconds of profiling.  Log message => {type} : '{message}'");
+                    }, (text, time) =>
+                    {
+                        System.Console.WriteLine($"Watch text: '{text}' was not hit after {time} seconds of profiling.");
+                    });
 
-                var memoryWatches = new List<MemoryWatch>
-                {
-                    new MemoryWatch(MemoryType.PagedMemorySize, 30000000),
-                    new MemoryWatch(MemoryType.NonpagedSystemMemorySize, 30000000)
-                };
-
-                perfMon.StartSyncWatch(memoryWatches, 10, (type, original, actual, timeAtFailure) =>
-                {
-                    System.Console.WriteLine($"Test failed.  {type} exceeded the threshold of {original}.  Measured value was {actual} when failure occured at {timeAtFailure} seconds into profile.");
-                }, (watches, time) =>
-                {
-                    var stringifiedTypes = watches.Select(x => x.Type.ToString()).Aggregate((w, n) => w + ", " + n);
-                    System.Console.WriteLine($"Test passed.  Memory metrics {stringifiedTypes} were below their thresholds during the entire {time} second profile.");
-                });
+//                    var watches = new List<string> {"This is a test", "This is also a test"};
+//
+//                    logMonitor.StartSyncWatch(watches, 10, (type, text, message, timeAtFailure) =>
+//                    {
+//                        System.Console.WriteLine($"Watch text: '{text}' was hit after {timeAtFailure} seconds of profiling.  Log message => {type} : '{message}'");
+//                    }, (enumerable, time) =>
+//                    {
+//                        var watchList = enumerable.Aggregate((p, n) => p + ", " + n);
+//                        System.Console.WriteLine($"Watches not found after {time} seconds of profiling.  Watch list => '{watchList}'");
+//                    });
+                }
 
                 stopwatch.Stop();
                 System.Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} miliseconds");

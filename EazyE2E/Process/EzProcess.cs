@@ -33,7 +33,10 @@ namespace EazyE2E.Process
             {
                 FileName = _processFullPath,
                 WindowStyle = WindowStyle,
-                Arguments = Arguments
+                Arguments = Arguments,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
             };
 
             _process = System.Diagnostics.Process.Start(start);
