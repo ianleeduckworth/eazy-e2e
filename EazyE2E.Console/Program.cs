@@ -22,7 +22,7 @@ namespace EazyE2E.Console
         [STAThread]
         static void Main()
         {
-            var calculatorPath = "C:\\Windows\\System32\\calc.exe";
+            const string calculatorPath = "C:\\Windows\\System32\\calc.exe";
             using (var process = new EzProcess(calculatorPath, "Calculator"))
             {
                 var stopwatch = new Stopwatch();
@@ -30,27 +30,13 @@ namespace EazyE2E.Console
 
                 process.StartProcess();
 
-                using (var logMonitor = new EzLogMonitor(process))
-                {
-                    logMonitor.StartSyncWatch("This is a test", 20, (type, text, message, occurance) =>
-                    {
-                        System.Console.WriteLine($"Watch text: '{text}' was hit after {occurance} seconds of profiling.  Log message => {type} : '{message}'");
-                    }, (text, time) =>
-                    {
-                        System.Console.WriteLine($"Watch text: '{text}' was not hit after {time} seconds of profiling.");
-                    });
+                var root = new EzRoot(process);
+                var sevenButton = root.RootElement.FindDescendantByAutomationId("num7Button");
+                sevenButton.Click();
 
-//                    var watches = new List<string> {"This is a test", "This is also a test"};
-//
-//                    logMonitor.StartSyncWatch(watches, 10, (type, text, message, timeAtFailure) =>
-//                    {
-//                        System.Console.WriteLine($"Watch text: '{text}' was hit after {timeAtFailure} seconds of profiling.  Log message => {type} : '{message}'");
-//                    }, (enumerable, time) =>
-//                    {
-//                        var watchList = enumerable.Aggregate((p, n) => p + ", " + n);
-//                        System.Console.WriteLine($"Watches not found after {time} seconds of profiling.  Watch list => '{watchList}'");
-//                    });
-                }
+                var results = root.RootElement.FindDescendantByAutomationId("CalculatorResults");
+
+                System.Console.WriteLine(results.Name == "Display is 7" ? "Test passed.  Display said 7" : "Test failed.  Display did not say 7");
 
                 stopwatch.Stop();
                 System.Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} miliseconds");

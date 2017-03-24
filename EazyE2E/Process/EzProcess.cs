@@ -64,7 +64,13 @@ namespace EazyE2E.Process
             var process = System.Diagnostics.Process.GetProcessesByName(_processName);
             if (process.Length > 1) throw new InvalidOperationException($"There are more than one process with the name {_processName}.  Please close all running processes with that name.");
             if (process.Length == 0) throw new InvalidOperationException($"A process with the name {_processName} could not be found.");
+
             _process = process.Single();
+
+            _process.StartInfo.RedirectStandardError = true;
+            _process.StartInfo.RedirectStandardOutput = true;
+            _process.StartInfo.UseShellExecute = false;
+            _process.Refresh();
         }
 
         public void Dispose()
