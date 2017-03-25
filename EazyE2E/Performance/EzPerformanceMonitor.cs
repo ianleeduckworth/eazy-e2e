@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using EazyE2E.Enums;
 using EazyE2E.Process;
 
 namespace EazyE2E.Performance
