@@ -10,16 +10,29 @@ namespace EazyE2E.Process
         private readonly string _processName;
         private System.Diagnostics.Process _process;
 
+        public System.Diagnostics.Process Process => _process;
         public int ProcessId => _process.Id;
         public string ProcessPath => _processFullPath;
         public string ProcessName => _processName;
         public string Arguments { get; set; } = string.Empty;
         public ProcessWindowStyle WindowStyle { get; set; } = ProcessWindowStyle.Normal;
+        public Config Config { get; }
 
         public EzProcess(string processFullPath, string processName)
         {
             _processFullPath = processFullPath;
             _processName = processName;
+            // Setup default config
+            this.Config = Config.GetDefaultConfiguration();
+        }
+
+        public EzProcess(string processFullPath, string processName, Config config)
+            : this(processFullPath, processName)
+        {
+            // If the user has supplied their own
+            // configuration, lets use it instead
+            // of the default.
+            this.Config = config;
         }
 
 
@@ -28,6 +41,8 @@ namespace EazyE2E.Process
         /// </summary>
         public void StartProcess()
         {
+            TerminateExistingInstances();
+
             var start = new ProcessStartInfo
             {
                 FileName = _processFullPath,
@@ -38,6 +53,13 @@ namespace EazyE2E.Process
             _process = System.Diagnostics.Process.Start(start);
 
             FindRunningProcess();
+        }
+
+        private void TerminateExistingInstances()
+        {
+            if (!this.Config.TerminateExistingInstance) return;
+            var processes = System.Diagnostics.Process.GetProcessesByName(_processName).ToList();
+            processes.ForEach(p => p.Kill());
         }
 
         /// <summary>

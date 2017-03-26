@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ElementHelper\EzTextResult.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Element\EzElement.cs" />
     <Compile Include="Element\EzGrid.cs" />
     <Compile Include="Element\EzGridItem.cs" />
@@ -70,7 +71,10 @@
     <Compile Include="HardwareManipulation\EzKeyboardFunctions.cs" />
     <Compile Include="LongSearch\LongSearch.cs" />
     <Compile Include="LongSearch\LongSearchItem.cs" />
+    <Compile Include="Performance\EzPerformanceMonitor.cs" />
+    <Compile Include="Performance\MemoryWatch.cs" />
     <Compile Include="Process\EzProcess.cs" />
+    <Compile Include="Enums\MemoryType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
