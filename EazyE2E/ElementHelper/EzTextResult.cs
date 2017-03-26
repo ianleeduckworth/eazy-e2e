@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,18 +9,25 @@ namespace EazyE2E.ElementHelper
 {
     public class EzTextResult<T>
     {
-        public bool NotSupported { get; set; }
-        public bool IsMixed { get; set; }
-        public T Result { get; set; }
+        public EzTextResult(bool notSupported, bool isMixed, T result)
+        {
+            this.NotSupported = notSupported;
+            this.IsMixed = isMixed;
+            this.Result = result;
+        } 
+
+        public bool NotSupported { get; }
+        public bool IsMixed { get; }
+        public T Result { get; }
 
         public void HandleResult(Action ifUnsupported, Action ifMixed, Action<T> final)
         {
             if (this.NotSupported)
-                ifUnsupported();
+                ifUnsupported?.Invoke();
             else if (this.IsMixed)
-                ifMixed();
+                ifMixed?.Invoke();
             else
-                final(Result);
+                final?.Invoke(this.Result);
         }
     }
 

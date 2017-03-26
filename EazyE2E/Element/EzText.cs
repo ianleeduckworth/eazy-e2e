@@ -25,7 +25,7 @@ namespace EazyE2E.Element
         private EzTextResult<bool> _isItalic;
         private EzTextResult<bool> _isSubscript;
         private EzTextResult<bool> _isSuperscript;
-        private EzTextResult<int> _firstLineIndentation;
+        private EzTextResult<double> _firstLineIndentation;
         private EzTextResult<double> _indentationLeading;
         private EzTextResult<double> _indentationTrailing;
         private EzTextResult<double> _marginTop;
@@ -127,7 +127,7 @@ namespace EazyE2E.Element
         /// <summary>
         /// Gets the first line's indentation for the text element
         /// </summary>
-        public EzTextResult<int> FirstLineIndentation => GetEzTextProp(_firstLineIndentation, TextPattern.IndentationFirstLineAttribute);
+        public EzTextResult<double> FirstLineIndentation => GetEzTextProp(_firstLineIndentation, TextPattern.IndentationFirstLineAttribute);
 
         /// <summary>
         /// Gets the leading indentation for the text element
@@ -242,108 +242,97 @@ namespace EazyE2E.Element
             if (!this.AlwaysReset)
                 if (instance != null) return instance;
 
-            var result = new EzTextResult<T>();
-            instance = SetResult(result, _textPattern.DocumentRange.GetAttributeValue(attribute));
+            instance = SetResult<T>(_textPattern.DocumentRange.GetAttributeValue(attribute));
             SetBackingProperty(instance, attribute);
 
             return instance;
         }
 
-        private static EzTextResult<T> SetResult<T>(EzTextResult<T> objectToSet, object input)
+        private static EzTextResult<T> SetResult<T>(object input)
         {
-            objectToSet.NotSupported = input == AutomationElement.NotSupported;
-            if (objectToSet.NotSupported)
-            {
-                objectToSet.Result = default(T);
-                return objectToSet;
-            }
-
-            objectToSet.IsMixed = input == TextPattern.MixedAttributeValue;
-            if (objectToSet.IsMixed)
-            {
-                objectToSet.Result = default(T);
-                return objectToSet;
-            }
-
-            objectToSet.Result = (T)input;
-            return objectToSet;
+            if (input == AutomationElement.NotSupported)
+                return new EzTextResult<T>(true, false, default(T));
+            if (input == TextPattern.MixedAttributeValue)
+                return new EzTextResult<T>(false, true, default(T));
+            return new EzTextResult<T>(false, false, (T)input);
         }
+
         private void SetBackingProperty<T>(EzTextResult<T> instance, AutomationTextAttribute attribute)
         {
             if (Equals(attribute, TextPattern.FontNameAttribute))
-                _fontName = new EzTextResult<string> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (string)Convert.ChangeType(instance.Result, typeof(T)) };
+                _fontName = new EzTextResult<string>(instance.NotSupported, instance.IsMixed, (string)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.FontSizeAttribute))
-                _fontSize = new EzTextResult<double> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (double)Convert.ChangeType(instance.Result, typeof(T)) };
+                _fontSize = new EzTextResult<double>(instance.NotSupported, instance.IsMixed, (double)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.FontWeightAttribute))
-                _fontWeight = new EzTextResult<int> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (int)Convert.ChangeType(instance.Result, typeof(T)) };
+                _fontWeight = new EzTextResult<int>(instance.NotSupported, instance.IsMixed, (int)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.BackgroundColorAttribute))
-                _backgroundColor = new EzTextResult<int> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (int)Convert.ChangeType(instance.Result, typeof(T)) };
+                _backgroundColor = new EzTextResult<int>(instance.NotSupported, instance.IsMixed, (int)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.ForegroundColorAttribute))
-                _foregroundColor = new EzTextResult<int> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (int)Convert.ChangeType(instance.Result, typeof(T)) };
+                _foregroundColor = new EzTextResult<int>(instance.NotSupported, instance.IsMixed, (int)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.HorizontalTextAlignmentAttribute))
-                _horizontalAlignment = new EzTextResult<HorizontalTextAlignment> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (HorizontalTextAlignment)Convert.ChangeType(instance.Result, typeof(T)) };
+                _horizontalAlignment = new EzTextResult<HorizontalTextAlignment>(instance.NotSupported, instance.IsMixed, (HorizontalTextAlignment)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.IsHiddenAttribute))
-                _isHidden = new EzTextResult<bool> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (bool)Convert.ChangeType(instance.Result, typeof(T)) };
+                _isHidden = new EzTextResult<bool>(instance.NotSupported, instance.IsMixed, (bool)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.IsReadOnlyAttribute))
-                _isReadOnly = new EzTextResult<bool> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (bool)Convert.ChangeType(instance.Result, typeof(T)) };
+                _isReadOnly = new EzTextResult<bool>(instance.NotSupported, instance.IsMixed, (bool)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.IsItalicAttribute))
-                _isItalic = new EzTextResult<bool> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (bool)Convert.ChangeType(instance.Result, typeof(T)) };
+                _isItalic = new EzTextResult<bool>(instance.NotSupported, instance.IsMixed, (bool)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.IsSubscriptAttribute))
-                _isSubscript = new EzTextResult<bool> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (bool)Convert.ChangeType(instance.Result, typeof(T)) };
+                _isSubscript = new EzTextResult<bool>(instance.NotSupported, instance.IsMixed, (bool)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.IsSuperscriptAttribute))
-                _isSuperscript = new EzTextResult<bool> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (bool)Convert.ChangeType(instance.Result, typeof(T)) };
+                _isSuperscript = new EzTextResult<bool>(instance.NotSupported, instance.IsMixed, (bool)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.IndentationFirstLineAttribute))
-                _firstLineIndentation = new EzTextResult<int> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (int)Convert.ChangeType(instance.Result, typeof(T)) };
+                _firstLineIndentation = new EzTextResult<double>(instance.NotSupported, instance.IsMixed, (double)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.IndentationLeadingAttribute))
-                _indentationLeading = new EzTextResult<double> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (double)Convert.ChangeType(instance.Result, typeof(T)) };
+                _indentationLeading = new EzTextResult<double>(instance.NotSupported, instance.IsMixed, (double)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.IndentationTrailingAttribute))
-                _indentationTrailing = new EzTextResult<double> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (double)Convert.ChangeType(instance.Result, typeof(T)) };
+                _indentationTrailing = new EzTextResult<double>(instance.NotSupported, instance.IsMixed, (double)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.MarginTopAttribute))
-                _marginTop = new EzTextResult<double> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (double)Convert.ChangeType(instance.Result, typeof(T)) };
+                _marginTop = new EzTextResult<double>(instance.NotSupported, instance.IsMixed, (double)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.MarginBottomAttribute))
-                _marginBottom = new EzTextResult<double> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (double)Convert.ChangeType(instance.Result, typeof(T)) };
+                _marginBottom = new EzTextResult<double>(instance.NotSupported, instance.IsMixed, (double)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.OutlineStylesAttribute))
-                _outlineStyle = new EzTextResult<OutlineStyles> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (OutlineStyles)Convert.ChangeType(instance.Result, typeof(T)) };
+                _outlineStyle = new EzTextResult<OutlineStyles>(instance.NotSupported, instance.IsMixed, (OutlineStyles)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.OverlineColorAttribute))
-                _overlineColor = new EzTextResult<int> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (int)Convert.ChangeType(instance.Result, typeof(T)) };
+                _overlineColor = new EzTextResult<int>(instance.NotSupported, instance.IsMixed, (int)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.OverlineStyleAttribute))
-                _overlineStyle = new EzTextResult<TextDecorationLineStyle> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (TextDecorationLineStyle)Convert.ChangeType(instance.Result, typeof(T)) };
+                _overlineStyle = new EzTextResult<TextDecorationLineStyle>(instance.NotSupported, instance.IsMixed, (TextDecorationLineStyle)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.StrikethroughColorAttribute))
-                _strikethroughColor = new EzTextResult<int> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (int)Convert.ChangeType(instance.Result, typeof(T)) };
+                _strikethroughColor = new EzTextResult<int>(instance.NotSupported, instance.IsMixed, (int)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.StrikethroughStyleAttribute))
-                _strikethroughStyle = new EzTextResult<TextDecorationLineStyle> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (TextDecorationLineStyle)Convert.ChangeType(instance.Result, typeof(T)) };
+                _strikethroughStyle = new EzTextResult<TextDecorationLineStyle>(instance.NotSupported, instance.IsMixed, (TextDecorationLineStyle)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.UnderlineColorAttribute))
-                _underlineColor = new EzTextResult<int> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (int)Convert.ChangeType(instance.Result, typeof(T)) };
+                _underlineColor = new EzTextResult<int>(instance.NotSupported, instance.IsMixed, (int)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.UnderlineStyleAttribute))
-                _underlineStyle = new EzTextResult<TextDecorationLineStyle> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (TextDecorationLineStyle)Convert.ChangeType(instance.Result, typeof(T)) };
+                _underlineStyle = new EzTextResult<TextDecorationLineStyle>(instance.NotSupported, instance.IsMixed, (TextDecorationLineStyle)Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.TabsAttribute))
-                _tabStops = new EzTextResult<double[]> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (double[])Convert.ChangeType(instance.Result, typeof(T)) };
+                _tabStops = new EzTextResult<double[]>(instance.NotSupported, instance.IsMixed, (double[])Convert.ChangeType(instance.Result, typeof(T)));
 
             if (Equals(attribute, TextPattern.TextFlowDirectionsAttribute))
-                _textFlowDirection = new EzTextResult<FlowDirections> { IsMixed = instance.IsMixed, NotSupported = instance.NotSupported, Result = (FlowDirections)Convert.ChangeType(instance.Result, typeof(T)) };
+                _textFlowDirection = new EzTextResult<FlowDirections>(instance.NotSupported, instance.IsMixed, (FlowDirections)Convert.ChangeType(instance.Result, typeof(T)));
         }
 
     }
