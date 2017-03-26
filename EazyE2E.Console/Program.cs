@@ -1,16 +1,8 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Threading;
-using System.Windows.Input;
-using EazyE2E.Element;
 using EazyE2E.Enums;
-using EazyE2E.HardwareManipulation;
-using EazyE2E.LongSearch;
 using EazyE2E.Performance;
 using EazyE2E.Process;
 

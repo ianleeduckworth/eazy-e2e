@@ -52,6 +52,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="Element\EzElement.cs" />
     <Compile Include="Element\EzGrid.cs" />
     <Compile Include="Element\EzGridItem.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="Performance\EzPerformanceMonitor.cs" />
     <Compile Include="Performance\MemoryWatch.cs" />
     <Compile Include="Process\EzProcess.cs" />
-    <Compile Include="Process\MemoryType.cs" />
+    <Compile Include="Enums\MemoryType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
