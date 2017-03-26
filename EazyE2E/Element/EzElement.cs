@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
+using System.Windows.Automation.Peers;
 using EazyE2E.Enums;
 using EazyE2E.Helper;
 
@@ -17,6 +18,14 @@ namespace EazyE2E.Element
         public string AutomationId => _backingAutomationElement.Current.AutomationId;
         public string ClassName => _backingAutomationElement.Current.ClassName;
         public ControlType Type => _backingAutomationElement.Current.ControlType;
+
+        public EzElement(EzElement element)
+        {
+            _backingAutomationElement = element._backingAutomationElement;
+            object pattern;
+            element.BackingAutomationElement.TryGetCurrentPattern(InvokePattern.Pattern, out pattern);
+            _invokePattern = pattern as InvokePattern;
+        }
 
         public EzElement(EzRoot root)
         {
@@ -47,27 +56,35 @@ namespace EazyE2E.Element
             this.BackingAutomationElement.SetFocus();
         }
 
-        public EzElement FindChildByName(string name, SearchType type = SearchType.Children)
+        public EzElement FindChildByName(string name, bool searchRaw = false)
         {
-            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, name)));
+            if (!searchRaw) return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, name)));
+            return this.FindChildRaw(PropertyType.Name, name);
         }
-
+            
         public EzElement FindDescendantByName(string name)
         {
             return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name)));
         }
 
-        public EzElement FindChildByAutomationId(string name)
+        public EzElement FindChildByAutomationId(string name, bool searchRaw = false)
         {
-            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
-        }
-
-        public EzElement FindChildByClass(string name)
-        {
-            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.ClassNameProperty, name)));
+            if (!searchRaw)return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
+            return this.FindChildRaw(PropertyType.AutomationId, name);
         }
 
         public EzElement FindDescendantByAutomationId(string name)
+        {
+            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
+        }
+
+        public EzElement FindChildByClass(string name, bool searchRaw = false)
+        {
+            if (!searchRaw)return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.ClassNameProperty, name)));
+            return this.FindChildRaw(PropertyType.Class, name);
+        }
+
+        public EzElement FindDescendantByAutomationId(string name, bool searchRaw = false)
         {
             return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
         }

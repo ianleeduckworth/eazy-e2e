@@ -7,6 +7,12 @@ namespace EazyE2E.Element
     {
         private readonly GridItemPattern _gridItemPattern;
 
+        public EzGridItem(EzElement element) : base(element)
+        {
+            TypeChecker.CheckElementType(element.BackingAutomationElement, ControlType.DataItem);
+            _gridItemPattern = element.BackingAutomationElement.GetCurrentPattern(GridItemPattern.Pattern) as GridItemPattern;
+        }
+
         public EzGridItem(EzRoot root) : base(root)
         {
             TypeChecker.CheckElementType(root.RootElement.BackingAutomationElement, ControlType.DataItem);
@@ -18,6 +24,11 @@ namespace EazyE2E.Element
             TypeChecker.CheckElementType(element, ControlType.DataItem);
             _gridItemPattern = element.GetCurrentPattern(GridItemPattern.Pattern) as GridItemPattern;
         }
+
+        /// <summary>
+        /// Backing UI Automation GridItemPattern
+        /// </summary>
+        public GridItemPattern GridItemPattern => _gridItemPattern;
 
         public int RowNum => _gridItemPattern.Current.Row;
         public int RowSpan => _gridItemPattern.Current.RowSpan;
