@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Automation;
 using EazyE2E.Helper;
 
@@ -12,6 +9,13 @@ namespace EazyE2E.Element
     {
         private readonly ScrollPattern _scrollPattern;
         private readonly SelectionPattern _selectionPattern;
+
+        public EzList(EzElement element) : base(element)
+        {
+            TypeChecker.CheckElementType(element.BackingAutomationElement, ControlType.List);
+            _scrollPattern = element.BackingAutomationElement.GetCurrentPattern(ScrollPattern.Pattern) as ScrollPattern;
+            _selectionPattern = element.BackingAutomationElement.GetCurrentPattern(SelectionPattern.Pattern) as SelectionPattern;
+        }
 
         public EzList(EzRoot root) : base(root)
         {
@@ -26,6 +30,15 @@ namespace EazyE2E.Element
             _scrollPattern = element.GetCurrentPattern(ScrollPattern.Pattern) as ScrollPattern;
             _selectionPattern = element.GetCurrentPattern(SelectionPattern.Pattern) as SelectionPattern;
         }
+
+        /// <summary>
+        /// Backing UI Automation ScrollPattern
+        /// </summary>
+        public ScrollPattern ScrollPattern => _scrollPattern;
+        /// <summary>
+        /// Backing UI Automation SelectionPattern
+        /// </summary>
+        public SelectionPattern SelectionPattern => _selectionPattern;
 
         public double VerticalScrollPct => _scrollPattern.Current.VerticalScrollPercent;
         public double HorizontalScrollPct => _scrollPattern.Current.HorizontalScrollPercent;
