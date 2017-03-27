@@ -72,7 +72,7 @@ namespace EazyE2E.Process
         private void FindRunningProcess()
         {
             // Give the process 1 second to start or forward the start request.
-            _process.WaitForExit(1000);
+            _process.WaitForExit(this.Config.ProcessWaitForExitTimeout);
 
             // If it hasn't exited, we've probably
             // got the right process.
