@@ -1,4 +1,5 @@
 ﻿using System.Windows.Automation;
+using EazyE2E.Configuration;
 using EazyE2E.Helper;
 
 namespace EazyE2E.Element
@@ -28,7 +29,7 @@ namespace EazyE2E.Element
         /// <summary>
         /// Backing UI Automation GridItemPattern
         /// </summary>
-        public GridItemPattern GridItemPattern => _gridItemPattern;
+        public GridItemPattern GridItemPattern => Config.ExposeBackingWindowsPatterns ? _gridItemPattern : null;
 
         public int RowNum => _gridItemPattern.Current.Row;
         public int RowSpan => _gridItemPattern.Current.RowSpan;

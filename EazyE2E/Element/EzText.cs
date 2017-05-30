@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Automation;
 using System.Windows.Automation.Text;
+using EazyE2E.Configuration;
 using EazyE2E.ElementHelper;
 using EazyE2E.Helper;
 
@@ -63,11 +64,12 @@ namespace EazyE2E.Element
         /// <summary>
         /// Backing UI Automation TextPattern
         /// </summary>
-        public TextPattern TextPattern => _textPattern;
+        public TextPattern TextPattern => Config.ExposeBackingWindowsPatterns ? _textPattern : null;
+
         /// <summary>
         /// Setting this property to true means that calls to any EzText property on this class will always go and re-check the app instead of loading cached data.  False means that results will be cached until Reset() is called
         /// </summary>
-        public bool AlwaysReset { get; set; }
+        public bool AlwaysReset => Config.AlwaysResetEzText;
 
         /// <summary>
         /// Gets the name of the font used for the text element

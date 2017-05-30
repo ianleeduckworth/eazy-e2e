@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using EazyE2E.Element;
 using EazyE2E.Enums;
+using EazyE2E.HardwareManipulation;
 using EazyE2E.Performance;
 using EazyE2E.Process;
 
@@ -13,7 +15,7 @@ namespace EazyE2E.Console
         [STAThread]
         static void Main()
         {
-            var calculatorPath = "C:\\Windows\\System32\\calc.exe";
+            const string calculatorPath = "C:\\Windows\\System32\\calc.exe";
             using (var process = new EzProcess(calculatorPath, "Calculator"))
             {
                 var stopwatch = new Stopwatch();
@@ -21,22 +23,13 @@ namespace EazyE2E.Console
 
                 process.StartProcess();
 
-                var perfMon = new EzPerformanceMonitor(process);
+                var root = new EzRoot(process);
+                var sevenButton = root.RootElement.FindDescendantByAutomationId("num7Button");
+                EzMouseFunctions.DoubleClick(sevenButton);
 
-                var memoryWatches = new List<MemoryWatch>
-                {
-                    new MemoryWatch(MemoryType.PagedMemorySize, 30000000),
-                    new MemoryWatch(MemoryType.NonpagedSystemMemorySize, 30000000)
-                };
+                var results = root.RootElement.FindDescendantByAutomationId("CalculatorResults");
 
-                perfMon.StartSyncWatch(memoryWatches, 10, (type, original, actual, timeAtFailure) =>
-                {
-                    System.Console.WriteLine($"Test failed.  {type} exceeded the threshold of {original}.  Measured value was {actual} when failure occured at {timeAtFailure} seconds into profile.");
-                }, (watches, time) =>
-                {
-                    var stringifiedTypes = watches.Select(x => x.Type.ToString()).Aggregate((w, n) => w + ", " + n);
-                    System.Console.WriteLine($"Test passed.  Memory metrics {stringifiedTypes} were below their thresholds during the entire {time} second profile.");
-                });
+                System.Console.WriteLine(results.Name == "Display is 7" ? "Test passed.  Display said 7" : "Test failed.  Display did not say 7");
 
                 stopwatch.Stop();
                 System.Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} miliseconds");

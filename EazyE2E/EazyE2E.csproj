@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -52,8 +53,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\EazyE2ESettingsConfigurationSection.cs" />
     <Compile Include="ElementHelper\EzTextResult.cs" />
-    <Compile Include="Config.cs" />
+    <Compile Include="Configuration\Config.cs" />
     <Compile Include="Element\EzElement.cs" />
     <Compile Include="Element\EzGrid.cs" />
     <Compile Include="Element\EzGridItem.cs" />
