@@ -93,7 +93,7 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public EzElement FindDescendantByName(string name)
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException("You are not permitted to search for descendants.  Please modify your config file or speak with whoever is in charge of maintaining the application's config file");
+            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
             return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name)));
         }
 
@@ -116,7 +116,7 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public EzElement FindDescendantByAutomationId(string name)
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException("You are not permitted to search for descendants.  Please modify your config file or speak with whoever is in charge of maintaining the application's config file");
+            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
             return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
         }
 
@@ -149,7 +149,7 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public EzElement FindDescendantByMultipleCriteria(params SearchTypeProperty[] properties)
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException("You are not permitted to search for descendants.  Please modify your config file or speak with whoever is in charge of maintaining the application's config file");
+            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
             return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
         }
 
@@ -172,7 +172,7 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public IEnumerable<EzElement> FindDescendantsByName(string name)
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException("You are not permitted to search for descendants.  Please modify your config file or speak with whoever is in charge of maintaining the application's config file");
+            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
             return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name)));
         }
 
@@ -193,7 +193,7 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public IEnumerable<EzElement> FindDescendantsByAutomationId(string name)
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException("You are not permitted to search for descendants.  Please modify your config file or speak with whoever is in charge of maintaining the application's config file");
+            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
             return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
         }
 
@@ -214,7 +214,7 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public IEnumerable<EzElement> FindDescendantsByMultipleCriteria(params SearchTypeProperty[] properties)
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException("You are not permitted to search for descendants.  Please modify your config file or speak with whoever is in charge of maintaining the application's config file");
+            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
             return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
         }
 
@@ -234,7 +234,7 @@ namespace EazyE2E.Element
         /// <returns>An IEnumerable of type EzElement</returns>
         public IEnumerable<EzElement> GetAllDescendants()
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException("You are not permitted to search for descendants.  Please modify your config file or speak with whoever is in charge of maintaining the application's config file");
+            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
             //this is super dumb.  Figure out a better way to do this.
             return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new NotCondition(new PropertyCondition(AutomationElement.ClassNameProperty, "dfsjkdsfjkdfskjfsdjkdsfjkfsdjkdsfsdfjkdfskjdsfjkdsfjkdsfjkdsfjkdfskjsdfkjsdfjksdfkjfdkdsf"))));
         }
