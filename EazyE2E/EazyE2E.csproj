@@ -53,7 +53,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\EazyE2ESettingsConfigurationSection.cs" />
     <Compile Include="ElementHelper\EzTextResult.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Element\EzElement.cs" />
