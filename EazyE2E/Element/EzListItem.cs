@@ -1,4 +1,5 @@
 ﻿using System.Windows.Automation;
+using EazyE2E.Configuration;
 using EazyE2E.Helper;
 
 namespace EazyE2E.Element
@@ -48,15 +49,15 @@ namespace EazyE2E.Element
         /// <summary>
         /// Backing UI Automation SelectionItemPattern
         /// </summary>
-        public SelectionItemPattern SelectionItemPattern => _selectionItemPattern;
+        public SelectionItemPattern SelectionItemPattern => Config.ExposeBackingWindowsPatterns ? _selectionItemPattern : null;
         /// <summary>
         /// Backing UI Automation ScrollItemPattern
         /// </summary>
-        public ScrollItemPattern ScrollItemPattern => _scrollItemPattern;
+        public ScrollItemPattern ScrollItemPattern => Config.ExposeBackingWindowsPatterns ? _scrollItemPattern : null;
         /// <summary>
         /// Backing UI Automation VirtualizedItemPattern
         /// </summary>
-        public VirtualizedItemPattern VirtualizedItemPattern => _virtualizedItemPattern;
+        public VirtualizedItemPattern VirtualizedItemPattern => Config.ExposeBackingWindowsPatterns ? _virtualizedItemPattern : null;
 
         public EzList Container => _container;
 
