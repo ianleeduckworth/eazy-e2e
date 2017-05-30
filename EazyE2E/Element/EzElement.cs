@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
-using System.Windows.Automation.Peers;
 using EazyE2E.Configuration;
 using EazyE2E.Enums;
 using EazyE2E.Exceptions;
