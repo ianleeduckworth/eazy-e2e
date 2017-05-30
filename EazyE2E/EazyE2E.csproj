@@ -64,6 +64,7 @@
     <Compile Include="Element\EzText.cs" />
     <Compile Include="Enums\SearchType.cs" />
     <Compile Include="Enums\PropertyType.cs" />
+    <Compile Include="Exceptions\UnauthorizedSearchException.cs" />
     <Compile Include="HardwareManipulation\EzMouseFunctions.cs" />
     <Compile Include="Helper\RawViewWalker.cs" />
     <Compile Include="Helper\TypeChecker.cs" />
