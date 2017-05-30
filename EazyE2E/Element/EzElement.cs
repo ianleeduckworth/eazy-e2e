@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
 using System.Windows.Automation.Peers;
@@ -93,7 +94,7 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public EzElement FindDescendantByName(string name)
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
+            CheckSearchPermissions();
             return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name)));
         }
 
@@ -116,7 +117,7 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public EzElement FindDescendantByAutomationId(string name)
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
+            CheckSearchPermissions();
             return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
         }
 
@@ -149,7 +150,7 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public EzElement FindDescendantByMultipleCriteria(params SearchTypeProperty[] properties)
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
+            CheckSearchPermissions();
             return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
         }
 
@@ -172,7 +173,7 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public IEnumerable<EzElement> FindDescendantsByName(string name)
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
+            CheckSearchPermissions();
             return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name)));
         }
 
@@ -193,7 +194,7 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public IEnumerable<EzElement> FindDescendantsByAutomationId(string name)
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
+            CheckSearchPermissions();
             return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
         }
 
@@ -214,7 +215,7 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public IEnumerable<EzElement> FindDescendantsByMultipleCriteria(params SearchTypeProperty[] properties)
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
+            CheckSearchPermissions();
             return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
         }
 
@@ -234,14 +235,19 @@ namespace EazyE2E.Element
         /// <returns>An IEnumerable of type EzElement</returns>
         public IEnumerable<EzElement> GetAllDescendants()
         {
-            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
+            CheckSearchPermissions();
             //this is super dumb.  Figure out a better way to do this.
             return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new NotCondition(new PropertyCondition(AutomationElement.ClassNameProperty, "dfsjkdsfjkdfskjfsdjkdsfjkfsdjkdsfsdfjkdfskjdsfjkdsfjkdsfjkdsfjkdfskjsdfkjsdfjksdfkjfdkdsf"))));
         }
 
-        private IEnumerable<EzElement> ConvertCollection(AutomationElementCollection collection)
+        private static void CheckSearchPermissions()
+        {
+            if (!Config.AllowSearchingForDescendants) throw new UnauthorizedSearchException(UnauthorizedSearchException.StandardExceptionMessage);
+        }
+
+        private static IEnumerable<EzElement> ConvertCollection(IEnumerable collection)
         {
             return from object c in collection select new EzElement(c as AutomationElement);
-        } 
+        }
     }
 }
