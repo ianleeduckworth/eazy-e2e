@@ -2,11 +2,24 @@
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Diagnostics;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace EazyE2E.Configuration
 {
     public static class Config
     {
+        private static int? _doubleClickGap;
+        private static int? _findElementTimeout;
+        private static int? _processWaitForExitTimeout;
+        private static ProcessWindowStyle? _defaultWindowStyle;
+        private static int? _maximumMemoryProfileTime;
+        private static int? _timeBetweenMouseEvents;
+        private static bool? _allowSearchingForDescendants;
+        private static bool? _exposeBackingWindowsPatterns;
+        private static bool? _alwaysResetEzText;
+        private static bool? _terminateExistingInstance;
+
         /// <summary>
         /// Tells the framework how long to pause inbetween a double click
         /// Default is 500.
@@ -15,9 +28,14 @@ namespace EazyE2E.Configuration
         {
             get
             {
-                var val = GetConfigFileValue("DoubleClickGap");
-                int returnVal;
-                return int.TryParse(val, out returnVal) ? returnVal : 500;
+                if (_doubleClickGap == null)
+                {
+                    var val = GetConfigFileValue("DoubleClickGap");
+                    int returnVal;
+                    _doubleClickGap = int.TryParse(val, out returnVal) ? returnVal : 500;
+                }
+
+                return _doubleClickGap.Value;
             }
         }
 
@@ -30,9 +48,14 @@ namespace EazyE2E.Configuration
         {
             get
             {
-                var val = GetConfigFileValue("FindElementTimeout");
-                int returnVal;
-                return int.TryParse(val, out returnVal) ? returnVal : 10000;
+                if (_findElementTimeout == null)
+                {
+                    var val = GetConfigFileValue("FindElementTimeout");
+                    int returnVal;
+                    _findElementTimeout = int.TryParse(val, out returnVal) ? returnVal : 10000;
+                }
+
+                return _findElementTimeout.Value;
             }
         }
 
@@ -44,9 +67,14 @@ namespace EazyE2E.Configuration
         {
             get
             {
-                var val = GetConfigFileValue("ProcessWaitForExitTimeout");
-                int returnVal;
-                return int.TryParse(val, out returnVal) ? returnVal : 1000;
+                if (_processWaitForExitTimeout == null)
+                {
+                    var val = GetConfigFileValue("ProcessWaitForExitTimeout");
+                    int returnVal;
+                    _processWaitForExitTimeout = int.TryParse(val, out returnVal) ? returnVal : 1000;
+                }
+
+                return _processWaitForExitTimeout.Value;
             }
         }
 
@@ -58,9 +86,14 @@ namespace EazyE2E.Configuration
         {
             get
             {
-                var val = GetConfigFileValue("DefaultWindowStyle");
-                ProcessWindowStyle returnVal;
-                return Enum.TryParse(val, out returnVal) ? returnVal : ProcessWindowStyle.Normal;
+                if (_defaultWindowStyle == null)
+                {
+                    var val = GetConfigFileValue("DefaultWindowStyle");
+                    ProcessWindowStyle returnVal;
+                    _defaultWindowStyle = Enum.TryParse(val, out returnVal) ? returnVal : ProcessWindowStyle.Normal;
+                }
+
+                return _defaultWindowStyle.Value;
             }
         }
 
@@ -73,22 +106,32 @@ namespace EazyE2E.Configuration
         {
             get
             {
-                var val = GetConfigFileValue("MaximumMemoryProfileTime");
-                int returnVal;
-                return int.TryParse(val, out returnVal) ? returnVal : int.MaxValue;
+                if (_maximumMemoryProfileTime == null)
+                {
+                    var val = GetConfigFileValue("MaximumMemoryProfileTime");
+                    int returnVal;
+                    _maximumMemoryProfileTime = int.TryParse(val, out returnVal) ? returnVal : int.MaxValue;
+                }
+
+                return _maximumMemoryProfileTime.Value;
             }
         }
 
         /// <summary>
         /// The time in milliseconds between mouse events.
-        /// TDefault is 100
+        /// Default is 100</summary>
         public static int TimeBetweenMouseEvents
         {
             get
             {
-                var val = GetConfigFileValue("TimeBetweenMouseEvents");
-                int returnVal;
-                return int.TryParse(val, out returnVal) ? returnVal : 100;
+                if (_timeBetweenMouseEvents == null)
+                {
+                    var val = GetConfigFileValue("TimeBetweenMouseEvents");
+                    int returnVal;
+                    _timeBetweenMouseEvents = int.TryParse(val, out returnVal) ? returnVal : 100;
+                }
+
+                return _timeBetweenMouseEvents.Value;
             }
         }
 
@@ -100,9 +143,14 @@ namespace EazyE2E.Configuration
         {
             get
             {
-                var val = GetConfigFileValue("AllowSearchingForDescendants");
-                bool returnVal;
-                return bool.TryParse(val, out returnVal) ? returnVal : true;
+                if (_allowSearchingForDescendants == null)
+                {
+                    var val = GetConfigFileValue("AllowSearchingForDescendants");
+                    bool returnVal;
+                    _allowSearchingForDescendants = !bool.TryParse(val, out returnVal) || returnVal;
+                }
+
+                return _allowSearchingForDescendants.Value;
             }
         }
 
@@ -114,9 +162,14 @@ namespace EazyE2E.Configuration
         {
             get
             {
-                var val = GetConfigFileValue("ExposeBackingWindowsPatterns");
-                bool returnVal;
-                return bool.TryParse(val, out returnVal) ? returnVal : false;
+                if (_exposeBackingWindowsPatterns == null)
+                {
+                    var val = GetConfigFileValue("ExposeBackingWindowsPatterns");
+                    bool returnVal;
+                    _exposeBackingWindowsPatterns = bool.TryParse(val, out returnVal) && returnVal;
+                }
+
+                return _exposeBackingWindowsPatterns.Value;
             }
         }
 
@@ -128,9 +181,14 @@ namespace EazyE2E.Configuration
         {
             get
             {
-                var val = GetConfigFileValue("AlwaysResetEzText");
-                bool returnVal;
-                return bool.TryParse(val, out returnVal) ? returnVal : false;
+                if (_alwaysResetEzText == null)
+                {
+                    var val = GetConfigFileValue("AlwaysResetEzText");
+                    bool returnVal;
+                    _alwaysResetEzText = bool.TryParse(val, out returnVal) && returnVal;
+                }
+
+                return _alwaysResetEzText.Value;
             }
         }
 
@@ -144,20 +202,22 @@ namespace EazyE2E.Configuration
         {
             get
             {
-                var val = GetConfigFileValue("TerminateExistingInstance");
-                bool returnVal;
-                return bool.TryParse(val, out returnVal) ? returnVal : false;
+                if (_terminateExistingInstance == null)
+                {
+                    var val = GetConfigFileValue("TerminateExistingInstance");
+                    bool returnVal;
+                    _terminateExistingInstance = bool.TryParse(val, out returnVal) && returnVal;
+                }
+
+                return _terminateExistingInstance.Value;
             }
         }
 
-        private const string SECTION_NAME = "eazye2eSettings";
-
         private static string GetConfigFileValue(string name)
         {
-            //var keyValues = (NameValueCollection) ConfigurationManager.GetSection(SECTION_NAME);
-            //var value = keyValues.Get(name);
-            //return value;
-            return null;
+            var keyValues = ConfigurationManager.AppSettings;
+            var value = keyValues.Get(name);
+            return value;
         }
     }
 }
