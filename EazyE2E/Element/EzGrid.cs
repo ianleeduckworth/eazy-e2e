@@ -1,4 +1,5 @@
 ﻿using System.Windows.Automation;
+using EazyE2E.Configuration;
 using EazyE2E.Helper;
 
 namespace EazyE2E.Element
@@ -24,10 +25,11 @@ namespace EazyE2E.Element
             TypeChecker.CheckElementType(element, ControlType.DataGrid);
             _gridPattern = element.GetCurrentPattern(GridPattern.Pattern) as GridPattern;
         }
+
         /// <summary>
         /// Backing UI Automation GridPattern
         /// </summary>
-        public GridPattern GridPattern => _gridPattern;
+        public GridPattern GridPattern => Config.ExposeBackingWindowsPatterns ? _gridPattern : null;
 
         public int ColumnCount => _gridPattern.Current.ColumnCount;
         public int RowCount => _gridPattern.Current.RowCount;

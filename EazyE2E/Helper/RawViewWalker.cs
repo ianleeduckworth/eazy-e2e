@@ -39,7 +39,43 @@ namespace EazyE2E.Helper
                 }
 
                 count++;
-            } while (true);
+            } while (walker.GetNextSibling(e) != null);
+
+            return null;
+        }
+
+        public static IEnumerable<EzElement> FindChildrenRaw(this EzElement element, PropertyType type, string name)
+        {
+            var ezElements = new List<EzElement>();
+            var aElement = element.BackingAutomationElement;
+
+            var walker = TreeWalker.RawViewWalker;
+
+            var count = 0;
+            AutomationElement e = null;
+            do
+            {
+                e = count == 0 ? walker.GetFirstChild(aElement) : walker.GetNextSibling(e);
+
+                if (e == null) return ezElements;
+
+                switch (type)
+                {
+                    case PropertyType.AutomationId:
+                        if (e.Current.AutomationId == name) ezElements.Add(new EzElement(e));
+                        break;
+                    case PropertyType.Name:
+                        if (e.Current.Name == name) ezElements.Add(new EzElement(e));
+                        break;
+                    case PropertyType.Class:
+                        if (e.Current.ClassName == name) ezElements.Add(new EzElement(e));
+                        break;
+                }
+
+                count++;
+            } while (walker.GetNextSibling(e) != null);
+
+            return ezElements;
         }
     }
 }

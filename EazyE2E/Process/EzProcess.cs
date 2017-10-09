@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using EazyE2E.Configuration;
 
 namespace EazyE2E.Process
 {
@@ -15,26 +16,13 @@ namespace EazyE2E.Process
         public string ProcessPath => _processFullPath;
         public string ProcessName => _processName;
         public string Arguments { get; set; } = string.Empty;
-        public ProcessWindowStyle WindowStyle { get; set; } = ProcessWindowStyle.Normal;
-        public Config Config { get; }
+        public ProcessWindowStyle WindowStyle => Config.DefaultWindowStyle;
 
         public EzProcess(string processFullPath, string processName)
         {
             _processFullPath = processFullPath;
             _processName = processName;
-            // Setup default config
-            this.Config = Config.GetDefaultConfiguration();
         }
-
-        public EzProcess(string processFullPath, string processName, Config config)
-            : this(processFullPath, processName)
-        {
-            // If the user has supplied their own
-            // configuration, lets use it instead
-            // of the default.
-            this.Config = config;
-        }
-
 
         /// <summary>
         /// Starts the process based on the path given when instantiating EzProcess
@@ -60,7 +48,7 @@ namespace EazyE2E.Process
 
         private void TerminateExistingInstances()
         {
-            if (!this.Config.TerminateExistingInstance) return;
+            if (Config.TerminateExistingInstance) return;
             var processes = System.Diagnostics.Process.GetProcessesByName(_processName).ToList();
             processes.ForEach(p => p.Kill());
         }
@@ -75,7 +63,7 @@ namespace EazyE2E.Process
         private void FindRunningProcess()
         {
             // Give the process 1 second to start or forward the start request.
-            _process.WaitForExit(this.Config.ProcessWaitForExitTimeout);
+            _process.WaitForExit(Config.ProcessWaitForExitTimeout);
 
             // If it hasn't exited, we've probably
             // got the right process.
