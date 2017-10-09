@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows.Automation;
 using EazyE2E.Process;
 
@@ -26,6 +27,14 @@ namespace EazyE2E.Element
             var element = AutomationElement.RootElement.FindFirst(TreeScope.Subtree, propertyCondition); //todo use TreeScope.Children instead of TreeScope.Subtree
             if (element == null) throw new NullReferenceException($"Root element not found where process name is ${_process.ProcessName}.");
             return new EzElement(element);
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+
+        public void ResizeWindow(int x, int y, int width, int height)
+        {
+            MoveWindow(_process.Process.MainWindowHandle, x, y, width, height, true);
         }
     }
 }
