@@ -21,13 +21,14 @@ namespace EazyE2E.Console
         [STAThread]
         static void Main()
         {
-            var calculatorPath = "C:\\Windows\\System32\\calc.exe";
-            using (var process = new EzProcess(calculatorPath, "Calculator"))
+            var calculatorPath = "C:\\Program Files (x86)\\Notepad++\\notepad++.exe";
+            using (var process = new EzProcess(calculatorPath, "notepad++"))
             {
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
                 process.StartProcess();
+                Thread.Sleep(2000);
 
                 var perfMon = new EzPerformanceMonitor(process);
 
