@@ -59,24 +59,39 @@ namespace EazyE2E.Element
         /// </summary>
         public VirtualizedItemPattern VirtualizedItemPattern => Config.ExposeBackingWindowsPatterns ? _virtualizedItemPattern : null;
 
+        /// <summary>
+        /// EzList item that is the container for this EzListItem
+        /// </summary>
         public EzList Container => _container;
 
+        /// <summary>
+        /// Scrolls current EzListItem into view regardless of current scroll position
+        /// </summary>
         public void ScrollItemIntoView()
         {
             _scrollItemPattern.ScrollIntoView();
         }
 
+        /// <summary>
+        /// Performs a select operation on current EzListItem
+        /// </summary>
         public void SelectItem()
         {
             _selectionItemPattern.Select();
         }
 
+        /// <summary>
+        /// Adds this EzListItem to the current selection.  This method is for managing selection of multiple items
+        /// </summary>
         public void AddItemToSelection()
         {
             if (_parentCanSelectMultiple)
                 _selectionItemPattern.AddToSelection();
         }
 
+        /// <summary>
+        /// Removes this EzListItem from the current selection.  This method is for managing selection of multiple items
+        /// </summary>
         public void RemoveItemFromSelection()
         {
             if (_parentCanSelectMultiple)

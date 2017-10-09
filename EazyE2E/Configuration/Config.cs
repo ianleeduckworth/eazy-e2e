@@ -7,6 +7,9 @@ using System.Xml.Linq;
 
 namespace EazyE2E.Configuration
 {
+    /// <summary>
+    /// Houses all configuration data used through the framework
+    /// </summary>
     public static class Config
     {
         private static int? _doubleClickGap;
@@ -119,7 +122,8 @@ namespace EazyE2E.Configuration
 
         /// <summary>
         /// The time in milliseconds between mouse events.
-        /// Default is 100</summary>
+        /// Default is 100
+        /// </summary>
         public static int TimeBetweenMouseEvents
         {
             get
@@ -174,7 +178,7 @@ namespace EazyE2E.Configuration
         }
 
         /// <summary>
-        /// TTells the framework whether or not to allow caching for the EzText element; this is the only element that caches
+        /// Tells the framework whether or not to allow caching for the EzText element; this is the only element that caches
         /// Default is false.
         /// </summary>
         public static bool AlwaysResetEzText

@@ -11,6 +11,13 @@ namespace EazyE2E.Helper
 {
     public static class RawViewWalker
     {
+        /// <summary>
+        /// Finds a child based on TreeView.RawViewWalker; will get literally all elements in the application instead of just Control elements
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="type"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static EzElement FindChildRaw(this EzElement element, PropertyType type, string name)
         {
             var aElement = element.BackingAutomationElement;
@@ -44,6 +51,13 @@ namespace EazyE2E.Helper
             return null;
         }
 
+        /// <summary>
+        /// Finds children based on TreeView.RawViewWalker; will get literally all elements in the application instead of just Control elements
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="type"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static IEnumerable<EzElement> FindChildrenRaw(this EzElement element, PropertyType type, string name)
         {
             var ezElements = new List<EzElement>();

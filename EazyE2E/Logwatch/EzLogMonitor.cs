@@ -23,6 +23,10 @@ namespace EazyE2E.Logwatch
 
         private bool _isWatching;
 
+        /// <summary>
+        /// Creates an instance of EzLogMonitor based on an EzProcess
+        /// </summary>
+        /// <param name="process"></param>
         public EzLogMonitor(EzProcess process)
         {
             if (_processRegistry == null) _processRegistry = new HashSet<int>();
@@ -52,7 +56,13 @@ namespace EazyE2E.Logwatch
         public delegate void IfSuccessMultiple(IEnumerable<string> watches, int time);
         public delegate void IfSuccessNonOccurance(string watch, int time);
 
-
+        /// <summary>
+        /// Begins a synchronized watch of process' error and standard output for log message.  Calls ifFail if message does not occur and calls ifSuccess if it does
+        /// </summary>
+        /// <param name="watches">List of strings to be watched for</param>
+        /// <param name="timeInSeconds">Total time to listen to the logs</param>
+        /// <param name="ifFail">Delegate to be performed in the event of a failure (log message does not occur)</param>
+        /// <param name="ifSuccess">Delegate to be performed in the event of success (log message does occur)</param>
         public void SyncWatchForOccurance(IEnumerable<string> watches, int timeInSeconds, IfFailMultiple ifFail, IfSuccessSingular ifSuccess)
         {
             var watchesArray = watches as string[] ?? watches.ToArray();
@@ -78,6 +88,13 @@ namespace EazyE2E.Logwatch
             ifFail(watchesArray, timeInSeconds);
         }
 
+        /// <summary>
+        /// Begins a synchronized watch of process' error and standard output for log message.  Calls ifFail if message does not occur and calls ifSuccess if it does
+        /// </summary>
+        /// <param name="watchText">String to be watched for</param>
+        /// <param name="timeInSeconds">Total time to listen to the logs</param>
+        /// <param name="ifFail">Delegate to be performed in the event of a failure (log message does not occur)</param>
+        /// <param name="ifSuccess">Delegate to be performed in the event of success (log message does occur)</param>
         public void SyncWatchForOccurance(string watchText, int timeInSeconds, IfFailNonOccurance ifFail, IfSuccessSingular ifSuccess)
         {
             SetupWatch(watchText);
@@ -104,6 +121,13 @@ namespace EazyE2E.Logwatch
             ifFail(watchText, timeInSeconds);
         }
 
+        /// <summary>
+        /// Begins a synchronized watch of process' error and standard output for log message.  Calls ifFail if message does occur and calls ifSuccess if it does not
+        /// </summary>
+        /// <param name="watches">List of strings to be watched for</param>
+        /// <param name="timeInSeconds">Total time to listen to the logs</param>
+        /// <param name="ifFail">Delegate to be performed in the event of a failure (log message does occur)</param>
+        /// <param name="ifSuccess">Delegate to be performed in the event of success (log message does not occur)</param>
         public void SyncWatchForNonOccurance(IEnumerable<string> watches, int timeInSeconds, IfFailSingular ifFail, IfSuccessMultiple ifSuccess)
         {
             var watchesArray = watches as string[] ?? watches.ToArray();
@@ -130,6 +154,13 @@ namespace EazyE2E.Logwatch
             ifSuccess(watchesArray, timeInSeconds);
         }
 
+        /// <summary>
+        /// Begins a synchronized watch of process' error and standard output for log message.  Calls ifFail if message does occur and calls ifSuccess if it does not
+        /// </summary>
+        /// <param name="watchText">String to be watched for</param>
+        /// <param name="timeInSeconds">Total time to listen to the logs</param>
+        /// <param name="ifFail">Delegate to be performed in the event of a failure (log message does occur)</param>
+        /// <param name="ifSuccess">Delegate to be performed in the event of success (log message does not occur)</param>
         public void SyncWatchForNonOccurance(string watchText, int timeInSeconds, IfFailSingular ifFail, IfSuccessNonOccurance ifSuccess)
         {
             SetupWatch(watchText);

@@ -11,6 +11,10 @@ namespace EazyE2E.Element
         private readonly ScrollPattern _scrollPattern;
         private readonly SelectionPattern _selectionPattern;
 
+        /// <summary>
+        /// Creates a new instance of EzList based on an EzElement
+        /// </summary>
+        /// <param name="element"></param>
         public EzList(EzElement element) : base(element)
         {
             TypeChecker.CheckElementType(element.BackingAutomationElement, ControlType.List);
@@ -18,6 +22,10 @@ namespace EazyE2E.Element
             _selectionPattern = element.BackingAutomationElement.GetCurrentPattern(SelectionPattern.Pattern) as SelectionPattern;
         }
 
+        /// <summary>
+        /// Creates a new instance of EzList based on an EzRoot
+        /// </summary>
+        /// <param name="root"></param>
         public EzList(EzRoot root) : base(root)
         {
             TypeChecker.CheckElementType(root.RootElement.BackingAutomationElement, ControlType.List);
@@ -25,6 +33,10 @@ namespace EazyE2E.Element
             _selectionPattern = root.RootElement.BackingAutomationElement.GetCurrentPattern(SelectionPattern.Pattern) as SelectionPattern;
         }
 
+        /// <summary>
+        /// Creates a new instance of EzList based an an AutomationElement from Windows' automation framework
+        /// </summary>
+        /// <param name="element"></param>
         public EzList(AutomationElement element) : base(element)
         {
             TypeChecker.CheckElementType(element, ControlType.List);

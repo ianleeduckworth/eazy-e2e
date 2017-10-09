@@ -15,12 +15,31 @@ namespace EazyE2E.Element
         private EzElement _parent;
         private readonly InvokePattern _invokePattern;
 
+        /// <summary>
+        /// Parent element of the current element.  Will be null if current element has no parent
+        /// </summary>
         public EzElement Parent => _parent ?? (_parent = new EzElement(_backingAutomationElement.CachedParent));
+
+        /// <summary>
+        /// Name of the current EzElement
+        /// </summary>
         public string Name => _backingAutomationElement.Current.Name;
+
+        /// <summary>
+        /// AutomationId of the current EzElement
+        /// </summary>
         public string AutomationId => _backingAutomationElement.Current.AutomationId;
+
+        /// <summary>
+        /// ClassName of the current EzElement
+        /// </summary>
         public string ClassName => _backingAutomationElement.Current.ClassName;
         public ControlType Type => _backingAutomationElement.Current.ControlType;
 
+        /// <summary>
+        /// Creates an Ezelement based on an instance of an existing EzElement
+        /// </summary>
+        /// <param name="element"></param>
         public EzElement(EzElement element)
         {
             _backingAutomationElement = element._backingAutomationElement;
@@ -42,7 +61,7 @@ namespace EazyE2E.Element
         }
 
         /// <summary>
-        /// Creates an instance of EzElement using a backing AutomationElement from Windows
+        /// Creates an instance of EzElement using a backing AutomationElement from Windows' automation framework
         /// </summary>
         /// <param name="element"></param>
         public EzElement(AutomationElement element)

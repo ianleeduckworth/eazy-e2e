@@ -28,16 +28,17 @@ namespace EazyE2E.Console
                 var root = new EzRoot(process);
                 root.ResizeWindow(10, 10, 100, 100);
 
-//                using (var logMonitor = new EzLogMonitor(process))
-//                { 
-//                    logMonitor.SyncWatchForOccurance(@"Hello World!", 10, (watch, time) =>
-//                    {
-//                        System.Console.WriteLine($"Message {watch} never occurred after {time} seconds of profiling.");
-//                    }, (type, text, message, occurance) =>
-//                    {
-//                        System.Console.WriteLine($"Message {text} was found at {occurance} seconds into profiling.  Type: {type}.  Full message: {message}");
-//                    });
-//                }
+                var foo = new EzText(root);
+                foo.BackgroundColor.HandleResult(() =>
+                {
+                    System.Console.WriteLine("Operation was unsupported");
+                }, () =>
+                {
+                    System.Console.WriteLine("Operation yielded a mixed result");
+                }, value =>
+                {
+                    System.Console.WriteLine($"Value: {value}");
+                });
 
                 stopwatch.Stop();
                 System.Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} miliseconds");

@@ -113,6 +113,11 @@ namespace EazyE2E.HardwareManipulation
                 _backingDictionary.Add(Key.NumPad9, "9");
             }
 
+            /// <summary>
+            /// Gets the string value of a key based on the Key instance passed in
+            /// </summary>
+            /// <param name="key"></param>
+            /// <returns></returns>
             public string LookupKey(Key key)
             {
                 return _backingDictionary.FirstOrDefault(x => x.Key == key).Value;

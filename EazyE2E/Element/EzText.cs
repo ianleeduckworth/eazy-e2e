@@ -42,19 +42,30 @@ namespace EazyE2E.Element
         private EzTextResult<FlowDirections> _textFlowDirection;
         private string _value;
 
-
+        /// <summary>
+        /// Creates an instance of EzText based on an EzElement
+        /// </summary>
+        /// <param name="element"></param>
         public EzText(EzElement element) : base(element)
         {
             TypeChecker.CheckElementType(element.BackingAutomationElement, ControlType.Text);
             _textPattern = element.BackingAutomationElement.GetCurrentPattern(TextPattern.Pattern) as TextPattern;
         }
 
+        /// <summary>
+        /// Creates an instance of EzText based on an EzRoot
+        /// </summary>
+        /// <param name="root"></param>
         public EzText(EzRoot root) : base(root)
         {
             TypeChecker.CheckElementType(root.RootElement.BackingAutomationElement, ControlType.Text);
             _textPattern = root.RootElement.BackingAutomationElement.GetCurrentPattern(TextPattern.Pattern) as TextPattern;
         }
 
+        /// <summary>
+        /// Creates an instance of EzText based on an AutomationElement from Windows' automation framework
+        /// </summary>
+        /// <param name="element"></param>
         public EzText(AutomationElement element) : base(element)
         {
             TypeChecker.CheckElementType(element, ControlType.Text);

@@ -18,6 +18,11 @@ namespace EazyE2E.Process
         public string Arguments { get; set; } = string.Empty;
         public ProcessWindowStyle WindowStyle => Config.DefaultWindowStyle;
 
+        /// <summary>
+        /// Creates an EzProcess based on path and name
+        /// </summary>
+        /// <param name="processFullPath"></param>
+        /// <param name="processName"></param>
         public EzProcess(string processFullPath, string processName)
         {
             _processFullPath = processFullPath;
@@ -82,6 +87,9 @@ namespace EazyE2E.Process
             _process.Refresh();
         }
 
+        /// <summary>
+        /// Kills the process and calls Dispose
+        /// </summary>
         public void Dispose()
         {
             _process.Kill();

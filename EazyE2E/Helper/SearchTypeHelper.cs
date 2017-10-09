@@ -9,6 +9,11 @@ namespace EazyE2E.Helper
     {
         private static Dictionary<PropertyType, AutomationProperty> _backingDictionary;
 
+        /// <summary>
+        /// Returns an AutomationProperty based on the PropertyType passed in; used for converting between the two
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static AutomationProperty GetAutomationProperty(PropertyType type)
         {
             if (_backingDictionary == null) _backingDictionary = BuildBackingDictionary();

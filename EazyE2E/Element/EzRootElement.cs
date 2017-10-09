@@ -10,8 +10,15 @@ namespace EazyE2E.Element
         private readonly EzProcess _process;
         private EzElement _rootElement;
 
+        /// <summary>
+        /// EzElement representation of the root element of the application
+        /// </summary>
         public EzElement RootElement => _rootElement ?? (_rootElement = GetRootElement());
 
+        /// <summary>
+        /// Creates an instance of EzRoot based on an EzProcess
+        /// </summary>
+        /// <param name="process"></param>
         public EzRoot(EzProcess process)
         {
             _process = process;
@@ -32,6 +39,13 @@ namespace EazyE2E.Element
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
 
+        /// <summary>
+        /// Resizes a window based on parameters inputted
+        /// </summary>
+        /// <param name="x">X coordinate of the window</param>
+        /// <param name="y">Y coordinate of the window</param>
+        /// <param name="width">How wide the window will be</param>
+        /// <param name="height">How tall the window will be</param>
         public void ResizeWindow(int x, int y, int width, int height)
         {
             MoveWindow(_process.Process.MainWindowHandle, x, y, width, height, true);
