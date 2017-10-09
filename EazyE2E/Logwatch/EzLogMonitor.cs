@@ -19,7 +19,7 @@ namespace EazyE2E.Logwatch
         private readonly System.Diagnostics.Process _process;
 
         private IList<string> _currentWatches;
-        private ConcurrentBag<FoundItem> _foundItems;
+        private readonly ConcurrentBag<FoundItem> _foundItems;
 
         private bool _isWatching;
 
@@ -40,14 +40,71 @@ namespace EazyE2E.Logwatch
 
             _process.OutputDataReceived += ProcessOnOutputDataReceived;
             _process.ErrorDataReceived += ProcessOnErrorDataReceived;
+
+            _process.BeginOutputReadLine();
+            _process.BeginErrorReadLine();
         }
 
-        public delegate void IfFail(OutputType type, string watchText, string message, int timeAtOccurance);
-        public delegate void IfSuccessSingular(string watchText, int time);
+        public delegate void IfFailSingular(OutputType type, string watchText, string message, int timeAtOccurance);
+        public delegate void IfFailMultiple(IEnumerable<string> watches, int time);
+        public delegate void IfFailNonOccurance(string watch, int time);
+        public delegate void IfSuccessSingular(OutputType type, string watchText, string message, int timeAtOccurance);
         public delegate void IfSuccessMultiple(IEnumerable<string> watches, int time);
+        public delegate void IfSuccessNonOccurance(string watch, int time);
 
 
-        public void StartSyncWatch(IEnumerable<string> watches, int timeInSeconds, IfFail ifFail, IfSuccessMultiple ifSuccess)
+        public void SyncWatchForOccurance(IEnumerable<string> watches, int timeInSeconds, IfFailMultiple ifFail, IfSuccessSingular ifSuccess)
+        {
+            var watchesArray = watches as string[] ?? watches.ToArray();
+            SetupWatch(watchesArray);
+            var totalMiliseconds = timeInSeconds * 1000;
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            do
+            {
+                if (_foundItems.IsEmpty) continue;
+
+                var foundItem = _foundItems.FirstOrDefault();
+                if (foundItem == null) throw new IndexOutOfRangeException("foundItem returned null");
+
+                ifSuccess(foundItem.IsError ? OutputType.Error : OutputType.Standard, foundItem.Watch, foundItem.Message, (int)stopwatch.ElapsedMilliseconds / 1000);
+                return;
+            } while (stopwatch.ElapsedMilliseconds < totalMiliseconds);
+
+            stopwatch.Stop();
+            TeardownWatch();
+            ifFail(watchesArray, timeInSeconds);
+        }
+
+        public void SyncWatchForOccurance(string watchText, int timeInSeconds, IfFailNonOccurance ifFail, IfSuccessSingular ifSuccess)
+        {
+            SetupWatch(watchText);
+            var totalMiliseconds = timeInSeconds * 1000;
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            do
+            {
+                if (_foundItems.IsEmpty) continue;
+
+                stopwatch.Stop();
+
+                var foundItem = _foundItems.FirstOrDefault();
+                if (foundItem == null) throw new IndexOutOfRangeException("foundItem returned null");
+
+                ifSuccess(foundItem.IsError ? OutputType.Error : OutputType.Standard, foundItem.Watch, foundItem.Message, (int)stopwatch.ElapsedMilliseconds / 1000);
+                return;
+            } while (stopwatch.ElapsedMilliseconds < totalMiliseconds);
+
+            stopwatch.Stop();
+            TeardownWatch();
+            ifFail(watchText, timeInSeconds);
+        }
+
+        public void SyncWatchForNonOccurance(IEnumerable<string> watches, int timeInSeconds, IfFailSingular ifFail, IfSuccessMultiple ifSuccess)
         {
             var watchesArray = watches as string[] ?? watches.ToArray();
             SetupWatch(watchesArray);
@@ -73,7 +130,7 @@ namespace EazyE2E.Logwatch
             ifSuccess(watchesArray, timeInSeconds);
         }
 
-        public void StartSyncWatch(string watchText, int timeInSeconds, IfFail ifFail, IfSuccessSingular ifSuccess)
+        public void SyncWatchForNonOccurance(string watchText, int timeInSeconds, IfFailSingular ifFail, IfSuccessNonOccurance ifSuccess)
         {
             SetupWatch(watchText);
             var totalMiliseconds = timeInSeconds * 1000;
@@ -89,7 +146,6 @@ namespace EazyE2E.Logwatch
                 if (foundItem == null) throw new IndexOutOfRangeException("foundItem returned null");
 
                 ifFail(foundItem.IsError ? OutputType.Error : OutputType.Standard, foundItem.Watch, foundItem.Message, (int)stopwatch.ElapsedMilliseconds / 1000);
-
                 return;
             } while (stopwatch.ElapsedMilliseconds < totalMiliseconds);
 
@@ -111,12 +167,15 @@ namespace EazyE2E.Logwatch
         private void SetupWatch(string msg)
         {
             _currentWatches.Add(msg);
+            _isWatching = true;
         }
 
         private void TeardownWatch()
         {
             _currentWatches = null;
             _isWatching = false;
+            _process.CancelOutputRead();
+            _process.CancelErrorRead();
         }
 
         private void ProcessOnErrorDataReceived(object sender, DataReceivedEventArgs dataReceivedEventArgs)
