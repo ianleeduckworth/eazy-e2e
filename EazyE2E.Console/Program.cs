@@ -24,14 +24,16 @@ namespace EazyE2E.Console
 
                 process.StartProcess();
 
-                var logMonitor = new EzLogMonitor(process);
-                logMonitor.SyncWatchForOccurance(@"Hello World!", 10, (watch, time) =>
-                {
-                    System.Console.WriteLine($"Message {watch} never occurred after {time} seconds of profiling.");
-                }, (type, text, message, occurance) =>
-                {
-                    System.Console.WriteLine($"Message {text} was found at {occurance} seconds into profiling.  Type: {type}.  Full message: {message}");
-                });
+                using (var logMonitor = new EzLogMonitor(process))
+                { 
+                    logMonitor.SyncWatchForOccurance(@"Hello World!", 10, (watch, time) =>
+                    {
+                        System.Console.WriteLine($"Message {watch} never occurred after {time} seconds of profiling.");
+                    }, (type, text, message, occurance) =>
+                    {
+                        System.Console.WriteLine($"Message {text} was found at {occurance} seconds into profiling.  Type: {type}.  Full message: {message}");
+                    });
+                }
 
                 stopwatch.Stop();
                 System.Console.WriteLine($"Test took {stopwatch.ElapsedMilliseconds} miliseconds");
