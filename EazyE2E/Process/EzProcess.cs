@@ -48,7 +48,7 @@ namespace EazyE2E.Process
 
         private void TerminateExistingInstances()
         {
-            if (Config.TerminateExistingInstance) return;
+            if (!Config.TerminateExistingInstance) return;
             var processes = System.Diagnostics.Process.GetProcessesByName(_processName).ToList();
             processes.ForEach(p => p.Kill());
         }
