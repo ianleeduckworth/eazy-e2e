@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using EazyE2E.Configuration;
+using EazyE2E.Enums;
 using EazyE2E.Process;
 
 namespace EazyE2E.Performance
@@ -108,6 +110,8 @@ namespace EazyE2E.Performance
         /// <param name="ifSuccess">Action to do if the profile succeeds.  Returns the original memory type being profiled and the failure threshold</param>
         public void StartSyncWatch(MemoryType type, long amount, int timeInSeconds, IfFail ifFail, SingularSuccess ifSuccess)
         {
+            if (timeInSeconds > Config.MaximumMemoryProfileTime) timeInSeconds = Config.MaximumMemoryProfileTime;
+
             var timeInMiliseconds = timeInSeconds*1000;
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -136,6 +140,8 @@ namespace EazyE2E.Performance
         /// <param name="watches">A list of items to watch.  Each item is composed of a memory type an an amount to watch for</param>
         public void StartSyncWatch(IEnumerable<MemoryWatch> watches, int timeInSeconds, IfFail ifFail, MultiSuccess ifSuccess)
         {
+            if (timeInSeconds > Config.MaximumMemoryProfileTime) timeInSeconds = Config.MaximumMemoryProfileTime;
+
             var timeInMiliseconds = timeInSeconds * 1000;
             var stopwatch = new Stopwatch();
             var memoryWatches = watches as MemoryWatch[] ?? watches.ToArray();

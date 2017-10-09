@@ -1,4 +1,5 @@
 ﻿using System.Windows.Automation;
+using EazyE2E.Configuration;
 using EazyE2E.Helper;
 
 namespace EazyE2E.Element
@@ -13,6 +14,16 @@ namespace EazyE2E.Element
 
         private bool _parentCanSelectMultiple;
 
+        public EzListItem(EzElement element) : base(element)
+        {
+            TypeChecker.CheckElementType(element.BackingAutomationElement, ControlType.ListItem);
+            _selectionItemPattern = element.BackingAutomationElement.GetCurrentPattern(SelectionItemPattern.Pattern) as SelectionItemPattern;
+            _scrollItemPattern = element.BackingAutomationElement.GetCurrentPattern(ScrollItemPattern.Pattern) as ScrollItemPattern;
+            _virtualizedItemPattern = element.BackingAutomationElement.GetCurrentPattern(VirtualizedItemPattern.Pattern) as VirtualizedItemPattern;
+            _virtualizedItemPattern?.Realize();
+
+            SetBackingProperties();
+        }
         public EzListItem(EzRoot root) : base(root)
         {
             TypeChecker.CheckElementType(root.RootElement.BackingAutomationElement, ControlType.ListItem);
@@ -34,6 +45,19 @@ namespace EazyE2E.Element
 
             SetBackingProperties();
         }
+
+        /// <summary>
+        /// Backing UI Automation SelectionItemPattern
+        /// </summary>
+        public SelectionItemPattern SelectionItemPattern => Config.ExposeBackingWindowsPatterns ? _selectionItemPattern : null;
+        /// <summary>
+        /// Backing UI Automation ScrollItemPattern
+        /// </summary>
+        public ScrollItemPattern ScrollItemPattern => Config.ExposeBackingWindowsPatterns ? _scrollItemPattern : null;
+        /// <summary>
+        /// Backing UI Automation VirtualizedItemPattern
+        /// </summary>
+        public VirtualizedItemPattern VirtualizedItemPattern => Config.ExposeBackingWindowsPatterns ? _virtualizedItemPattern : null;
 
         public EzList Container => _container;
 

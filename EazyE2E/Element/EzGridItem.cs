@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Automation;
+﻿using System.Windows.Automation;
+using EazyE2E.Configuration;
 using EazyE2E.Helper;
 
 namespace EazyE2E.Element
@@ -11,6 +7,12 @@ namespace EazyE2E.Element
     public class EzGridItem : EzElement
     {
         private readonly GridItemPattern _gridItemPattern;
+
+        public EzGridItem(EzElement element) : base(element)
+        {
+            TypeChecker.CheckElementType(element.BackingAutomationElement, ControlType.DataItem);
+            _gridItemPattern = element.BackingAutomationElement.GetCurrentPattern(GridItemPattern.Pattern) as GridItemPattern;
+        }
 
         public EzGridItem(EzRoot root) : base(root)
         {
@@ -23,6 +25,11 @@ namespace EazyE2E.Element
             TypeChecker.CheckElementType(element, ControlType.DataItem);
             _gridItemPattern = element.GetCurrentPattern(GridItemPattern.Pattern) as GridItemPattern;
         }
+
+        /// <summary>
+        /// Backing UI Automation GridItemPattern
+        /// </summary>
+        public GridItemPattern GridItemPattern => Config.ExposeBackingWindowsPatterns ? _gridItemPattern : null;
 
         public int RowNum => _gridItemPattern.Current.Row;
         public int RowSpan => _gridItemPattern.Current.RowSpan;

@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System.Threading;
+using EazyE2E.Configuration;
 using EazyE2E.Element;
 
 namespace EazyE2E.HardwareManipulation
@@ -22,7 +23,7 @@ namespace EazyE2E.HardwareManipulation
         /// Allows the user to set the amount of time inbetween mouse events.
         /// <para>NOTE THAT A VALUE OF LESS THAN 100 IS NOT RECOMMENDED BECAUSE APPLICATIONS GENERALLY CANNOT REACT QUICKLY ENOUGH AND YOU MAY GET INCORRECT CLICKS</para>
         /// </summary>
-        public static int TimeInbetweenMouseEvents { get; set; }
+        public static int TimeInbetweenMouseEvents => Config.TimeBetweenMouseEvents;
 
         private static void DoMouseClick()
         {
@@ -115,7 +116,7 @@ namespace EazyE2E.HardwareManipulation
         {
             PrepElement(element);
             DoMouseClick();
-            Thread.Sleep(spacing);
+            Thread.Sleep(Config.DoubleClickGap);
             DoMouseClick();
             TearDown();
         }
