@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EazyE2E", "EazyE2E\EazyE2E.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EazyE2E.Console", "EazyE2E.Console\EazyE2E.Console.csproj", "{4516BF23-ABB6-4006-AF72-901CA32082BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication", "TestApplication\TestApplication.csproj", "{22E0B960-86D3-4C16-BD0A-054C3FC02970}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4516BF23-ABB6-4006-AF72-901CA32082BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4516BF23-ABB6-4006-AF72-901CA32082BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4516BF23-ABB6-4006-AF72-901CA32082BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22E0B960-86D3-4C16-BD0A-054C3FC02970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22E0B960-86D3-4C16-BD0A-054C3FC02970}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22E0B960-86D3-4C16-BD0A-054C3FC02970}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22E0B960-86D3-4C16-BD0A-054C3FC02970}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
