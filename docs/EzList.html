@@ -1,0 +1,162 @@
+<link rel="stylesheet" href="./main.css"/>
+<ul class="left-nav">
+    <li><a href="./EzElement.html">EzElement</a></li>
+    <li><a href="./EzGrid.html">EzGrid</a></li>
+    <li><a href="./EzGridItem.html">EzGridItem</a></li>
+    <li><a href="./EzList.html">EzList</a></li>
+    <li><a href="./EzListItem.html">EzListItem</a></li>
+    <li><a href="./EzRootElement.html">EzRootElement</a></li>
+    <li><a href="./EzText.html">EzText</a></li>
+    <li><a href="./EzKeyboardFunctions.html">EzKeyboardFunctions</a></li>
+    <li><a href="./EzMouseFunctions.html">EzMouseFunctions</a></li>
+    <li><a href="./EzLogMonitor.html">EzLogMonitor</a></li>
+    <li><a href="./EzLongSearch.html">EzLongSearch</a></li>
+    <li><a href="./EzPerformanceMonitor.html">EzPerformanceMonitor</a></li>
+    <li><a href="./EzProcess.html">EzProcess</a></li>
+</ul>
+
+<div class="main-documentation">
+    <h1>EzList</h1>
+    <h5>EzList is created using an existing element who has a ControlType of List.  This class opens up list specific functionality</h5>
+    <div class="tool-tip">
+        <h5 class="tool-tip">&#128161;  Note</h5>
+        <p class="tool-tip-body">If the underlying element being used to construct EzList does not have a <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee671634(v=vs.85).aspx" target="_blank">ControlType</a> of List, an exception will be thrown on construction</p>
+    </div>
+    <h2>Syntax</h2>
+    <pre>
+        <span class="reserved">public class</span> EzList : EzElement</pre>
+    <h2>Constructors</h2>
+    <table style="width: 100%">
+        <tr>
+            <th>Name</th>
+            <th>Input</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>EzList(EzElement element)</td>
+            <td>EzElement</td>
+            <td>Creates a new instance of EzList based on an existing EzElement</td>
+        </tr>
+        <tr>
+            <td>EzList(EzRoot root)</td>
+            <td>EzRoot</td>
+            <td>Creates a new instance of EzList based on an existing EzRoot</td>
+        </tr>
+        <tr>
+            <td>EzList(AutomationElement element)</td>
+            <td><a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.automationelement(v=vs.110).aspx" target="_blank">AutomationElement</a></td>
+            <td>Creates a new instance of EzList based on an existing <a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.automationelement(v=vs.110).aspx" target="_blank">AutomationElement</a></td>
+    </table>
+    <h2>Properties</h2>
+    <table style="width: 100%">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        <tr>
+            <td>ScrollPattern</td>
+            <td><a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.scrollpattern(v=vs.110).aspx" target="_blank">ScrollPattern</a></td>
+            <td>Houses the underlying windows <a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.scrollpattern(v=vs.110).aspx" target="_blank">ScrollPattern</a>.  Will return null if ExposeBackingWindowsPatterns is not set to true</td>
+        </tr>
+        <tr>
+            <td>SelectionPattern</td>
+            <td><a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.selectionpattern(v=vs.110).aspx" target="_blank">SelectionPattern</a></td>
+            <td>Houses the underlying windows <a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.selectionpattern(v=vs.110).aspx" target="_blank">SelectionPattern</a>.  Will return null if ExposeBackingWindowsPatterns is not set to true</td>
+        </tr>
+        <tr>
+            <td>VerticalScrollPct</td>
+            <td>double</td>
+            <td>Houses the amount the current list is scrolled in the vertical direction as a percent.  0% is all the way scrolled up and 100% is all the way scrolled down</td>
+        </tr>
+        <tr>
+            <td>HorizontalScrollPct</td>
+            <td>double</td>
+            <td>Houses the amount the current list is scrolled in the horizontal direction as a percent.  0% is all the way scrolled to the left and 100% is all the way scrolled to the right</td>
+        </tr>
+        <tr>
+            <td>VerticalViewSize</td>
+            <td>double</td>
+            <td>I have no fucking clue</td>
+        </tr>
+        <tr>
+            <td>HorizontalViewSize</td>
+            <td>double</td>
+            <td>I have no fucking clue</td>
+        </tr>
+        <tr>
+            <td>CanSelectMultiple</td>
+            <td>bool</td>
+            <td>Houses whether or not the list can select multiple items at once</td>
+        </tr>
+        <tr>
+            <td>SelectedItems</td>
+            <td>IEnumerable&lt;EzElement&gt;</td>
+            <td>Gets all currently selected items in the list</td>
+        </tr>
+    </table>
+    <h2>Methods</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Return Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>ScrollVertical(ScrollAmount amount)</td>
+            <td>void</td>
+            <td>Scrolls the list vertically based on the <a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.scrollamount(v=vs.110).aspx" target="_blank">ScrollAmount</a> passed in</td>
+        </tr>
+        <tr>
+            <td>ScrollHorizontal(ScrollAmount amount)</td>
+            <td>void</td>
+            <td>Scrolls the list horizontally based on the <a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.scrollamount(v=vs.110).aspx" target="_blank">ScrollAmount</a> passed in</td>
+        </tr>
+        <tr>
+            <td>ScrollHorizontalAndVertical(ScrollAmount horizontalAmount, ScrollAmount verticalAmount)</td>
+            <td>void</td>
+            <td>Scrolls the list horizontally and vertically based on both the horizontal/vertical <a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.scrollamount(v=vs.110).aspx" target="_blank">ScrollAmount</a> values passed in</td>
+        </tr>
+        <tr>
+            <td>SetHorizontalScrollPct(double percent)</td>
+            <td>void</td>
+            <td>Sets the horizontal scroll percentage based on the percentage value passed in</td>
+        </tr>
+        <tr>
+            <td>SetVerticalScrollPct(double percent)</td>
+            <td>void</td>
+            <td>Sets the vertical scroll percentage based on the percentage value passed in</td>
+        </tr>
+        <tr>
+            <td>SetVerticalAndHorizontalScrollPct(double horizontalPercent, double verticalPercent)</td>
+            <td>void</td>
+            <td>Sets the vertical and horizontal scroll percentages based on the percentage values apssed in</td>
+        </tr>
+    </table>
+    <h2 id="samplesAndUsage">Samples and Usage</h2>
+    <p>The EzList element is usually constructed with an instance of EzElement and effectively sits on top of EzElement.  It provides some list specific functionality.
+    </p>
+    <p>Sample:</p>
+    <pre>
+        <span class="comment">//Simple method to launch Windows' built in calculator application</span>
+        <span class="reserved">const string</span> calculatorPath = <span class="string">C:\\Windows\\System32\\calc.exe"</span>;
+    
+        <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that .Dispose() is called</span>
+        <span class="reserved">using</span> (<span class="class-name">EzProcess</span> process = <span class="reserved">new</span> <span class="class-name">EzProcess</span>(calculatorPath, <span class="string">"Calculator"</span>))
+        {
+            process.StartProcess();
+    
+            <span class="comment">//Get the root element of the application</span>
+            <span class="class-name">EzRoot</span> root = <span class="reserved">new</span> <span class="class-name">EzRoot</span>(process);
+    
+            <span class="comment">//Use the .FindChildByAutomationId to query all children of the root for the first element whose AutomationId property is</span>
+            <span class="comment">//equal to "TestGridName"</span>
+            <span class="class-name">EzElement</span> element = root.RootElement.FindChildByAutomationId(<span class="string">"TestGridName"</span>);
+    
+            <span class="comment">//Create a new EzGrid instance with our EzElement instance.  Note that if the control type of our EzElement intance is not</span>
+            <span class="comment">//List, an exception will be thrown</span>
+            <span class="class-name">EzList</span> list = <span class="reserved">new</span> <span class="class-name">EzList</span>(element);
+    
+            <span class="comment">//Set the scroll percentage to 50%</span>
+            list.SetHorizontalScrollPct(50);
+        }</pre>    
+</div>

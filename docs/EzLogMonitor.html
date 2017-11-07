@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="./main.css"/>
+<ul class="left-nav">
+    <li><a href="./EzElement.html">EzElement</a></li>
+    <li><a href="./EzGrid.html">EzGrid</a></li>
+    <li><a href="./EzGridItem.html">EzGridItem</a></li>
+    <li><a href="./EzList.html">EzList</a></li>
+    <li><a href="./EzListItem.html">EzListItem</a></li>
+    <li><a href="./EzRootElement.html">EzRootElement</a></li>
+    <li><a href="./EzText.html">EzText</a></li>
+    <li><a href="./EzKeyboardFunctions.html">EzKeyboardFunctions</a></li>
+    <li><a href="./EzMouseFunctions.html">EzMouseFunctions</a></li>
+    <li><a href="./EzLogMonitor.html">EzLogMonitor</a></li>
+    <li><a href="./EzLongSearch.html">EzLongSearch</a></li>
+    <li><a href="./EzPerformanceMonitor.html">EzPerformanceMonitor</a></li>
+    <li><a href="./EzProcess.html">EzProcess</a></li>
+</ul>
+
+<div class="main-documentation">
+    <h2>EzLogMonitor</h2>
+    <h5>EzLogMonitor is a class that is used to monitor output of the application under test.  It provides several methods to watch for log messages and to take action appropriately.  
+        Note that tis class is somewhat complicated to use so be sure to check out the <a href="#samplesAndUsage">Samples and Usage</a> section at the bottom.
+    </h5>
+    <h2>Syntax</h2>
+    <pre>
+        <span class="reserved">public class</span> EzLogMonitor</pre>
+    <h2>Constructors</h2>
+    <table style="width: 100%">
+        <tr>
+            <th>Name</th>
+            <th>Input</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>EzLogMonitor(EzProcess process)</td>
+            <td>EzProcess</td>
+            <td>Creates a new instance of EzLogMonitor.  An instance of EzProcess is needed</td>
+        </tr>
+    </table>
+    <h2>Methods</h2>
+    <table style="width: 100%">        
+        <tr>
+            <th>Name</th>
+            <th>Return Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>SyncWatchForOccurance(IEnumerable&lt;string&gt; watches, int timeInSeconds, IfFailMultiple ifFail, IfSuccessSingular ifSuccess)</td>
+            <td>void</td>
+            <td>Starts a synchronous watch for a series of log messages.  If the message does not occur, the ifFail delegate is called and if it does occur, the ifSuccess message is called</td>
+        </tr>
+        <tr>
+            <td>SyncWatchForOccurance(string watchText, int timeInSeconds, IfFailNonOccurance ifFail, IfSuccessSingular ifSuccess)</td>
+            <td>void</td>
+            <td>Starts a synchronous watch for a single log message.  If the message does not occur, the ifFail delegate is called and if it does occur, the ifSuccess message is called</td>
+        </tr>
+        <tr>
+            <td>SyncWatchForNonOccurance(IEnumerable&lt;string&gt; watches, int timeInSeconds, IfFailSingular ifFail, IfSuccessMultiple ifSuccess)</td>
+            <td>void</td>
+            <td>Starts a synchronous watch for a series of log messages.  If the message does occur, the ifFail delegate is called and if it does not occur, the ifSuccess message is called</td>
+        </tr>
+        <tr>
+            <td>SyncWatchForNonOccurance(string watchText, int timeInSeconds, IfFailSingular ifFail, IfSuccessNonOccurance ifSuccess)</td>
+            <td>void</td>
+            <td>Starts a synchronous watch for a single log message.  If the message does occur, the ifFail delegate is called and if it does not occur, the ifSuccess message is called</td>
+    </table>
+    <h2 id="samplesAndUsage">Samples and Usage</h2>
+    <p>This code sample shows a simple use case for creating multiple watches and having EazyE2E monitor the standard and error output logs for the messages.
+    </p>
+    <pre>
+            <span class="comment">//Simple method to launch Windows' built in calculator application</span>
+            <span class="reserved">const string</span> calculatorPath = <span class="string">C:\\Windows\\System32\\calc.exe"</span>;
+    
+            <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that .Dispose() is called</span>
+            <span class="reserved">using</span> (<span class="class-name">EzProcess</span> process = <span class="reserved">new</span> <span class="class-name">EzProcess</span>(calculatorPath, <span class="string">"Calculator"</span>))
+            {
+                process.StartProcess();
+    
+                <span class="comment">//Get the root element of the application</span>
+                <span class="class-name">EzRoot</span> root = <span class="reserved">new</span> <span class="class-name">EzRoot</span>(process);
+
+                <span class="comment">//Create a new instance of EzLogMonitor</span>
+                <span class="class-name">EzLogMonitor</span> logMonitor = <span class="reserved">new</span> <span class="class-name">EzLogMonitor</span>(process);
+                
+                <span class="comment">//Create a list of messages to profile for</span>
+                <span class="class-name">List</span>&lt;<span class="reserved">string</span>&gt; watches = <span class="reserved">new</span> <span class="class-name">List</span>&lt;<span class="reserved">string</span>&gt;
+                {
+                    <span class="string">"Test message 1"</span>,
+                    <span class="string">"Test message 2"</span>
+                };
+
+                <span class="comment">//Start watching log output for Calculator for the watches item that was created above</span>
+                logMonitor.SyncWatchForOccurance(watches, 60, (messages, time) =>
+                {
+                    <span class="comment">//First parameter -> list of all watches passed in initially</span>
+                    <span class="comment">//Second parameter -> total profile time</span>
+
+                    <span class="comment">//code that is run if none of the messages occur</span>
+                    <span class="reserved">string</span> allMessages = messages.Aggregate((a, b) => a + <span class="string">", "</span> + b);
+                    <span class="class-name">Console</span>.WriteLine(<span class="string">$"Could not find any messages within watches: '</span>{allMessages}<span class="string">' "</span> + 
+                        <span class="string">"after </span>{time}<span class="string"> seconds of profiling"</span>);
+                }, 
+                (type, text, message, time) =>
+                {
+                    <span class="comment">//First parameter -> type of output; whether it was standard or error output</span>
+                    <span class="comment">//Second parameter -> text the text within the list of watches passed in that was responsible for the match</span>
+                    <span class="comment">//Third parameter -> the full log message that the text was contained within</span>
+                    <span class="comment">//Fourth parameter -> the amount of time into profiling that match occurred</span>
+
+                    <span class="comment">//code that is run if one of the messages does occur</span>
+                    <span class="class-name">Console</span>.WriteLine(<span class="string">$"Text '</span>{text}<span class="string">' occurred at </span>{time} <span class="string">seconds into profiling.  "</span> + 
+                        <span class="string">"Full message: </span>{message}<span class="string">.  OutputType: </span>{type}<span class="string">"</span>);
+                });      
+            }</pre>
+</div>

@@ -1,0 +1,223 @@
+<link rel="stylesheet" href="./main.css"/>
+<ul class="left-nav">
+    <li><a href="./EzElement.html">EzElement</a></li>
+    <li><a href="./EzGrid.html">EzGrid</a></li>
+    <li><a href="./EzGridItem.html">EzGridItem</a></li>
+    <li><a href="./EzList.html">EzList</a></li>
+    <li><a href="./EzListItem.html">EzListItem</a></li>
+    <li><a href="./EzRootElement.html">EzRootElement</a></li>
+    <li><a href="./EzText.html">EzText</a></li>
+    <li><a href="./EzKeyboardFunctions.html">EzKeyboardFunctions</a></li>
+    <li><a href="./EzMouseFunctions.html">EzMouseFunctions</a></li>
+    <li><a href="./EzLogMonitor.html">EzLogMonitor</a></li>
+    <li><a href="./EzLongSearch.html">EzLongSearch</a></li>
+    <li><a href="./EzPerformanceMonitor.html">EzPerformanceMonitor</a></li>
+    <li><a href="./EzProcess.html">EzProcess</a></li>
+</ul>
+
+<div class="main-documentation">
+    <h1>EzElement</h1>
+    <h5>EzElement provides the base class for all elements within an application.  EzGrid, EzGridItem, EzList, and EzListItem all inheret from EzElement.  When querying for 
+        an element, an EzElement is what is returned.  That instance can then be used to create a more specific type of element of desired.  This class is very key to using
+        EazyE2E so be sure to check out the <a href="#samplesAndUsage">Samples and Usage</a> section at the bottom as well as the <a href="./documentationHome.html">tutorial</a></h5>
+    <div class="tool-tip">
+        <h5 class="tool-tip">&#128161;  Note</h5>
+        <p class="tool-tip-body">EzElement is the base class for all other elements in EazyE2E.  It can be instantiated by itself or used to create a more specific element type.  
+        </p>
+    </div>
+    <h2>Syntax</h2>
+    <pre>
+        <span class="reserved">public class</span> EzElement</pre>
+    <h2>Constructors</h2>
+    <table style="width: 100%">
+        <tr>
+            <th>Name</th>
+            <th>Input</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>EzElement(EzElement element)</td>
+            <td>EzElement</td>
+            <td>Creates a new instance of EzElement based on an existing EzElement.  Can be used for finding a child/descendant of a previously obtained element
+        </tr>
+        <tr>
+            <td>EzElement(EzRoot root)</td>
+            <td>EzRoot</td>
+            <td>Creates a new instance of EzElement based on an existing EzRoot.  Generally used for finding the first element after getting the root element
+        </tr>
+        <tr>
+            <td>EzElement(AutomationElement element)</td>
+            <td><a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.automationelement(v=vs.110).aspx" target="_blank">AutomationElement</a></td>
+            <td>Creates a new instance of EzElement based on an existing <a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.automationelement(v=vs.110).aspx" target="_blank">AutomationElement</a>.  Creates 
+                an instance of EzElement based on a Windows AutomationElement object</td>
+        </tr>        
+    </table>
+    <h2>Properties</h2>
+    <table style="width: 100%">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        <tr>
+            <td>Parent</td>
+            <td>EzElement</td>
+            <td>Houses the parent element for the current element if the parent exists</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>string</td>
+            <td>Gets the Name property of the EzElement.  Usually used for verifying output in the UI or querying for elements</td>
+        </tr>
+        <tr>
+            <td>AutomationId</td>
+            <td>string</td>
+            <td>Gets the AutomationId property of the EzElement.  Usually used for querying for elements.  Generally, this is the preferable property to use when searching the UI for elements</td>
+        </tr>
+        <tr>
+            <td>ClassName</td>
+            <td>string</td>
+            <td>Gets the ClassName property of the EzElement.  Usually used for determining what the element is used for from a user interaction perspective
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td><a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.controltype(v=vs.110).aspx" target="_blank">ControlType</a></td>
+            <td>Gets the <a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.controltype(v=vs.110).aspx" target="_blank">ControlType</a> of the EzElement.  Usually used for determining what underlying control patterns exist for the element</td>
+        </tr>
+        <tr>
+            <td>BackingAutomationElement</td>
+            <td><a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.automationelement(v=vs.110).aspx" target="_blank">AutomationElement</a></td>
+            <td>Gets the backing <a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.automationelement(v=vs.110).aspx" target="_blank">AutomationElement</a> 
+                for the EzElement.  Even if an AutomationElement was not used to construct this instance of EzElement, it will still have a BackingAutomationElement</td>
+        </tr>
+    </table>
+    <h2>Methods</h2>
+    <table style="width: 100%;">
+        <tr>
+            <th>Name</th>
+            <th>Return Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Click()</td>
+            <td>void</td>
+            <td>Invokes the delegate method the current element has (if any) when clicked.  Note that this does not perform a physical click of the element, but instead simulates one
+        </tr>
+        <tr>
+            <td>BringIntoFocus()</td>
+            <td>void</td>
+            <td>Brings the current element into focus.  It will also focus all other elements that are ancestors of the element.  For example, if the application under test is all 
+                one large window, the entire window will be brought into focus if this method is called on any of its descendants</td>
+        </tr>
+        <tr>
+            <td>FindChildByName(string name, bool searchRaw = false)</td>
+            <td>EzElement</td>
+            <td>Queries all children of the current element and returns the first one whose Name property matches the name parameter passed in.  If the searchRaw flag is set to true, 
+                the framework will check all elements that are children of the current elements instead of just the Control elements</td>
+        </tr>
+        <tr>
+            <td>FindDescendantByName(string name)</td>
+            <td>EzElement</td>
+            <td>Queries all descendants of the current element and returns the first one whose Name property matches the parameter passed in.  Note that if configuration property AllowSearchingForDescendants 
+                is set to false, calling this method will throw an exception</td>
+        </tr>
+        <tr>
+            <td>FindChildByAutomationId(string name, bool searchRaw = false)</td>
+            <td>EzElement</td>
+            <td>Queries all children of the current element and returns the first one whose AutomationId property matches the parameter passed in.  If the searchRaw flag is set to true, 
+                    the framework will check all elements that are children of the current elements instead of just the Control elements</td>
+        </tr>
+        <tr>
+            <td>FindDescendantByAutomationId(string name)</td>
+            <td>EzElement</td>
+            <td>Queries all descendants of the current element and returns the first one whose AutomationId property matches the parameter passed in.  Note that if configuration property AllowSearchingForDescendants 
+                    is set to false, calling this method will throw an exception</td>
+        </tr>
+        <tr>
+            <td>FindChildByClass(string name, bool searchRaw = false)</td>
+            <td>EzElement</td>
+            <td>Queries all children of the current element and returns the first one whose Class property matches the parameter passed in.  If the searchRaw flag is set to true, 
+                    the framework will check all elements that are children of the current elements instead of just the Control elements</td>
+        </tr>
+        <tr>
+            <td>FindChildByMultipleCriteria(params SearchTypeProperty[] properties)</td>
+            <td>EzElement</td>
+            <td>Queries all the children of the current element and returns the first one whose properties match each criterion passed in</td>
+        </tr>
+        <tr>
+            <td>FindDescendantByMultipleCriteria(params SearchTypeProperty[] properties)</td>
+            <td>EzElement</td>
+            <td>Queries all the descendants of the current element and returns the first one whose properties match each criterion passed in.  Note that if configuration property AllowSearchingForDescendants 
+                is set to false, calling this method will throw an exception</td>
+        </tr>
+        <tr>
+            <td>FindChildrenByName(string name, bool searchRaw = false)</td>
+            <td>IEnumerable&lt;EzElement&gt;</td>
+            <td>Queries all children of the currenent element and returns all children whose Name properties match the parameter passed in</td>
+        </tr>
+        <tr>
+            <td>FindDescendantsByName(string name)</td>
+            <td>IEnumerable&lt;EzElement&gt;</td>
+            <td>Queries all descendants of the current element and returns all descendants whose Name properties match the parameter passed in.  Note that if configuration property AllowSearchingForDescendants 
+                    is set to false, calling this method will throw an exception</td>
+        </tr>
+        <tr>
+            <td>FindChildrenByAutomationId(string name)</td>
+            <td>IEnumerable&lt;EzElement&gt;</td>
+            <td>Queries all children of the current element and returns all children whose AutomationId properties match the parameter passed in</td>
+        </tr>
+        <tr>
+            <td>FindDescendantsByAutomationId(string name)</td>
+            <td>IEnumerable&lt;EzElement&gt;</td>
+            <td>Queries all descendants of the current element and returns all descendants whose AutomationId properties match the parameter passed in</td>
+        </tr>
+        <tr>
+            <td>FindChildrenByMultipleCriteria(params SearchTypeProperty[] properties)</td>
+            <td>IEnumerable&lt;EzElement&gt;</td>
+            <td>Queries all children of the current element and returns all children whose properties match each criterion passed in</td>
+        </tr>
+        <tr>
+            <td>FindDescendantsByMultipleCriteria(params SearchTypeProperty[] properties)</td>
+            <td>IEnumerable&lt;EzElement&gt;</td>
+            <td>Queries all descendants of the current element and returns all descendants whose properties match each criterion passed in</td>
+        </tr>
+        <tr>
+            <td>GetAllChildren()</td>
+            <td>IEnumerable&lt;EzElement&gt;</td>
+            <td>Gets all children of the current element</td>
+        </tr>
+        <tr>
+            <td>GetAllDescendants()</td>
+            <td>IEnumerable&lt;EzElement&gt;</td>
+            <td>Gets all descendants of the current element.  It should be noted that this element can potentially very inefficient if the element you are calling this method on has many descendants.  Use with caution.  Note that if configuration property AllowSearchingForDescendants 
+                    is set to false, calling this method will throw an exception</td>
+        </tr>
+    </table>
+    <h2 id="samplesAndUsage">Samples and Usage</h2>
+    <p>The EzElement class sits underneath basically all functionality involved in querying for elements and following the hierarchy of the application to find elements that you want.  
+        EzElement also provides the basic building block to make a more specialized class (like EzGrid or EzList for example).  See the <a href="./documentationHome.html">tutorial</a> for 
+        a fuller explanation of what the EzElement class can do.
+    </p>
+    <p>Sample:</p>
+    <pre>
+        <span class="comment">//Simple method to launch Windows' built in calculator application and click the 7 button</span>
+        <span class="reserved">const string</span> calculatorPath = <span class="string">C:\\Windows\\System32\\calc.exe"</span>;
+
+        <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that .Dispose() is called</span>
+        <span class="reserved">using</span> (<span class="class-name">EzProcess</span> process = <span class="reserved">new</span> <span class="class-name">EzProcess</span>(calculatorPath, <span class="string">"Calculator"</span>))
+        {
+            process.StartProcess();
+
+            <span class="comment">//Get the root element of the application</span>
+            <span class="class-name">EzRoot</span> root = <span class="reserved">new</span> <span class="class-name">EzRoot</span>(process);
+
+            <span class="comment">//Use the .FindChildByAutomationId to query all children of the root for the first element whose AutomationId property is</span>
+            <span class="comment">//equal to "NumberPad"</span>
+            <span class="class-name">EzElement</span> numPad = root.RootElement.FindChildByAutomationId(<span class="string">"NumberPad"</span>);
+
+            <span class="comment">//Find the first child of the NumberPad element whose AutomationId property is equal to "num7Button"</span>
+            <span class="class-name">EzElement</span> sevenButton = numPad.FindChildByAutomationId(<span class="string">"num7Button"</span>);
+
+            <span class="comment">//Click the 7 button.  This will perform a click operation and the calculator's display should now say "7"</span>
+            sevenButton.Click();
+        }</pre>    
+</div>

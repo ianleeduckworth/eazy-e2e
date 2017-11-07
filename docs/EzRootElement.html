@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="./main.css"/>
+<ul class="left-nav">
+    <li><a href="./EzElement.html">EzElement</a></li>
+    <li><a href="./EzGrid.html">EzGrid</a></li>
+    <li><a href="./EzGridItem.html">EzGridItem</a></li>
+    <li><a href="./EzList.html">EzList</a></li>
+    <li><a href="./EzListItem.html">EzListItem</a></li>
+    <li><a href="./EzRootElement.html">EzRootElement</a></li>
+    <li><a href="./EzText.html">EzText</a></li>
+    <li><a href="./EzKeyboardFunctions.html">EzKeyboardFunctions</a></li>
+    <li><a href="./EzMouseFunctions.html">EzMouseFunctions</a></li>
+    <li><a href="./EzLogMonitor.html">EzLogMonitor</a></li>
+    <li><a href="./EzLongSearch.html">EzLongSearch</a></li>
+    <li><a href="./EzPerformanceMonitor.html">EzPerformanceMonitor</a></li>
+    <li><a href="./EzProcess.html">EzProcess</a></li>
+</ul>
+
+<div class="main-documentation">
+    <h2>EzRootElement</h2>
+    <h5>EzRootElement provides the entry point for element querying.  It is created with an instance of EzProcess</h5>
+    <h2>Syntax</h2>
+    <pre>
+        <span class="reserved">public class</span> EzRootElement : EzElement</pre>
+    <h2>Constructors</h2>
+    <table style="width: 100%">
+        <tr>
+            <th>Name</th>
+            <th>Input</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>EzRoot(EzProcess process)</td>
+            <td>EzProcess</td>
+            <td>This is the only constructor for EzRootelement.  Must have a resolved instance of EzProcess to pass into the constructor</td>
+        </tr>
+    </table>
+    <h2>Properties</h2>
+    <table style="width: 100%">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>RootElement</td>
+            <td>EzElement</td>
+            <td>The root element of the application.  All querying for elements must start at this point</td>
+        </tr>
+        <tr>
+            <td>Process</td>
+            <td>EzProcess</td>
+            <td>The backing EzProcess instance for the application under test</td>
+        </tr>
+    </table>
+    <h2>Methods</h2>
+    <table style="width: 100%">        
+        <tr>
+            <th>Name</th>
+            <th>Return Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>ResizeWindow(int x, int y, int width, int height)</td>
+            <td>void</td>
+            <td>Resizes the window housing the application to the values passed in.  X and Y are the starting coordinates of the window and width and height control the size</td>
+        </tr>
+    </table>
+    <h2 id="samplesAndUsage">Samples and Usage</h2>
+    <p>The EzRoot element finds the entry point for finding automation elements within an application
+    </p>
+    <p>Sample:</p>
+    <pre>
+        <span class="comment">//Simple method to launch Windows' built in calculator application</span>
+        <span class="reserved">const string</span> calculatorPath = <span class="string">C:\\Windows\\System32\\calc.exe"</span>;
+
+        <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that .Dispose() is called</span>
+        <span class="reserved">using</span> (<span class="class-name">EzProcess</span> process = <span class="reserved">new</span> <span class="class-name">EzProcess</span>(calculatorPath, <span class="string">"Calculator"</span>))
+        {
+            process.StartProcess();
+
+            <span class="comment">//Get the root element of the application</span>
+            <span class="class-name">EzRoot</span> root = <span class="reserved">new</span> <span class="class-name">EzRoot</span>(process);
+        }</pre>
+</div>

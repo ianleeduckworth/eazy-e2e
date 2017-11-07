@@ -1,0 +1,138 @@
+<link rel="stylesheet" href="./main.css"/>
+<ul class="left-nav">
+    <li><a href="./EzElement.html">EzElement</a></li>
+    <li><a href="./EzGrid.html">EzGrid</a></li>
+    <li><a href="./EzGridItem.html">EzGridItem</a></li>
+    <li><a href="./EzList.html">EzList</a></li>
+    <li><a href="./EzListItem.html">EzListItem</a></li>
+    <li><a href="./EzRootElement.html">EzRootElement</a></li>
+    <li><a href="./EzText.html">EzText</a></li>
+    <li><a href="./EzKeyboardFunctions.html">EzKeyboardFunctions</a></li>
+    <li><a href="./EzMouseFunctions.html">EzMouseFunctions</a></li>
+    <li><a href="./EzLogMonitor.html">EzLogMonitor</a></li>
+    <li><a href="./EzLongSearch.html">EzLongSearch</a></li>
+    <li><a href="./EzPerformanceMonitor.html">EzPerformanceMonitor</a></li>
+    <li><a href="./EzProcess.html">EzProcess</a></li>
+</ul>
+
+<div class="main-documentation">
+    <h1>EzListItem</h1>
+    <h5>EzListItem is created using an existing element who has a ControlType of ListItem.  This class opens up list item specific functionality; this element type will always have a parent list</h5>
+    <div class="tool-tip">
+        <h5 class="tool-tip">&#128161;  Note</h5>
+        <p class="tool-tip-body">If the underlying element being used to construct EzListItem does not have a <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ee671635(v=vs.85).aspx" target="_blank">ControlType</a> of ListItem, an exception will be thrown on construction</p>
+    </div>
+    <h2>Syntax</h2>
+    <pre>
+        <span class="reserved">public class</span> EzListItem : EzElement</pre>
+    <h2>Constructors</h2>
+    <table style="width: 100%">
+        <tr>
+            <th>Name</th>
+            <th>Input</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>EzListItem(EzElement element)</td>
+            <td>EzElement</td>
+            <td>Creates a new instance of EzListItem based on an existing EzElement</td>
+        </tr>
+        <tr>
+            <td>EzListItem(EzRoot root)</td>
+            <td>EzRoot</td>
+            <td>Creates a new instance of EzListItem based on an existing EzRoot</td>
+        </tr>
+        <tr>
+            <td>EzListItem(AutomationElement element)</td>
+            <td><a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.automationelement(v=vs.110).aspx" target="_blank">AutomationElement</a></td>
+            <td>Creates a new instance of EzListItem based on an existing <a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.automationelement(v=vs.110).aspx" target="_blank">AutomationElement</a></td>
+    </table>
+    <h2>Properties</h2>
+    <table style="width: 100%">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>SelectionItemPattern</td>
+            <td><a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.selectionitempattern(v=vs.110).aspx" target="_blank">SelectionItemPattern</a></td>
+            <td>Houses the underlying windows <a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.selectionitempattern(v=vs.110).aspx" target="_blank">SelectionItemPattern</a>.  Will return null if ExposeBackingWindowsPatterns is not set to true</td>
+        </tr>
+        <tr>
+            <td>ScrollItemPattern</td>
+            <td><a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.scrollitempattern(v=vs.110).aspx" target="_blank">ScrollItemPattern</a></td>
+            <td>Houses the underlying windows <a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.scrollitempattern(v=vs.110).aspx" target="_blank">ScrollItemPattern</a>.  Will return null if ExposeBackingWindowsPatterns is not set to true</td>
+        </tr>
+        <tr>
+            <td>VirtualizedItemPattern</td>
+            <td><a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.virtualizeditempattern(v=vs.110).aspx" target="_blank">VirtualizedItemPattern</a></td>
+            <td>Houses the underlying windows <a href="https://msdn.microsoft.com/en-us/library/system.windows.automation.virtualizeditempattern(v=vs.110).aspx" target="_blank">VirtualizedItemPattern</a>.  Will return null if ExposeBackingWindowsPatterns is not set to true</td>
+        </tr>
+        <tr>
+            <td>Container</td>
+            <td>EzList</td>
+            <td>Houses the EzList that contains the current EzListItem</td>
+        </tr>
+    </table>
+    <h2>Methods</h2>
+    <table style="width: 100%">        
+        <tr>
+            <th>Name</th>
+            <th>Return Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>ScrollItemIntoView()</td>
+            <td>void</td>
+            <td>Scrolls the current EzListItem into view</td>
+        </tr>
+        <tr>
+            <td>SelectItem()</td>
+            <td>void</td>
+            <td>Selects the curent EzListItem</td>
+        </tr>
+        <tr>
+            <td>AddItemToSelection()</td>
+            <td>void</td>
+            <td>Adds the current EzListItem to the items that are selected.  Note that if the parent EzList does not allow selecting multiple items, this method will do nothing</td>
+        </tr>
+        <tr>
+            <td>RemoveItemFromSelection()</td>
+            <td>void</td>
+            <td>Removes the current EzListItem to the items that are selected.  Note that if the parent EzList does not allow selecting multiple items, this method will do nothing</td>
+        </tr>
+    </table>
+    <h2 id="samplesAndUsage">Samples and Usage</h2>
+    <p>The EzListItem element is usually constructed with an instance of EzElement (or more practically, EzList).  It provides functionality specific to an item within a list.
+    </p>
+    <p>Sample:</p>
+    <pre>
+        <span class="comment">//Simple method to launch Windows' built in calculator application</span>
+        <span class="reserved">const string</span> calculatorPath = <span class="string">C:\\Windows\\System32\\calc.exe"</span>;
+
+        <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that .Dispose() is called</span>
+        <span class="reserved">using</span> (<span class="class-name">EzProcess</span> process = <span class="reserved">new</span> <span class="class-name">EzProcess</span>(calculatorPath, <span class="string">"Calculator"</span>))
+        {
+            process.StartProcess();
+
+            <span class="comment">//Get the root element of the application</span>
+            <span class="class-name">EzRoot</span> root = <span class="reserved">new</span> <span class="class-name">EzRoot</span>(process);
+
+            <span class="comment">//Use the .FindChildByAutomationId to query all children of the root for the first element whose AutomationId property is</span>
+            <span class="comment">//equal to "TestListName"</span>
+            <span class="class-name">EzElement</span> element = root.RootElement.FindChildByAutomationId(<span class="string">"TestListName"</span>);
+
+            <span class="comment">//Create a new list element</span>
+            <span class="class-name">EzList</span> list = <span class="reserved">new</span> <span class="class-name">EzList</span>(element);
+
+            <span class="comment">//Find a list element whose name is "TestListItem"</span>
+            <span class="class-name">EzElement</span> listItemElement = list.FindChildByAutomationId(<span class="string">"TestListItem"</span>);
+
+            <span class="comment">//Create an EzListItem element based on the listItemElement that we found</span>
+            <span class="class-name">EzListItem</span> listItem = <span class="reserved">new</span> <span class="class-name">EzListItem</span>(listItemElement);
+
+            <span class="comment">//Scroll the list item into view</span>
+            listItem.ScrollItemIntoView();
+        }</pre>     
+</div>

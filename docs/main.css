@@ -1,0 +1,108 @@
+ul.left-nav {
+  list-style-type: disc;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #f1f1f1;
+  position: fixed;
+  overflow: auto;
+  height: 100%;
+}
+
+li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+li a:hover {
+  background-color: #555;
+  color: white;
+}
+
+pre {
+  background-color: #f7f7f7;
+  border: 1px solid #999;
+  display: block;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 5px;
+}
+
+div.main-documentation {
+  margin-left: 220px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+span.reserved {
+  color: blue;
+}
+
+span.class-name {
+  color: #3ec1bf;
+}
+
+span.string {
+  color: #af2a2a;
+}
+
+span.comment {
+  color: #2a8e26;
+}
+
+h5.tool-tip {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+p.tool-tip-body {
+  margin-left: 10px;
+  margin-top: 8px;
+  margin-bottom: 5px;
+}
+
+div.tool-tip {
+  background-color: #e8f0ff;
+  border-radius: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  vertical-align: middle;
+}
+
+img.large {
+  display: block;
+  max-width:1000px;
+  max-height:1000px;
+  width: auto;
+  height: auto;
+}
+
+img.medium {
+  display: block;
+  max-width:750px;
+  max-height:750px;
+  width: auto;
+  height: auto;
+}
+
+img.small {
+  display: block;
+  max-width:400px;
+  max-height:400px;
+  width: auto;
+  height: auto;
+}
+
+div.caption {
+  padding-top: 10px;
+  font-style: italic;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
