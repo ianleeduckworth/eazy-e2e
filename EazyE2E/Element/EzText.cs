@@ -78,7 +78,7 @@ namespace EazyE2E.Element
         public TextPattern TextPattern => Config.ExposeBackingWindowsPatterns ? _textPattern : null;
 
         /// <summary>
-        /// Setting this property to true means that calls to any EzText property on this class will always go and re-check the app instead of loading cached data.  False means that results will be cached until Reset() is called
+        /// Houses the underlying Config value AlwaysResetEzText.  Cannot be set, only read.
         /// </summary>
         public bool AlwaysReset => Config.AlwaysResetEzText;
 

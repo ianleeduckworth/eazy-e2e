@@ -16,6 +16,11 @@ namespace EazyE2E.Element
         public EzElement RootElement => _rootElement ?? (_rootElement = GetRootElement());
 
         /// <summary>
+        /// Backing EzProcess that EzRootElement is representing
+        /// </summary>
+        public EzProcess Process => _process;
+
+        /// <summary>
         /// Creates an instance of EzRoot based on an EzProcess
         /// </summary>
         /// <param name="process"></param>
@@ -28,7 +33,7 @@ namespace EazyE2E.Element
         /// Gets the root element of the process passed in during instantiation
         /// </summary>
         /// <returns></returns>
-        public EzElement GetRootElement()
+        private EzElement GetRootElement()
         {
             var propertyCondition = new PropertyCondition(AutomationElement.ProcessIdProperty, _process.ProcessId);
             var element = AutomationElement.RootElement.FindFirst(TreeScope.Subtree, propertyCondition); //todo use TreeScope.Children instead of TreeScope.Subtree

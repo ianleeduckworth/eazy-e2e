@@ -18,6 +18,7 @@ namespace EazyE2E.Configuration
         private static ProcessWindowStyle? _defaultWindowStyle;
         private static int? _maximumMemoryProfileTime;
         private static int? _timeBetweenMouseEvents;
+        private static int? _timeBetweenKeyboardEvents;
         private static bool? _allowSearchingForDescendants;
         private static bool? _exposeBackingWindowsPatterns;
         private static bool? _alwaysResetEzText;
@@ -136,6 +137,25 @@ namespace EazyE2E.Configuration
                 }
 
                 return _timeBetweenMouseEvents.Value;
+            }
+        }
+
+        /// <summary>
+        /// The time in milliseconds between keyboard events.
+        /// Default is 100
+        /// </summary>
+        public static int TimeBetweenKeyboardEvents
+        {
+            get
+            {
+                if (_timeBetweenKeyboardEvents == null)
+                {
+                    var val = GetConfigFileValue("TimeBetweenKeyboardEvents");
+                    int returnVal;
+                    _timeBetweenKeyboardEvents = int.TryParse(val, out returnVal) ? returnVal : 100;
+                }
+
+                return _timeBetweenKeyboardEvents.Value;
             }
         }
 

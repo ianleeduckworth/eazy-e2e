@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
@@ -34,7 +35,16 @@ namespace EazyE2E.Element
         /// ClassName of the current EzElement
         /// </summary>
         public string ClassName => _backingAutomationElement.Current.ClassName;
+
+        /// <summary>
+        /// ControlType of the current EzElement
+        /// </summary>
         public ControlType Type => _backingAutomationElement.Current.ControlType;
+
+        /// <summary>
+        /// Backing instance of System.Windows.Automation.AutomationElement.  Can be used for more advanced testing not provided by EzE2E Framework
+        /// </summary>
+        public AutomationElement BackingAutomationElement => _backingAutomationElement;
 
         /// <summary>
         /// Creates an Ezelement based on an instance of an existing EzElement
@@ -73,11 +83,6 @@ namespace EazyE2E.Element
         }
 
         /// <summary>
-        /// Backing instance of System.Windows.Automation.AutomationElement.  Can be used for more advanced testing not provided by EzE2E Framework
-        /// </summary>
-        public AutomationElement BackingAutomationElement => _backingAutomationElement;
-
-        /// <summary>
         /// Uses InvokePattern.Invoke to call the underlying method on a button
         /// </summary>
         public void Click()
@@ -90,7 +95,15 @@ namespace EazyE2E.Element
         /// </summary>
         public void BringIntoFocus()
         {
-            this.BackingAutomationElement.SetFocus();
+            try
+            {
+                this.BackingAutomationElement.SetFocus();
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine(ex);
+            }
+            
         }
 
         /// <summary>
@@ -243,7 +256,7 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public IEnumerable<EzElement> GetAllChildren()
         {
-            //this is super dumb.  Figure out a better way to do this.
+            //todo this is super dumb.  Figure out a better way to do this.
             return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Children, new NotCondition(new PropertyCondition(AutomationElement.ClassNameProperty, "dfsjkdsfjkdfskjfsdjkdsfjkfsdjkdsfsdfjkdfskjdsfjkdsfjkdsfjkdsfjkdfskjsdfkjsdfjksdfkjfdkdsf"))));
         }
 
@@ -254,7 +267,7 @@ namespace EazyE2E.Element
         public IEnumerable<EzElement> GetAllDescendants()
         {
             CheckSearchPermissions();
-            //this is super dumb.  Figure out a better way to do this.
+            //todo this is super dumb.  Figure out a better way to do this.
             return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new NotCondition(new PropertyCondition(AutomationElement.ClassNameProperty, "dfsjkdsfjkdfskjfsdjkdsfjkfsdjkdsfsdfjkdfskjdsfjkdsfjkdsfjkdsfjkdfskjsdfkjsdfjksdfkjfdkdsf"))));
         }
 

@@ -19,12 +19,6 @@ namespace EazyE2E.HardwareManipulation
         private const int MOUSEEVENTF_RIGHTUP = 0x10;
         private const int MOUSEEVENTF_WHEEL = 0x0800;
 
-        /// <summary>
-        /// Allows the user to set the amount of time inbetween mouse events.
-        /// <para>NOTE THAT A VALUE OF LESS THAN 100 IS NOT RECOMMENDED BECAUSE APPLICATIONS GENERALLY CANNOT REACT QUICKLY ENOUGH AND YOU MAY GET INCORRECT CLICKS</para>
-        /// </summary>
-        public static int TimeInbetweenMouseEvents => Config.TimeBetweenMouseEvents;
-
         private static void DoMouseClick()
         {
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
@@ -59,8 +53,7 @@ namespace EazyE2E.HardwareManipulation
 
         private static void TearDown()
         {
-            var sleep = TimeInbetweenMouseEvents == 0 ? 100 : TimeInbetweenMouseEvents;
-            Thread.Sleep(sleep);
+            Thread.Sleep(Config.TimeBetweenMouseEvents);
         }
 
         /// <summary>

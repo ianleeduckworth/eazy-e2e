@@ -73,8 +73,8 @@
     <Compile Include="HardwareManipulation\EzKeyboardFunctions.cs" />
     <Compile Include="Logwatch\EzLogMonitor.cs" />
     <Compile Include="Logwatch\OutputType.cs" />
-    <Compile Include="LongSearch\LongSearch.cs" />
-    <Compile Include="LongSearch\LongSearchItem.cs" />
+    <Compile Include="LongSearch\EzLongSearch.cs" />
+    <Compile Include="LongSearch\EzLongSearchItem.cs" />
     <Compile Include="Performance\EzPerformanceMonitor.cs" />
     <Compile Include="Performance\MemoryWatch.cs" />
     <Compile Include="Process\EzProcess.cs" />
