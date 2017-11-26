@@ -106,3 +106,21 @@ div.caption {
 table, th, td {
   border: 1px solid black;
 }
+
+th, td {
+  padding: 7px;
+}
+
+th {
+  background-color: #CCCCCC;
+  color: #212121;
+  font-weight: bold;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+h1, h2, h3, h4, h5, p, div, table, th, td, table {
+  font-family: Verana, sans-serif
+}
