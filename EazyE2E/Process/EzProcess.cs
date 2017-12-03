@@ -92,6 +92,7 @@ namespace EazyE2E.Process
         /// </summary>
         public void Dispose()
         {
+            if (_process == null) return;
             _process.Kill();
             _process.Dispose();
         }

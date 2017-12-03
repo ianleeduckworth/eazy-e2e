@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -64,6 +65,8 @@
     <Compile Include="Element\EzText.cs" />
     <Compile Include="Enums\SearchType.cs" />
     <Compile Include="Enums\PropertyType.cs" />
+    <Compile Include="Equality\ControlTypeEqualityCompare.cs" />
+    <Compile Include="Exceptions\TypeMismatchException.cs" />
     <Compile Include="Exceptions\UnauthorizedSearchException.cs" />
     <Compile Include="HardwareManipulation\EzMouseFunctions.cs" />
     <Compile Include="Helper\RawViewWalker.cs" />
@@ -72,6 +75,7 @@
     <Compile Include="Helper\SearchTypeProperty.cs" />
     <Compile Include="HardwareManipulation\EzKeyboardFunctions.cs" />
     <Compile Include="Logwatch\EzLogMonitor.cs" />
+    <Compile Include="Logwatch\ILogMessageComparer.cs" />
     <Compile Include="Logwatch\OutputType.cs" />
     <Compile Include="LongSearch\LongSearch.cs" />
     <Compile Include="LongSearch\LongSearchItem.cs" />

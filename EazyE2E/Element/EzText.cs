@@ -48,7 +48,7 @@ namespace EazyE2E.Element
         /// <param name="element"></param>
         public EzText(EzElement element) : base(element)
         {
-            TypeChecker.CheckElementType(element.BackingAutomationElement, ControlType.Text);
+            TypeChecker.CheckElementType(element.BackingAutomationElement, ControlType.Text, ControlType.Document);
             _textPattern = element.BackingAutomationElement.GetCurrentPattern(TextPattern.Pattern) as TextPattern;
         }
 
@@ -58,7 +58,7 @@ namespace EazyE2E.Element
         /// <param name="root"></param>
         public EzText(EzRoot root) : base(root)
         {
-            TypeChecker.CheckElementType(root.RootElement.BackingAutomationElement, ControlType.Text);
+            TypeChecker.CheckElementType(root.RootElement.BackingAutomationElement, ControlType.Text, ControlType.Document);
             _textPattern = root.RootElement.BackingAutomationElement.GetCurrentPattern(TextPattern.Pattern) as TextPattern;
         }
 
@@ -68,7 +68,7 @@ namespace EazyE2E.Element
         /// <param name="element"></param>
         public EzText(AutomationElement element) : base(element)
         {
-            TypeChecker.CheckElementType(element, ControlType.Text);
+            TypeChecker.CheckElementType(element, ControlType.Text, ControlType.Document);
             _textPattern = element.GetCurrentPattern(TextPattern.Pattern) as TextPattern;
         }
 
@@ -207,6 +207,11 @@ namespace EazyE2E.Element
         /// </summary>
         public EzTextResult<FlowDirections> TextFlowDirection => GetEzTextProp(_textFlowDirection, TextPattern.TextFlowDirectionsAttribute);
 
+        public void SelectAllText()
+        {
+            _textPattern.DocumentRange.Select();
+        }
+
         /// <summary>
         /// Gets the current value of the text element's text
         /// </summary>
@@ -215,6 +220,11 @@ namespace EazyE2E.Element
         public string GetTextValue(int maxLength = -1)
         {
             return _value ?? (_value = _textPattern.DocumentRange.GetText(maxLength));
+        }
+
+        public int GetTextLength(int maxLength = -1)
+        {
+            return GetTextValue(maxLength).Length;
         }
 
         /// <summary>

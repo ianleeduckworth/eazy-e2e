@@ -3,11 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Automation;
-using EazyE2E.Element;
 using EazyE2E.Process;
 
 namespace EazyE2E.Logwatch
@@ -22,13 +17,17 @@ namespace EazyE2E.Logwatch
         private readonly ConcurrentBag<FoundItem> _foundItems;
 
         private bool _isWatching;
+        private readonly ILogMessageComparer _comparer;
 
         /// <summary>
         /// Creates an instance of EzLogMonitor based on an EzProcess
         /// </summary>
         /// <param name="process"></param>
-        public EzLogMonitor(EzProcess process)
+        /// <param name="comparer"></param>
+        public EzLogMonitor(EzProcess process, ILogMessageComparer comparer = null)
         {
+            _comparer = comparer;
+
             if (_processRegistry == null) _processRegistry = new HashSet<int>();
             if (_processRegistry.Count > 0)
             {
@@ -218,15 +217,24 @@ namespace EazyE2E.Logwatch
         private void ProcessOnOutputDataReceived(object sender, DataReceivedEventArgs dataReceivedEventArgs)
         {
             if (!_isWatching) return;
+            if (string.IsNullOrEmpty(dataReceivedEventArgs.Data)) return;
             DoWork(false, dataReceivedEventArgs);
         }
 
         private void DoWork(bool isError, DataReceivedEventArgs eventArgs)
         {
-            foreach (var watch in _currentWatches.Where(watch => eventArgs.Data.Contains(watch)))
+            foreach (var watch in _currentWatches.Where(watch => Compare(eventArgs.Data, watch)))
             {
                 _foundItems.Add(new FoundItem(isError, eventArgs.Data, watch));
             }
+        }
+
+        private bool Compare(string data, string watch)
+        {
+            if (_comparer == null)
+                return data.Contains(watch);
+
+            return _comparer.Compare(watch, data);
         }
 
         public void Dispose()
