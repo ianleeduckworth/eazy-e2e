@@ -19,7 +19,7 @@ namespace TestApplication
         {
             base.OnStartup(e);
             Thread.Sleep(5000); //sleep for 5 seconds to make sure profiler is ready to go
-            Console.WriteLine(@"Hello World!");
+            Console.WriteLine(@"Goodbye World!");
         }
     }
 }

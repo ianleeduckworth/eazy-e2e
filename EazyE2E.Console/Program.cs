@@ -11,6 +11,7 @@ using EazyE2E.Logwatch;
 using EazyE2E.Performance;
 using EazyE2E.Process;
 using System.Linq;
+using EazyE2E.Enums;
 
 namespace EazyE2E.Console
 {
@@ -19,38 +20,20 @@ namespace EazyE2E.Console
         [STAThread]
         static void Main()
         {
-            const string appPath = "C:\\Code\\EazyE2E\\TestApplication\\bin\\Debug\\TestApplication.exe";
-            using (var process = new EzProcess(appPath, "TestApplication"))
+            const string appPath = "C:\\Windows\\System32\\calc.exe";
+            using (var process = new EzProcess(appPath, "Calculator"))
             {
-                var stopwatch = new Stopwatch();
-                stopwatch.Start();
-
                 process.StartProcess();
 
-                var logMonitor = new EzLogMonitor(process, new MyComparer());
+                var root = new EzRoot(process);
+                var numberPad = root.RootElement.FindChildByAutomationId("NumberPad");
+                var sevenButton = numberPad.FindChildByAutomationId("num7Button");
 
-                logMonitor.SyncWatchForOccurance("hello", 10, (watch, time) =>
-                {
-                    System.Console.WriteLine($"Did not find text {watch}");
-                }, (type, text, message, occurance) =>
-                {
-                    System.Console.WriteLine($"Message occurred!  Watch text: {text}.  Message: {message}.  Time since watch began: {occurance}.  Type: {type}");
-                });
-
-                System.Console.WriteLine("Finished watching.");
+                sevenButton.Click();
 
                 //pause
                 System.Console.ReadLine();
             }
-        }
-    }
-
-    public class MyComparer : ILogMessageComparer
-    {
-        public bool Compare(string watchText, string logMessage)
-        {
-            const StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase;
-            return logMessage.IndexOf(watchText, stringComparison) >= 0;
         }
     }
 }
