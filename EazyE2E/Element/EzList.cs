@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿//Copyright 2018 Ian Duckworth
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
 using EazyE2E.Configuration;

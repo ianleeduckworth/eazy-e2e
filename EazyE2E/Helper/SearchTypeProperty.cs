@@ -1,4 +1,6 @@
-﻿using EazyE2E.Enums;
+﻿//Copyright 2018 Ian Duckworth
+
+using EazyE2E.Enums;
 
 namespace EazyE2E.Helper
 {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Copyright 2018 Ian Duckworth
+
+using System;
 using System.Runtime.InteropServices;
 using System.Windows.Automation;
 using EazyE2E.Process;

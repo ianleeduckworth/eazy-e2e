@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//Copyright 2018 Ian Duckworth
+
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;

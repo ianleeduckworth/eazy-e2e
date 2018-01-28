@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//Copyright 2018 Ian Duckworth
 
 namespace EazyE2E.Logwatch
 {

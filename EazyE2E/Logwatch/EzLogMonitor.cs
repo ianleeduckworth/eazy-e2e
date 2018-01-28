@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Copyright 2018 Ian Duckworth
+
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;

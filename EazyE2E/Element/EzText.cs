@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Copyright 2018 Ian Duckworth
+
+using System;
 using System.Windows.Automation;
 using System.Windows.Automation.Text;
 using EazyE2E.Configuration;

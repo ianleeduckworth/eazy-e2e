@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Copyright 2018 Ian Duckworth
+
+using System;
 using System.Diagnostics;
 using System.Linq;
 using EazyE2E.Configuration;

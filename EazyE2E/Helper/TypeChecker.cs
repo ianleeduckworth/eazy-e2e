@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Copyright 2018 Ian Duckworth
+
+using System;
 using System.Linq;
 using System.Windows.Automation;
 using EazyE2E.Equality;

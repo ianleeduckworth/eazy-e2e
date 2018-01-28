@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿//Copyright 2018 Ian Duckworth
+
+using System;
 using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
-using System.Xml.Linq;
 
 namespace EazyE2E.Configuration
 {

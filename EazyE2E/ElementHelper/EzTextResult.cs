@@ -1,9 +1,6 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//Copyright 2018 Ian Duckworth
+
+using System;
 
 namespace EazyE2E.ElementHelper
 {

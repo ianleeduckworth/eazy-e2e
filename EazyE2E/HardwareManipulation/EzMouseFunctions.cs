@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿//Copyright 2018 Ian Duckworth
+
+using System.Runtime.InteropServices;
 using System.Threading;
 using EazyE2E.Configuration;
 using EazyE2E.Element;

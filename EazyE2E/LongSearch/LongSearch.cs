@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Copyright 2018 Ian Duckworth
+
+using System;
 using EazyE2E.Element;
 using EazyE2E.Enums;
 
