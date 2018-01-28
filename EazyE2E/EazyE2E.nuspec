@@ -9,7 +9,7 @@
         <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
 
         <!-- Optional elements -->
-      <copyright>(c) 2018</copyright>
+      <copyright>Copyright (c) 2018 Ian Duckworth</copyright>
       <tags>WPF Automation UIAutomation</tags>
     </metadata>
     <!-- Optional 'files' node -->
