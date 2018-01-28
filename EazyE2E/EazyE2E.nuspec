@@ -6,6 +6,7 @@
         <version>1.0.0.0</version>
         <description>Easy and powerful WPF application automation</description>
         <authors>Ian Duckworth</authors>
+        <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
 
         <!-- Optional elements -->
       <copyright>(c) 2018</copyright>
