@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-    <metadata>
-        <!-- Required elements-->
-        <id>EazyE2E</id>
-        <version>1.0.0.0</version>
-        <description>Easy and powerful WPF application automation</description>
-        <authors>Ian Duckworth</authors>
-        <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
-
-        <!-- Optional elements -->
-      <copyright>Copyright (c) 2018 Ian Duckworth</copyright>
-      <tags>WPF Automation UIAutomation</tags>
-    </metadata>
-    <!-- Optional 'files' node -->
+  <metadata>
+    <!-- Required elements-->
+    <id>EazyE2E</id>
+    <version>1.0.0.0</version>
+    <description>Easy and powerful WPF application automation</description>
+    <authors>Ian Duckworth</authors>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/ianleeduckworth/eazy-e2e/tree/master/EazyE2E</projectUrl>
+    <owners>Ian Duckworth</owners>
+    <!-- Optional elements -->
+    <copyright>Copyright (c) 2018 Ian Duckworth</copyright>
+    <tags>WPF Automation UIAutomation</tags>
+  </metadata>
+  <!-- Optional 'files' node -->
 </package>
