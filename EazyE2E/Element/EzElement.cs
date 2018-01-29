@@ -103,7 +103,12 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public EzElement FindChildByName(string name, bool searchRaw = false)
         {
-            if (!searchRaw) return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, name)));
+            if (!searchRaw)
+            {
+                var element = _backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, name));
+                if (element == null) return null;
+                return new EzElement(element);
+            }
             return this.FindChildRaw(PropertyType.Name, name);
         }
 
@@ -115,7 +120,9 @@ namespace EazyE2E.Element
         public EzElement FindDescendantByName(string name)
         {
             CheckSearchPermissions();
-            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name)));
+            var element = _backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name));
+            if (element == null) return null;
+            return new EzElement(element);
         }
 
         /// <summary>
@@ -126,7 +133,12 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public EzElement FindChildByAutomationId(string name, bool searchRaw = false)
         {
-            if (!searchRaw)return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
+            if (!searchRaw)
+            {
+                var element = _backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.AutomationIdProperty, name));
+                if (element == null) return null;
+                return new EzElement(element);
+            }
             return this.FindChildRaw(PropertyType.AutomationId, name);
         }
 
@@ -138,7 +150,9 @@ namespace EazyE2E.Element
         public EzElement FindDescendantByAutomationId(string name)
         {
             CheckSearchPermissions();
-            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
+            var element = _backingAutomationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name));
+            if (element == null) return null;
+            return new EzElement(element);
         }
 
         /// <summary>
@@ -149,7 +163,12 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public EzElement FindChildByClass(string name, bool searchRaw = false)
         {
-            if (!searchRaw)return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.ClassNameProperty, name)));
+            if (!searchRaw)
+            {
+                var element = _backingAutomationElement.FindFirst(TreeScope.Children, new PropertyCondition(AutomationElement.ClassNameProperty, name));
+                if (element == null) return null;
+                return new EzElement(element);
+            }
             return this.FindChildRaw(PropertyType.Class, name);
         }
 
@@ -160,7 +179,9 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public EzElement FindChildByMultipleCriteria(params SearchTypeProperty[] properties)
         {
-            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Children, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
+            var element = _backingAutomationElement.FindFirst(TreeScope.Children, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray()));
+            if (element == null) return null;
+            return new EzElement(element);
         }
 
         /// <summary>
@@ -171,7 +192,9 @@ namespace EazyE2E.Element
         public EzElement FindDescendantByMultipleCriteria(params SearchTypeProperty[] properties)
         {
             CheckSearchPermissions();
-            return new EzElement(_backingAutomationElement.FindFirst(TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
+            var element = _backingAutomationElement.FindFirst(TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray()));
+            if (element == null) return null;
+            return new EzElement(element);
         }
 
         /// <summary>
@@ -182,7 +205,12 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public IEnumerable<EzElement> FindChildrenByName(string name, bool searchRaw = false)
         {
-            if (!searchRaw) return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, name)));
+            if (!searchRaw)
+            {
+                var elements = _backingAutomationElement.FindAll(TreeScope.Children, new PropertyCondition(AutomationElement.NameProperty, name));
+                if (elements == null || elements.Count == 0) return null;
+                return ConvertCollection(elements);
+            }
             return this.FindChildrenRaw(PropertyType.Name, name);
         }
 
@@ -194,7 +222,9 @@ namespace EazyE2E.Element
         public IEnumerable<EzElement> FindDescendantsByName(string name)
         {
             CheckSearchPermissions();
-            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name)));
+            var elements = _backingAutomationElement.FindAll(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, name));
+            if (elements == null || elements.Count == 0) return null;
+            return ConvertCollection(elements);
         }
 
         /// <summary>
@@ -204,7 +234,9 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public IEnumerable<EzElement> FindChildrenByAutomationId(string name)
         {
-            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Children, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
+            var elements = _backingAutomationElement.FindAll(TreeScope.Children, new PropertyCondition(AutomationElement.AutomationIdProperty, name));
+            if (elements == null || elements.Count == 0) return null;
+            return ConvertCollection(elements);
         }
 
         /// <summary>
@@ -215,7 +247,9 @@ namespace EazyE2E.Element
         public IEnumerable<EzElement> FindDescendantsByAutomationId(string name)
         {
             CheckSearchPermissions();
-            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name)));
+            var elements = _backingAutomationElement.FindAll(TreeScope.Descendants, new PropertyCondition(AutomationElement.AutomationIdProperty, name));
+            if (elements == null || elements.Count == 0) return null;
+            return ConvertCollection(elements);
         }
 
         /// <summary>
@@ -225,7 +259,9 @@ namespace EazyE2E.Element
         /// <returns></returns>
         public IEnumerable<EzElement> FindChildrenByMultipleCriteria(params SearchTypeProperty[] properties)
         {
-            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Children, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
+            var elements = _backingAutomationElement.FindAll(TreeScope.Children, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray()));
+            if (elements == null || elements.Count == 0) return null;
+            return ConvertCollection(elements);
         }
 
         /// <summary>
@@ -236,7 +272,9 @@ namespace EazyE2E.Element
         public IEnumerable<EzElement> FindDescendantsByMultipleCriteria(params SearchTypeProperty[] properties)
         {
             CheckSearchPermissions();
-            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray())));
+            var elements = _backingAutomationElement.FindAll(TreeScope.Descendants, new AndCondition(properties.Select(prop => new PropertyCondition(SearchTypeHelper.GetAutomationProperty(prop.PropertyType), prop.Name)).Cast<Condition>().ToArray()));
+            if (elements == null || elements.Count == 0) return null;
+            return ConvertCollection(elements);
         }
 
         /// <summary>
@@ -246,7 +284,9 @@ namespace EazyE2E.Element
         public IEnumerable<EzElement> GetAllChildren()
         {
             //this is super dumb.  Figure out a better way to do this.
-            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Children, new NotCondition(new PropertyCondition(AutomationElement.ClassNameProperty, "dfsjkdsfjkdfskjfsdjkdsfjkfsdjkdsfsdfjkdfskjdsfjkdsfjkdsfjkdsfjkdfskjsdfkjsdfjksdfkjfdkdsf"))));
+            var elements = _backingAutomationElement.FindAll(TreeScope.Children, new NotCondition(new PropertyCondition(AutomationElement.ClassNameProperty, "dfsjkdsfjkdfskjfsdjkdsfjkfsdjkdsfsdfjkdfskjdsfjkdsfjkdsfjkdsfjkdfskjsdfkjsdfjksdfkjfdkdsf")));
+            if (elements == null || elements.Count == 0) return null;
+            return ConvertCollection(elements);
         }
 
         /// <summary>
@@ -257,7 +297,9 @@ namespace EazyE2E.Element
         {
             CheckSearchPermissions();
             //this is super dumb.  Figure out a better way to do this.
-            return ConvertCollection(_backingAutomationElement.FindAll(TreeScope.Descendants, new NotCondition(new PropertyCondition(AutomationElement.ClassNameProperty, "dfsjkdsfjkdfskjfsdjkdsfjkfsdjkdsfsdfjkdfskjdsfjkdsfjkdsfjkdsfjkdfskjsdfkjsdfjksdfkjfdkdsf"))));
+            var elements = _backingAutomationElement.FindAll(TreeScope.Descendants, new NotCondition(new PropertyCondition(AutomationElement.ClassNameProperty, "dfsjkdsfjkdfskjfsdjkdsfjkfsdjkdsfsdfjkdfskjdsfjkdsfjkdsfjkdsfjkdfskjsdfkjsdfjksdfkjfdkdsf")));
+            if (elements == null || elements.Count == 0) return null;
+            return ConvertCollection(elements);
         }
 
         private static void CheckSearchPermissions()
