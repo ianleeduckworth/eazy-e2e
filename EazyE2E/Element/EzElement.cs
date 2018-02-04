@@ -1,5 +1,6 @@
 ﻿//Copyright 2018 Ian Duckworth
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace EazyE2E.Element
         /// <summary>
         /// Parent element of the current element.  Will be null if current element has no parent
         /// </summary>
-        public EzElement Parent => _parent ?? (_parent = new EzElement(_backingAutomationElement.CachedParent));
+        public EzElement Parent => _parent ?? (_parent = new EzElement(TreeWalker.RawViewWalker.GetParent(_backingAutomationElement)));
 
         /// <summary>
         /// Name of the current EzElement
@@ -36,6 +37,10 @@ namespace EazyE2E.Element
         /// ClassName of the current EzElement
         /// </summary>
         public string ClassName => _backingAutomationElement.Current.ClassName;
+
+        /// <summary>
+        /// ControlType of the current EzElement
+        /// </summary>
         public ControlType Type => _backingAutomationElement.Current.ControlType;
 
         /// <summary>
@@ -84,6 +89,7 @@ namespace EazyE2E.Element
         /// </summary>
         public void Click()
         {
+            if (_invokePattern == null) throw new InvalidOperationException("Cannot clicke element because backing invokePattern object is null");
             _invokePattern?.Invoke();
         }
 
