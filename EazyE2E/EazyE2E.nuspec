@@ -3,7 +3,7 @@
   <metadata>
     <!-- Required elements-->
     <id>EazyE2E</id>
-    <version>1.0.2.0</version>
+    <version>1.0.3-beta</version>
     <description>Easy and powerful WPF application automation</description>
     <authors>Ian Duckworth</authors>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
