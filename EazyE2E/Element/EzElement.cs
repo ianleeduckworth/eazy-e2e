@@ -12,6 +12,9 @@ using EazyE2E.Helper;
 
 namespace EazyE2E.Element
 {
+    /// <summary>
+    /// Houses all element related functionality including querying for children/descendants and all information about the current element
+    /// </summary>
     public class EzElement
     {
         private readonly AutomationElement _backingAutomationElement;
