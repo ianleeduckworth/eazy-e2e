@@ -3,7 +3,7 @@
   <metadata>
     <!-- Required elements-->
     <id>EazyE2E</id>
-    <version>1.0.1.0</version>
+    <version>1.0.2.0</version>
     <description>Easy and powerful WPF application automation</description>
     <authors>Ian Duckworth</authors>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -12,6 +12,14 @@
     <!-- Optional elements -->
     <copyright>Copyright (c) 2018 Ian Duckworth</copyright>
     <tags>WPF Automation UIAutomation</tags>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <releaseNotes>
+      EazyE2E 1.0.2 Release Notes
+
+      1.  Fixed InvalidOperationException that would occur every time EzElement.Parent was accessed
+      2.  Fixed issue where if invokePattern was not set on EzElement that clicks would fail silently.  Now, if invokePattern is not set, an exception will be thrown
+      3.  Added summery comment to EzElement.ControlType (was missed during initial release)
+    </releaseNotes>
   </metadata>
   <!-- Optional 'files' node -->
 </package>
