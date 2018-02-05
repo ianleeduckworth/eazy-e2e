@@ -22,6 +22,10 @@ li a:hover {
   color: white;
 }
 
+li.leftnav-active {
+  background-color: #78a6db;
+}
+
 pre {
   background-color: #f7f7f7;
   border: 1px solid #999;
@@ -31,10 +35,24 @@ pre {
   border-radius: 5px;
 }
 
+a.anchor {
+  display: block;
+  position: relative;
+  top: -49px;
+  visibility: hidden;
+}
+
 div.main-documentation {
   margin-left: 220px;
   padding: 1px 16px;
   height: 1000px;
+  margin-top: 48px;
+}
+
+div.main-info {
+  padding: 1px 16px;
+  height: 1000px;
+  margin-top: 48px;
 }
 
 span.reserved {
@@ -123,4 +141,35 @@ table {
 
 h1, h2, h3, h4, h5, p, div, table, th, td, table {
   font-family: Verana, sans-serif
+}
+
+ul.topnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+li.topnav {
+  float: right;
+}
+
+li.topnav a.topnav {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li.topnav a.topnav:hover {
+  background-color: #a5a5a5;
+}
+
+li.topnav-active {
+  background-color: #78a6db;
 }
