@@ -7,7 +7,7 @@
     <description>Easy and powerful WPF application automation</description>
     <authors>Ian Duckworth</authors>
     <licenseUrl>https://ianleeduckworth.github.io/eazy-e2e/license.html</licenseUrl>
-    <projectUrl>https://github.com/ianleeduckworth/eazy-e2e/tree/master/EazyE2E</projectUrl>
+    <projectUrl>https://ianleeduckworth.github.io/eazy-e2e/index.html</projectUrl>
     <owners>Ian Duckworth</owners>
     <!-- Optional elements -->
     <copyright>Copyright (c) 2018 Ian Duckworth</copyright>
@@ -17,6 +17,7 @@
       EazyE2E 1.0.3 Release Notes
       1.  Added xml comments to all classes
       2.  Added corrected license information
+      3.  Updated project URL
     </releaseNotes>
   </metadata>
   <!-- Optional 'files' node -->
