@@ -35,11 +35,39 @@ pre {
   border-radius: 5px;
 }
 
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-family: Arial;
+  border-radius: 7px;
+}
+
+.light-blue {
+  background-color: #002163;
+}
+
+.dark-gray {
+  background-color: #555555;
+}
+
 a.anchor {
   display: block;
   position: relative;
   top: -49px;
   visibility: hidden;
+}
+
+div.button-text {
+  float:right; 
+  padding-left: 10px; 
+  padding-top: 8px;
 }
 
 div.main-documentation {
@@ -156,6 +184,16 @@ ul.topnav {
 
 li.topnav {
   float: right;
+}
+
+li.home-text {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 30px;
+  float: left;
+  text-decoration: none;
+  font-size: 14pt;
 }
 
 li.topnav a.topnav {
