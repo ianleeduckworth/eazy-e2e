@@ -1,13 +1,13 @@
 <head>
     <title>EazyE2E Getting Started</title>
 </head>
-<link rel="stylesheet" href="/eazy-e2e/docs/main.css"/>
+<link rel="stylesheet" href="../main.css"/>
 <ul class="topnav">
-  <li class="topnav"><a class="topnav" href="/eazy-e2e/docs/about/about.html">About</a></li>
-  <li class="topnav"><a class="topnav" href="/eazy-e2e/docs/contact/contact.html">Contact</a></li>
-  <li class="topnav"><a class ="topnav" href="/eazy-e2e/docs/documentation/documentation.html">Documentation</a></li>
-  <li class="topnav topnav-active"><a class="topnav" href="/eazy-e2e/docs/gettingStarted/gettingStarted.html">Getting Started</a></li>
-  <li class="topnav"><a class="topnav" href="/eazy-e2e/index.html">Home</a></li>
+  <li class="topnav"><a class="topnav" href="../about/about.html">About</a></li>
+  <li class="topnav"><a class="topnav" href="../contact/contact.html">Contact</a></li>
+  <li class="topnav"><a class ="topnav" href="../documentation/documentation.html">Documentation</a></li>
+  <li class="topnav topnav-active"><a class="topnav" href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
+  <li class="topnav"><a class="topnav" href="../../index.html">Home</a></li>
 </ul>
 <ul class="left-nav">
   <li><a href="#basicOverview">Basic Overview</a></li>
@@ -42,7 +42,7 @@
   <h3>Setting Up Your Project</h3>
   <p>
     The first step to getting an EazyE2E project up and running is to install Visual Studio 2015 or Visual Studio 2017.  Once you have done this,
-    go out to NuGet and get the EazyE2E package (see instructions on the <a href="/eazy-e2e/index.html">home page</a>).  Once you have referenced the EazyE2E NuGet package, you will want to
+    go out to NuGet and get the EazyE2E package (see instructions on the <a href="../../index.html">home page</a>).  Once you have referenced the EazyE2E NuGet package, you will want to
     create a new console application project (note that when we actually set this up properly, you will want to do this as a class library and hook
     up some unit tests via NUnit or some other unit testing framework).  Now that you have a project set up, inside your main method, you can use EazyE2E to launch
     and hook into your application.  For our examples in this tutorial, we will be using the Windows' built in calculator app.  It can be launched
@@ -78,7 +78,7 @@
     to find it with your spy tool.  The spy tool will give you enough information to tell EazyE2E how to search for the element.  
   </p>
   <div>
-    <img class="large" src="/eazy-e2e/docs/images/new_launch.PNG" />
+    <img class="large" src="../images/new_launch.PNG" />
     <div class="caption">Figure 1.1.  UI Spy immediately after launch</div>
   </div>
   <p>
@@ -86,7 +86,7 @@
     a blue rectangle, then all you need to do is move your mouse to the element that you want to find and hold the Ctrl key.
   </p>
   <div>
-    <img class="large" src="/eazy-e2e/docs/images/mouse_highlight.PNG" />
+    <img class="large" src="../images/mouse_highlight.PNG" />
     <div class="caption">Figure 1.2.  Mouse icon in UI Spy that needs to be clicked.  Once it is active, holding the Ctrl key will automatically scope to an element</div>
   </div>
   <p>
@@ -95,7 +95,7 @@
     the element that you are looking for.
   </p>
   <div>
-    <img class="large" src="/eazy-e2e/docs/images/ctrl_click.PNG" />
+    <img class="large" src="../images/ctrl_click.PNG" />
     <div class="caption">Figure 1.3.  UI Spy after holding Ctrl and hovering over the "7" button.  Each element that leads to the "7" button is highlighted with a red rectangle</div>
   </div>
   <p>
@@ -182,7 +182,7 @@
   </div>
   <div style="padding-top: 20px;"/>
   <div>
-    <img class="large" src="/eazy-e2e/docs/images/number_pad.PNG" />
+    <img class="large" src="../images/number_pad.PNG" />
     <div class="caption">Figure 1.4.  UI Spy scoped to the the NumberPad element</div>
   </div>
   <p>
@@ -256,7 +256,7 @@
       Now that all code writing is done, go ahead and run it.  The result should be that the 7 button is clicked (either by calling the .Click method or using the physical mouse method).
     </p>
     <div>
-      <img class="small" src="/eazy-e2e/docs/images/seven_button_clicked.PNG" />
+      <img class="small" src="../images/seven_button_clicked.PNG" />
       <div class="caption">Figure 1.5.  It worked.  Yay!  &#127881; &#127881; &#127881;</div>
     </div>
     <p>
