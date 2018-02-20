@@ -1,0 +1,12 @@
+EazyE2E 1.0.1 Release Notes
+
+1.  Fixed NullReferenceException that occurs when querying for an element that ends up not being found.  Now, null is returned instead.
+
+EazyE2E 1.0.2 Release Notes
+
+1.  Fixed InvalidOperationException that would occur every time EzElement.Parent was accessed
+2.  Fixed issue where if invokePattern is not set on EzElement that clicks will fail silently.  Now, if invokePattern is not set, then an exception will be thrown
+3.  Added summery comment to EzElement.ControlType (was missed during initial release)
+
+EazyE2E 1.0.3 Release Notes
+1.  Added xml comments to all classes
