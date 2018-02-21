@@ -2,17 +2,17 @@
     <title>EazyE2E Home</title>
   </head>
   <link rel="stylesheet" href="./docs/main.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" type="text/css">
   <ul class="topnav">
       <li class="topnav"><a class="topnav" href="./docs/about/about.html">About</a></li>
       <li class="topnav"><a class="topnav" href="./docs/contact/contact.html">Contact</a></li>
       <li class="topnav"><a class ="topnav" href="./docs/documentation/documentation.html">Documentation</a></li>
       <li class="topnav"><a class="topnav" href="./docs/gettingStarted/gettingStarted.html">Getting Started</a></li>
       <li class="topnav topnav-active"><a class="topnav" href="./index.html">Home</a></li>
-      <li class="home-text">EazyE2E</li>
+      <li><a class="home-text" href="./index.html">EazyE2E</a></li>
   </ul>
   <div class="main-info">
     <h2>A WPF and Winforms automation framework that knows nothing in life but to be legit</h2>
-    <h3>By Ian Duckworth</h3>
     <p>
       EazyE2E is a simple, powerful, and easy to use framework for automating WPF and Winforms applications.  It provides various ways to interact with
       the application under test.  It is easy to set up and easy to use even if your development experience is limited.
@@ -23,27 +23,29 @@
     <p>
       EazyE2E is all about reducing cost while reducing simultaneously reducing risk.  Manual regression testing quickly becomes costly, cumbersome,
       and risky as applications grow in both functionality and importance.  EazyE2E aims to provide an automation framework that is easy to set up,
-      easy to use, and stable even for the most complex applications.  EazyE2E is simple to use and requires little development experience to write
-      performant and reliable UI automation tests.
+      easy to use, and stable even for the most complex applications allowing you to write performant and reliable UI automation tests.
     </p>
     <p>
       While it might require some help from a more senior level developer to set up, EazyE2E is designed to be used by QA resources who may or may
       not have development experience by providing simple and elegant functionality to help a user walk the UI Automation tree, interact with elements,
-      watch the application's logging, and to monitor the application's performance.
+      watch the application's logging, and to monitor the application's performance.  Be sure to check out our <a href="./docs/documentation/documentation.html">Documentation</a> 
+      page for more in depth information, and our <a href="./docs/gettingStarted/gettingStarted.html">Getting Started</a> page for a quick tutorial.
     </p>  
     <h2>
-      Getting Started
+      Resources
     </h2>
     <p></p>
-    <a class="button dark-gray" href="https://github.com/ianleeduckworth/eazy-e2e" target="_blank">
+    <a class="button shadow-button" href="https://github.com/ianleeduckworth/eazy-e2e" target="_blank">
         <img src="docs/images/GitHub-32px.png" />
          <div class="button-text">Github</div>
     </a>
-    <a class="button light-blue" href="https://www.nuget.org/packages/EazyE2E" target="_blank">
+    <a class="button shadow-button" href="https://www.nuget.org/packages/EazyE2E" target="_blank">
         <img src="docs/images/nuget-32px.png" />
         <div class="button-text">Nuget</div>
     </a>
     <h3>Installing EazyE2E</h3>
+    <h4>NuGet Command Line</h4>
+    <div class="nuget-install">PM> Install-Package EazyE2E -Version 1.0.3</div>
     <h4>NuGet Package Manager in Visual Studio</h4>
     <ul>
       <li>Create a new project in Visual Studio</li>
