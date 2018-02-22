@@ -221,7 +221,8 @@
         <span class="comment">//Simple method to launch Windows' built in calculator application</span>
         <span class="reserved">const string</span> calculatorPath = <span class="string">C:\\Windows\\System32\\calc.exe"</span>;
     
-        <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that .Dispose() is called</span>
+        <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that .Dispose()</span>
+        <span class="comment">//is called</span>
         <span class="reserved">using</span> (<span class="class-name">EzProcess</span> process = <span class="reserved">new</span> <span class="class-name">EzProcess</span>(calculatorPath, <span class="string">"Calculator"</span>))
         {
             process.StartProcess();  
@@ -229,11 +230,12 @@
             <span class="comment">//Get the root element of the application</span>
             <span class="class-name">EzRoot</span> root = <span class="reserved">new</span> <span class="class-name">EzRoot</span>(process);
 
-            <span class="comment">//First, get the element that you want.  We are querying all children of the root element for an element whose AutomationId property</span>
-            <span class="comment">//is "TestAutomationId"</span>
+            <span class="comment">//First, get the element that you want.  We are querying all children of the root element for an element whose</span>
+            <span class="comment">//AutomationId property is "TestAutomationId"</span>
             <span class="class-name">EzElement</span> element = root.RootElement.FindChildByAutomationId(<span class="string">"TestAutomationId"</span>);
 
-            <span class="comment">//Next, use the element that we found to create an instance of EzText (provided of course that "element"'s control type is Text)</span>
+            <span class="comment">//Next, use the element that we found to create an instance of EzText (provided of course that "element"'s</span>
+            <span class="comment">//ControlType is Text)</span>
             <span class="class-name">EzText</span> textElement = <span class="reserved">new</span> <span class="class-name">EzText</span>(element);
 
             <span class="comment">//Next, call the .HandleResult method on the instance of EzTextResult&lt;T&gt; where T in this case is a string</span>
@@ -247,8 +249,9 @@
                 <span class="class-name">Console</span>.WriteLine(<span class="string">The result was mixed.  In this case it means that the element had more than one font"</span>);
             }, res =>
             {
-                <span class="comment">//The final delegate is called if the result can be definitively determined.  This delegate will take an input of type T where T, in</span>
-                <span class="comment">//this case, is a string.  We can use that string value to do verification, or for this example, just log the results</span>
+                <span class="comment">//The final delegate is called if the result can be definitively determined.  This delegate will take an</span>
+                <span class="comment">//input of type T where T, in this case, is a string.  We can use that string value to do verification,</span>
+                <span class="comment">//or for this example, just log the results</span>
                 <span class="class-name">Console</span>.WriteLine(<span class="string">Font name for current EzElement: "</span> + res);
             });
         }</pre>
