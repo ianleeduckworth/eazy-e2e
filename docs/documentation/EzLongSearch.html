@@ -59,9 +59,10 @@
 
             <span class="class-name">EzElement</span> root = <span class="reserved">new</span> <span class="class-name">EzRoot</span>(process).RootElement;
 
-            <span class="comment">//The code below will do the following.  It will start with the root element.  Then it will find the first child of the root element whose</span>
-            <span class="comment">//AutomationId property is "TestAutomationId".  Then it will find the first child of that element whose Name property is "TestName".  Then,</span>
-            <span class="comment">//it will find the first child of that element whose AutomationId property is "MoreTestAutomationId".</span>  
+            <span class="comment">//The code below will do the following.  It will start with the root element.  Then it will find the first child</span>
+            <span class="comment">//of the root element whose AutomationId property is "TestAutomationId".  Then it will find the first child of that</span>
+            <span class="comment">//element whose Name property is "TestName".  Then, it will find the first child of that element whose AutomationId</span>  
+            <span class="comment">//property is "MoreTestAutomationId".</span>
             <span class="class-name">EzElement</span> endingElement = <span class="class-name">EzLongSearch</span>.PerformSearch(root,
                 <span class="reserved">new</span> <span class="class-name">EzLongSearchItem</span>(PropertyType.AutomationId, <span class="string">TestAutomationId"</span>),
                 <span class="reserved">new</span> <span class="class-name">EzLongSearchItem</span>(PropertyType.Name, <span class="string">"TestName"</span>),
