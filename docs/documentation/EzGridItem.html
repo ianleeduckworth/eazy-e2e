@@ -99,7 +99,8 @@
         <span class="comment">//Simple method to launch Windows' built in calculator application</span>
         <span class="reserved">const string</span> calculatorPath = <span class="string">C:\\Windows\\System32\\calc.exe"</span>;
 
-        <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that .Dispose() is called</span>
+        <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that .Dispose()</span>
+        <span class="comment">//is called</span>
         <span class="reserved">using</span> (<span class="class-name">EzProcess</span> process = <span class="reserved">new</span> <span class="class-name">EzProcess</span>(calculatorPath, <span class="string">"Calculator"</span>))
         {
             process.StartProcess();
@@ -107,19 +108,19 @@
             <span class="comment">//Get the root element of the application</span>
             <span class="class-name">EzRoot</span> root = <span class="reserved">new</span> <span class="class-name">EzRoot</span>(process);
 
-            <span class="comment">//Use the .FindChildByAutomationId to query all children of the root for the first element whose AutomationId property is</span>
-            <span class="comment">//equal to "TestGridName"</span>
+            <span class="comment">//Use the .FindChildByAutomationId to query all children of the root for the first element whose AutomationId</span>
+            <span class="comment">//property is equal to "TestGridName"</span>
             <span class="class-name">EzElement</span> element = root.RootElement.FindChildByAutomationId(<span class="string">"TestGridName"</span>);
 
-            <span class="comment">//Create a new EzGrid instance with our EzElement instance.  Note that if the control type of our EzElement intance is not</span>
-            <span class="comment">//DataGrid, an exception will be thrown</span>
+            <span class="comment">//Create a new EzGrid instance with our EzElement instance.  Note that if the control type of our EzElement intance</span>
+            <span class="comment">//is not DataGrid, an exception will be thrown</span>
             <span class="class-name">EzGrid</span> grid = <span class="reserved">new</span> <span class="class-name">EzGrid</span>(element);
 
             <span class="comment">//Find the first child of the grid element whose AutomationId property equals "TestGridItem"</span>
             <span class="class-name">EzElement</span> gridElement = grid.FindChildByAutomationId(<span class="string">"TestGridItem"</span>);
 
-            <span class="comment">//Create an instance of EzGridItem using our instance of EzGrid.  Note that if element's control type is not DataItem</span>
-            <span class="comment">//an exception will be thrown</span>
+            <span class="comment">//Create an instance of EzGridItem using our instance of EzGrid.  Note that if element's control type is not</span>
+            <span class="comment">//DataItem an exception will be thrown</span>
             <span class="class-name">EzGridItem</span> gridItem = <span class="reserved">new</span> <span class="class-name">EzGridItem</span>(gridElement);
 
             <span class="comment">//Get the column number of the grid item within its parent grid</span>
