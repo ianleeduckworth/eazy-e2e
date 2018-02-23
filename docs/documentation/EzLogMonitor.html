@@ -29,7 +29,7 @@
 
 <div class="main-documentation">
     <h1>EzLogMonitor</h1>
-    <h5>EzLogMonitor is a class that is used to monitor output of the application under test.  It provides several methods to watch for log messages and to take action appropriately.  
+    <h5>EzLogMonitor is a class that is used to monitor output of the application under test.  It provides several methods to watch for log messages and to take action appropriately.
         Note that tis class is somewhat complicated to use so be sure to check out the <a href="#samplesAndUsage">Samples and Usage</a> section at the bottom.
     </h5>
     <h2>Syntax</h2>
@@ -49,7 +49,7 @@
         </tr>
     </table>
     <h2>Methods</h2>
-    <table style="width: 100%">        
+    <table style="width: 100%">
         <tr>
             <th>Name</th>
             <th>Return Type</th>
@@ -81,18 +81,19 @@
     <pre>
             <span class="comment">//Simple method to launch Windows' built in calculator application</span>
             <span class="reserved">const string</span> calculatorPath = <span class="string">C:\\Windows\\System32\\calc.exe"</span>;
-    
-            <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that .Dispose() is called</span>
+
+            <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that</span>
+            <span class="comment">//.Dispose() is called</span>
             <span class="reserved">using</span> (<span class="class-name">EzProcess</span> process = <span class="reserved">new</span> <span class="class-name">EzProcess</span>(calculatorPath, <span class="string">"Calculator"</span>))
             {
                 process.StartProcess();
-    
+
                 <span class="comment">//Get the root element of the application</span>
                 <span class="class-name">EzRoot</span> root = <span class="reserved">new</span> <span class="class-name">EzRoot</span>(process);
 
                 <span class="comment">//Create a new instance of EzLogMonitor</span>
                 <span class="class-name">EzLogMonitor</span> logMonitor = <span class="reserved">new</span> <span class="class-name">EzLogMonitor</span>(process);
-                
+
                 <span class="comment">//Create a list of messages to profile for</span>
                 <span class="class-name">List</span>&lt;<span class="reserved">string</span>&gt; watches = <span class="reserved">new</span> <span class="class-name">List</span>&lt;<span class="reserved">string</span>&gt;
                 {
@@ -108,19 +109,19 @@
 
                     <span class="comment">//code that is run if none of the messages occur</span>
                     <span class="reserved">string</span> allMessages = messages.Aggregate((a, b) => a + <span class="string">", "</span> + b);
-                    <span class="class-name">Console</span>.WriteLine(<span class="string">$"Could not find any messages within watches: '</span>{allMessages}<span class="string">' "</span> + 
+                    <span class="class-name">Console</span>.WriteLine(<span class="string">$"Could not find any messages within watches: '</span>{allMessages}<span class="string">' "</span> +
                         <span class="string">"after </span>{time}<span class="string"> seconds of profiling"</span>);
-                }, 
+                },
                 (type, text, message, time) =>
                 {
                     <span class="comment">//First parameter -> type of output; whether it was standard or error output</span>
-                    <span class="comment">//Second parameter -> text the text within the list of watches passed in that was responsible for the match</span>
+                    <span class="comment">//Second parameter -> text within the watches which was matched</span>
                     <span class="comment">//Third parameter -> the full log message that the text was contained within</span>
                     <span class="comment">//Fourth parameter -> the amount of time into profiling that match occurred</span>
 
                     <span class="comment">//code that is run if one of the messages does occur</span>
-                    <span class="class-name">Console</span>.WriteLine(<span class="string">$"Text '</span>{text}<span class="string">' occurred at </span>{time} <span class="string">seconds into profiling.  "</span> + 
+                    <span class="class-name">Console</span>.WriteLine(<span class="string">$"Text '</span>{text}<span class="string">' occurred at </span>{time} <span class="string">seconds into profiling.  "</span> +
                         <span class="string">"Full message: </span>{message}<span class="string">.  OutputType: </span>{type}<span class="string">"</span>);
-                });      
+                });
             }</pre>
 </div>

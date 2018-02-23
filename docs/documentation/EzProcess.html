@@ -80,7 +80,7 @@
         </tr>
     </table>
     <h2>Methods</h2>
-    <table style="width: 100%">        
+    <table style="width: 100%">
         <tr>
             <th>Name</th>
             <th>Return Type</th>
@@ -110,9 +110,10 @@
         <span class="comment">//Simple method to launch Windows' built in calculator application</span>
         <span class="reserved">const string</span> calculatorPath = <span class="string">C:\\Windows\\System32\\calc.exe"</span>;
 
-        <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that .Dispose() is called</span>
+        <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that</span>
+        <span class="comment">//.Dispose() is called</span>
         <span class="reserved">using</span> (<span class="class-name">EzProcess</span> process = <span class="reserved">new</span> <span class="class-name">EzProcess</span>(calculatorPath, <span class="string">"Calculator"</span>))
         {
-            process.StartProcess();  
-        }</pre>  
+            process.StartProcess();
+        }</pre>
 </div>
