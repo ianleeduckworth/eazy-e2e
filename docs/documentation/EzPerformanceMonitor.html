@@ -29,8 +29,8 @@
 
 <div class="main-documentation">
     <h1>EzPerformanceMonitor</h1>
-    <h5>EzPerformanceMonitor provides a series of properties representing various memory metrics of the application under test.  Additionally it provides methods that allow the 
-        user to watch the application's memory to make sure that the various memory metrics are within a proper range.  Be sure to check out the 
+    <h5>EzPerformanceMonitor provides a series of properties representing various memory metrics of the application under test.  Additionally it provides methods that allow the
+        user to watch the application's memory to make sure that the various memory metrics are within a proper range.  Be sure to check out the
         <a href="#samplesAndUsage">Samples and Usage</a> section at the bottom.
     </h5>
     <h2>Syntax</h2>
@@ -103,7 +103,7 @@
         </tr>
     </table>
     <h2>Methods</h2>
-    <table style="width: 100%">        
+    <table style="width: 100%">
         <tr>
             <th>Name</th>
             <th>Return Type</th>
@@ -122,7 +122,7 @@
     </table>
     <h2 id="samplesAndUsage">Samples and Usage</h2>
     <p>EzPerformanceMonitor is designed to watch various memory metrics via two methods, both called StartSyncWatch (one takes a single memory metric and one takes multiple).  They
-        will both monitor the application for the duration of the time passed in and will call an ifSuccess delegate if the memory metric(s) never exceed the passed in threshold.  If 
+        will both monitor the application for the duration of the time passed in and will call an ifSuccess delegate if the memory metric(s) never exceed the passed in threshold.  If
         any of the memory metrics exceed their threshold, the ifFail delegate will be called
     </p>
     <pre>
@@ -132,7 +132,7 @@
             process.StartProcess();
 
             <span class="class-name">EzPerformanceMonitor</span> performanceMonitor = <span class="reserved">new</span> <span class="class-name">EzPerformanceMonitor</span>(process);
-            
+
             <span class="comment">//Create a list of watches.  These are the memory metrics we will be watching for to make sure they don't</span>
             <span class="comment">//exceed the amount given for each</span>
             <span class="class-name">List</span>&lt;<span class="class-name">MemoryWatch</span>&gt; watches = <span class="reserved">new</span> <span class="class-name">List</span>&lt;<span class="class-name">MemoryWatch</span>&gt;
@@ -141,19 +141,19 @@
                 <span class="reserved">new</span> <span class="class-name">MemoryWatch</span>(<span class="class-name">MemoryType</span>.PeakVirtualMemorySize, 200000000),
                 <span class="reserved">new</span> <span class="class-name">MemoryWatch</span>(<span class="class-name">MemoryType</span>.VirtualMemorySize, 203040506060)
             };
-            
+
             <span class="comment">//Call the StartSyncWatch method.  We will watch based on the list above for 60 seconds</span>
             performanceMonitor.StartSyncWatch(watches, 60, (type, original, actual, failure) =>
             {
                 <span class="comment">//Method to be run if a failure occurs</span>
-                <span class="class-name">Console</span>.WriteLine(<span class="string">$"Memory type </span>{type}<span class="string"> exceeded the threshhold of </span>{original}<span class="string">.  "</span> + 
+                <span class="class-name">Console</span>.WriteLine(<span class="string">$"Memory type </span>{type}<span class="string"> exceeded the threshhold of </span>{original}<span class="string">.  "</span> +
                     <span class="string">"Value: </span>{actual}<span class="string">.  Time at failure: </span>{failure}<span class="string">."</span>);
             }, (memWatches, time) =>
             {
                 <span class="comment">//Method to run if no failure occurs</span>
                 <span class="reserved">string</span> watchesString = memWatches.Select(x => x.Type.ToString()).Aggregate((a, b) => a + <span class="string">", "</span>);
-                <span class="class-name">Console</span>.WriteLine(<span class="string">$"After </span>{time}<span class="string"> seconds of profiling, none of the memory types exceeded their limits."</span> + 
+                <span class="class-name">Console</span>.WriteLine(<span class="string">$"After </span>{time}<span class="string"> seconds of profiling, no memory types exceeded their limits."</span> + 
                 <span class="string">$"Memory types: </span>{watchesString}<span class="string">."</span>);
-            });     
+            });
         }</pre>
 </div>

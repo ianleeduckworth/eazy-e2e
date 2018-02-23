@@ -38,7 +38,7 @@
         <pre>
             <span class="reserved">public static class</span> EzKeyboardFunctions</pre>
         <h2>Methods</h2>
-        <table style="width: 100%">        
+        <table style="width: 100%">
             <tr>
                 <th>Name</th>
                 <th>Return Type</th>
@@ -58,7 +58,7 @@
                 <td>SendTextWithWait(EzElement element, string text, int? wait = null)</td>
                 <td>void</td>
                 <td>Sends the string passed in as keyboard intput to the EzElement instance passed in with a wait between each character in the string</td>
-            </tr>  
+            </tr>
             <tr>
                 <td>RepeatKey(EzElement element, int repeatNumber, Key key)</td>
                 <td>void</td>
@@ -73,51 +73,52 @@
                 <td>ShiftCombination(EzElement element, string keys)</td>
                 <td>void</td>
                 <td>Sends the keys string to the element while pressing the Shift key</td>
-            </tr>            
+            </tr>
             <tr>
                 <td>CtrlCombination(EzElement element, params Key[] keys)</td>
                 <td>void</td>
                 <td>Sends each key in the keys object to the element while pressing the Ctrl key</td>
-            </tr>    
+            </tr>
             <tr>
                 <td>CtrlCombination(EzElement element, string keys)</td>
                 <td>void</td>
                 <td>Sends the keys string to the element while pressing the Ctrl key</td>
-            </tr>                   
+            </tr>
             <tr>
                 <td>AltCombination(EzElement element, params Key[] keys)</td>
                 <td>void</td>
                 <td>Sends each key in the keys object to the element while pressing the Alt key</td>
-            </tr>  
+            </tr>
             <tr>
                 <td>AltCombination(EzElement element, string keys)</td>
                 <td>void</td>
                 <td>Sends the keys string to the element while pressing the Alt key</td>
-            </tr>              
+            </tr>
         </table>
         <h2 id="samplesAndUsage">Samples and Usage</h2>
-        <p>The EzKeyboardFunctions class will physically send text to the application under test.  You can either send a string to the application or you can send an individual key.  
+        <p>The EzKeyboardFunctions class will physically send text to the application under test.  You can either send a string to the application or you can send an individual key.
             An individual key is helpful if you need to send something like an arror key or the backspace button for example.
         </p>
         <p>Sample:</p>
         <pre>
             <span class="comment">//Simple method to launch Windows' built in notepad application</span>
             <span class="reserved">const string</span> notepadPath = <span class="string">C:\\Windows\\System32\\notepad.exe"</span>;
-    
-            <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that .Dispose()</span>
-            <span class="comment">//is called</span>
+
+            <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that</span>
+            <span class="comment">//.Dispose() is called</span>
             <span class="reserved">using</span> (<span class="class-name">EzProcess</span> process = <span class="reserved">new</span> <span class="class-name">EzProcess</span>(notepadPath, <span class="string">"Notepad"</span>))
             {
                 process.StartProcess();
-    
+
                 <span class="comment">//Get the root element of the application</span>
                 <span class="class-name">EzRoot</span> root = <span class="reserved">new</span> <span class="class-name">EzRoot</span>(process);
 
-                <span class="comment">//Query the root element for the first child whose name is "Text Editor".  This is the main text area of notepad</span>
+                <span class="comment">//Query the root element for the first child whose name is "Text Editor".  This is the main text area</span>
+                <span class="comment">//of notepad</span>
                 <span class="class-name">EzElement</span> textEditor = root.RootElement.FindChildByName(<span class="string">"Text Editor"</span>);
 
-                <span class="comment">//Send text to notepad.exe.  Use the SendWithWait method which will simulate a gap inbetween letters as if</span>
-                <span class="comment">//someone is actually typing</span>
+                <span class="comment">//Send text to notepad.exe.  Use the SendWithWait method which will simulate a gap inbetween letters</span>
+                <span class="comment">//as ifsomeone is actually typing</span>
                 <span class="class-name">EzKeyboardFunctions</span>.SendTextWithWait(textEditor, <span class="string">"This is a test of my new automation code.  "</span>
                     + <span class="string">"This text will be written to the notepad instance that I have launched."</span>);
 
@@ -125,7 +126,8 @@
                 <span class="class-name">EzKeyboardFunctions</span>.RepeatKey(textEditor, 2, <span class="class-name">Key</span>.Enter);
 
                 <span class="comment">//Use the SendText method to send some text with no wait.  It appears much more quickly</span>
-                <span class="class-name">EzKeyboardFunctions</span>.SendText(textEditor, <span class="string">"This text is sent with no wait.  It will appear much more quickly"</span>);
+                <span class="class-name">EzKeyboardFunctions</span>.SendText(textEditor, <span class="string">"This text is sent with no wait.  "</span>
+                    + <span class="string">"It will appear much more quickly"</span>);
             }</pre>
         <p>This is the result of the above code being run:</p>
         <img class="large" src="../images/notepad_keyboardtest.PNG"/>
