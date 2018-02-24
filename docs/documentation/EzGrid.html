@@ -25,6 +25,7 @@
     <li><a href="./EzLongSearch.html">EzLongSearch</a></li>
     <li><a href="./EzPerformanceMonitor.html">EzPerformanceMonitor</a></li>
     <li><a href="./EzProcess.html">EzProcess</a></li>
+    <li><a href="./configuration.html">Configuration</a></li>
 </ul>
 
 <div class="main-documentation">
@@ -90,7 +91,8 @@
         <span class="comment">//Simple method to launch Windows' built in calculator application</span>
         <span class="reserved">const string</span> calculatorPath = <span class="string">C:\\Windows\\System32\\calc.exe"</span>;
 
-        <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that .Dispose() is called</span>
+        <span class="comment">//Get an instance of EzProcess in order to create EzRoot.  Wrap it in a using statement to ensure that</span>
+        <span class="comment">//.Dispose() is called</span>
         <span class="reserved">using</span> (<span class="class-name">EzProcess</span> process = <span class="reserved">new</span> <span class="class-name">EzProcess</span>(calculatorPath, <span class="string">"Calculator"</span>))
         {
             process.StartProcess();
@@ -98,15 +100,15 @@
             <span class="comment">//Get the root element of the application</span>
             <span class="class-name">EzRoot</span> root = <span class="reserved">new</span> <span class="class-name">EzRoot</span>(process);
 
-            <span class="comment">//Use the .FindChildByAutomationId to query all children of the root for the first element whose AutomationId property is</span>
-            <span class="comment">//equal to "TestGridName"</span>
+            <span class="comment">//Use the .FindChildByAutomationId to query all children of the root for the first element whose</span>
+            <span class="comment">//AutomationId property is equal to "TestGridName"</span>
             <span class="class-name">EzElement</span> element = root.RootElement.FindChildByAutomationId(<span class="string">"TestGridName"</span>);
 
-            <span class="comment">//Create a new EzGrid instance with our EzElement instance.  Note that if the control type of our EzElement intance is not</span>
-            <span class="comment">//DataGrid, an exception will be thrown</span>
+            <span class="comment">//Create a new EzGrid instance with our EzElement instance.  Note that if the control type of our</span>
+            <span class="comment">//EzElement instance is not DataGrid, an exception will be thrown</span>
             <span class="class-name">EzGrid</span> grid = <span class="reserved">new</span> <span class="class-name">EzGrid</span>(element);
 
             <span class="comment">//Get the total number of rows in the grid</span>
             <span class="reserved">int</span> numRows = grid.RowCount;
-        }</pre>        
+        }</pre>
 </div>
