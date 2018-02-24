@@ -1,0 +1,226 @@
+<head>
+    <title>EazyE2E Configuration</title>
+</head>
+<link rel="stylesheet" href="../main.css"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" type="text/css">
+<ul class="topnav">
+    <li class="topnav"><a class="topnav" href="../about/about.html">About</a></li>
+    <li class="topnav"><a class="topnav" href="../contact/contact.html">Contact</a></li>
+    <li class="topnav topnav-active"><a class ="topnav" href="../documentation/documentation.html">Documentation</a></li>
+    <li class="topnav"><a class="topnav" href="../gettingStarted/gettingStarted.html">Getting Started</a></li>
+    <li class="topnav"><a class="topnav" href="../../index.html">Home</a></li>
+    <li><a class="home-text" href="../../index.html">EazyE2E</a></li>
+  </ul>
+<ul class="left-nav">
+    <li><a href="./EzElement.html">EzElement</a></li>
+    <li><a href="./EzGrid.html">EzGrid</a></li>
+    <li><a href="./EzGridItem.html">EzGridItem</a></li>
+    <li><a href="./EzList.html">EzList</a></li>
+    <li><a href="./EzListItem.html">EzListItem</a></li>
+    <li><a href="./EzRootElement.html">EzRootElement</a></li>
+    <li><a href="./EzText.html">EzText</a></li>
+    <li><a href="./EzKeyboardFunctions.html">EzKeyboardFunctions</a></li>
+    <li><a href="./EzMouseFunctions.html">EzMouseFunctions</a></li>
+    <li><a href="./EzLogMonitor.html">EzLogMonitor</a></li>
+    <li><a href="./EzLongSearch.html">EzLongSearch</a></li>
+    <li><a href="./EzPerformanceMonitor.html">EzPerformanceMonitor</a></li>
+    <li><a href="./EzProcess.html">EzProcess</a></li>
+    <li class="leftnav-active"><a href="./configuration.html">Configuration</a></li>
+</ul>
+
+<div class="main-documentation">
+    <h1>EazyE2E Configuration</h1>
+    <p>
+        EazyE2E provides the ability to configure various ways that the framework will function.  Any of the values 
+        below can be placed in the application's app.config file in the &lt;appSettings&gt; section.  Note that these 
+        values all act as overrides.  If any of these values are not set, the default will be applied instead.
+    </p>
+
+    <p>
+        Example:
+    </p>
+    <pre>
+        &lt;configuration&gt;
+            &lt;appSettings&gt;
+                &lt;add key="TimeBetweenMouseEvents" value="1000" /&gt;
+            &lt;/appSettings&gt;
+        &lt;/configuration&gt;</pre>
+
+    <h3>DoubleClickGap</h3>
+    <p>Determines the gap (in milliseconds) inbetween double click events.  Used in EzMouseFunctions class.</p>
+    <table style="width: 750px">
+        <tr>
+            <th>Type</th>
+            <th>Example</th>
+            <th>Default</th>
+        </tr>
+        <tr>
+            <td>int</td>
+            <td>&lt;add key="DoubleClickGap" value="250"/&gt;</td>
+            <td>500</td>
+        </tr>
+    </table>
+
+    <h3>FindElementTimeout</h3>
+    <p>Note that this value is not currently being used.</p>
+    <table style="width: 750px">
+        <tr>
+            <th>Type</th>
+            <th>Example</th>
+            <th>Default</th>
+        </tr>
+        <tr>
+            <td>int</td>
+            <td>&lt;add key="DoubleClickGap" value="250"/&gt;</td>
+            <td>10000</td>
+        </tr>
+    </table>
+
+    <h3>ProcessWaitForExitTimeout</h3>
+    <p>Tells the framework how long to wait (in milliseconds) for the process to exit before terminating it forcibly.</p>
+    <table style="width: 750px">
+        <tr>
+            <th>Type</th>
+            <th>Example</th>
+            <th>Default</th>
+        </tr>
+        <tr>
+            <td>int</td>
+            <td>&lt;add key="ProcessWaitForExitTimeout" value="250"/&gt;</td>
+            <td>1000</td>
+        </tr>
+    </table>
+
+    <h3>DefaultWindowStyle</h3>
+    <p>
+        Determines the state of the main window once the application is launched.  Note that the value that this 
+        particular configuration item takes in is an enum based on <a href="https://msdn.microsoft.com/en-us/library/system.diagnostics.processwindowstyle(v=vs.110).aspx" target="_blank">System.Process.WindowStyle</a>.  See that page for 
+        the full list of values that can be accepted by this config value.
+    </p>
+    <table style="width: 750px">
+        <tr>
+            <th>Type</th>
+            <th>Example</th>
+            <th>Default</th>
+        </tr>
+        <tr>
+            <td><a href="https://msdn.microsoft.com/en-us/library/system.diagnostics.processwindowstyle(v=vs.110).aspx" target="_blank">System.Process.WindowStyle</a></td>
+            <td>&lt;add key="DefaultWindowStyle" value="Maximized"/&gt;</td>
+            <td>Normal</td>
+        </tr>
+    </table>
+
+    <h3>MaximumMemoryProfileTime</h3>
+    <p>
+        The maximum allowable time (in milliseconds) that EzPerformanceMonitor can profile for.  If the time set when using EzPerformanceMonitor 
+        is greater than the config time, an exception will be thrown.  
+    </p>
+    <table style="width: 750px">
+        <tr>
+            <th>Type</th>
+            <th>Example</th>
+            <th>Default</th>
+        </tr>
+        <tr>
+            <td>int</td>
+            <td>&lt;add key="MaximumMemoryProfileTime" value="600000"/&gt;</td>
+            <td>int.MaxValue</td>
+        </tr>
+    </table>
+
+    <h3>TimeBetweenMouseEvents</h3>
+    <p>
+        The time in between mouse events (in milliseconds); used by EzMouseFunctions.  This value is used to determine how much time inbetween various 
+        mouse events.  For example, if you perform a left click followed by a scroll and TimeBetweenMouseEvents is 500, EazyE2E will wait 
+        500 milliseconds (or half a second) in between the left click and the scroll.  This is to help simulate an actual user using a mouse and 
+        to mimick how that user might actually use the mouse.
+    </p>
+    <table style="width: 750px">
+        <tr>
+            <th>Type</th>
+            <th>Example</th>
+            <th>Default</th>
+        </tr>
+        <tr>
+            <td>int</td>
+            <td>&lt;add key="TimeBetweenMouseEvents" value="1000"/&gt;</td>
+            <td>100</td>
+        </tr>
+    </table>
+
+    <h3>AllowSearchingForDescendants</h3>
+    <p>
+        Determines whether or not to allow various methods in the EzElement class to search by descendant.  The primary use case 
+        for disallowing searching by descendants is because searching for descendants is very inefficient and is generally not 
+        good practice.
+    </p>
+    <table style="width: 750px">
+        <tr>
+            <th>Type</th>
+            <th>Example</th>
+            <th>Default</th>
+        </tr>
+        <tr>
+            <td>bool</td>
+            <td>&lt;add key="AllowSearchingForDescendants" value="false"/&gt;</td>
+            <td>true</td>
+        </tr>
+    </table> 
+    
+    <h3>ExposeBackingWindowsPatterns</h3>
+    <p>
+        Various EazyE2E classes use a backing automation pattern which can be exposed.  Allowing exposure of the patterns 
+        allows for extension of the framework.  If this value is set to false, the backing patterns will be null.  See 
+        Microsoft documents on <a href="https://docs.microsoft.com/en-us/dotnet/framework/ui-automation/ui-automation-control-patterns-overview" target="_blank">automation patterns</a>
+    </p>
+    <table style="width: 750px">
+        <tr>
+            <th>Type</th>
+            <th>Example</th>
+            <th>Default</th>
+        </tr>
+        <tr>
+            <td>bool</td>
+            <td>&lt;add key="ExposeBackingWindowsPatterns" value="true"/&gt;</td>
+            <td>false</td>
+        </tr>
+    </table> 
+
+    <h3>AlwaysResetEzText</h3>
+    <p>
+        If this value is set to true, every time an EzText property is accessed, the values will be re-checked every time 
+        any of the properties on EzText are accessed.  If this value is set to false, the values when the class is first 
+        instantiated will remain until the class is disposed.
+    </p>
+    <table style="width: 750px">
+        <tr>
+            <th>Type</th>
+            <th>Example</th>
+            <th>Default</th>
+        </tr>
+        <tr>
+            <td>bool</td>
+            <td>&lt;add key="AlwaysResetEzText" value="true"/&gt;</td>
+            <td>false</td>
+        </tr>
+    </table> 
+
+    <h3>TerminateExistingInstance</h3>
+    <p>
+        If this value is set to true, any existing instances of the application under test (when EzProcess is instantiated) 
+        will be terminated.  If this value is set to false, any existing instances of the application under test will be 
+        left alone.
+    </p>
+    <table style="width: 750px">
+        <tr>
+            <th>Type</th>
+            <th>Example</th>
+            <th>Default</th>
+        </tr>
+        <tr>
+            <td>bool</td>
+            <td>&lt;add key="TerminateExistingInstance" value="true"/&gt;</td>
+            <td>false</td>
+        </tr>
+    </table> 
+</div>
