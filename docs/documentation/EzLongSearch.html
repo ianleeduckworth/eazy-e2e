@@ -25,6 +25,7 @@
     <li class="leftnav-active"><a href="./EzLongSearch.html">EzLongSearch</a></li>
     <li><a href="./EzPerformanceMonitor.html">EzPerformanceMonitor</a></li>
     <li><a href="./EzProcess.html">EzProcess</a></li>
+    <li><a href="./configuration.html">Configuration</a></li>
 </ul>
 <div class="main-documentation">
     <h1>EzLongSearch</h1>
@@ -34,7 +35,7 @@
     <pre>
         <span class="reserved">public static class</span> EzLongSearch</pre>
     <h2>Methods</h2>
-    <table style="width: 100%">        
+    <table style="width: 100%">
         <tr>
             <th>Name</th>
             <th>Return Type</th>
@@ -45,10 +46,11 @@
             <td>EzElement</td>
             <td>Performs a long search.  This method is used when you do not want to save a variable for each step along the way
     </table>
-    <h2 id="samplesAndUsage">Samples and Usage</h2>
-    <p>EzLongSearch is designed to provide an abbreviated searching mechanism if you need to traverse a particularly nested hierarchy.  Note that searching simply by using EzElement's find 
-        methods works just as well, but this can provide some brevity in code if desired.  Please note that there is an element that you may need to use later, using EzLongSearch 
-        might not be the best choice.  EzLongSearch should be used to essentially pass over elements that you only need to use as a stopping point to avoid searching for descendants 
+    <a class="anchor" id="samplesAndUsage"></a>
+    <h2>Samples and Usage</h2>
+    <p>EzLongSearch is designed to provide an abbreviated searching mechanism if you need to traverse a particularly nested hierarchy.  Note that searching simply by using EzElement's find
+        methods works just as well, but this can provide some brevity in code if desired.  Please note that there is an element that you may need to use later, using EzLongSearch
+        might not be the best choice.  EzLongSearch should be used to essentially pass over elements that you only need to use as a stopping point to avoid searching for descendants
         (which is very inefficient).  See the sample below for an example of how this can be used
     </p>
     <pre>
@@ -59,9 +61,10 @@
 
             <span class="class-name">EzElement</span> root = <span class="reserved">new</span> <span class="class-name">EzRoot</span>(process).RootElement;
 
-            <span class="comment">//The code below will do the following.  It will start with the root element.  Then it will find the first child of the root element whose</span>
-            <span class="comment">//AutomationId property is "TestAutomationId".  Then it will find the first child of that element whose Name property is "TestName".  Then,</span>
-            <span class="comment">//it will find the first child of that element whose AutomationId property is "MoreTestAutomationId".</span>  
+            <span class="comment">//The code below will do the following.  It will start with the root element.  Then it will find the first</span>
+            <span class="comment">//child of the root element whose AutomationId property is "TestAutomationId".  Then it will find the first</span>
+            <span class="comment">//child of that element whose Name property is "TestName".  Then, it will find the first child of that</span>
+            <span class="comment">//element whose AutomationId property is "MoreTestAutomationId".</span>
             <span class="class-name">EzElement</span> endingElement = <span class="class-name">EzLongSearch</span>.PerformSearch(root,
                 <span class="reserved">new</span> <span class="class-name">EzLongSearchItem</span>(PropertyType.AutomationId, <span class="string">TestAutomationId"</span>),
                 <span class="reserved">new</span> <span class="class-name">EzLongSearchItem</span>(PropertyType.Name, <span class="string">"TestName"</span>),
@@ -75,10 +78,10 @@
         <span class="reserved">using</span> (<span class="class-name">EzProcess</span> process = <span class="reserved">new</span> <span class="class-name">EzProcess</span>(calculatorPath, <span class="string">"Calculator"</span>))
         {
             process.StartProcess();
-    
+
             <span class="class-name">EzElement</span> root = <span class="reserved">new</span> <span class="class-name">EzRoot</span>(process).RootElement;
             <span class="class-name">EzElement</span> firstElement = root.FindChildByAutomationId(<span class="string">"TestAutomationId"</span>);
             <span class="class-name">EzElement</span> secondElement = firstElement.FindChildByName(<span class="string">"TestName"</span>);
             <span class="class-name">EzElement</span> endingElement = secondElement.FindChildByAutomationId(<span class="string">MoreTestAutomationId"</span>);
-        }</pre>    
+        }</pre>
 </div>
