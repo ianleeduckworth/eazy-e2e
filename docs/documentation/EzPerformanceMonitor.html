@@ -121,7 +121,8 @@
             <td>Performs a sync watch on a series of memory types.  If that any of the memory types exceed the threshold at any point during the monitoring period, the ifFail delegate will be called.  Otherwise, the ifSuccess delegate will be called</td>
         </tr>
     </table>
-    <h2 id="samplesAndUsage">Samples and Usage</h2>
+    <a class="anchor" id="samplesAndUsage"></a>
+    <h2>Samples and Usage</h2>
     <p>EzPerformanceMonitor is designed to watch various memory metrics via two methods, both called StartSyncWatch (one takes a single memory metric and one takes multiple).  They
         will both monitor the application for the duration of the time passed in and will call an ifSuccess delegate if the memory metric(s) never exceed the passed in threshold.  If
         any of the memory metrics exceed their threshold, the ifFail delegate will be called

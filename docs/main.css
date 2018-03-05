@@ -33,6 +33,7 @@ pre {
   padding-top: 12px;
   padding-bottom: 12px;
   border-radius: 5px;
+  min-width: 890px;
 }
 
 .nuget-install {
@@ -140,8 +141,8 @@ div.tool-tip {
 
 img.large {
   display: block;
-  max-width:1000px;
-  max-height:1000px;
+  max-width:910px;
+  max-height:910px;
   width: auto;
   height: auto;
   margin-bottom: 5px;
