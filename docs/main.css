@@ -33,6 +33,7 @@ pre {
   padding-top: 12px;
   padding-bottom: 12px;
   border-radius: 5px;
+  min-width: 890px;
 }
 
 .nuget-install {
