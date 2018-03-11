@@ -7,6 +7,9 @@ using EazyE2E.Element;
 
 namespace EazyE2E.HardwareManipulation
 {
+	/// <summary>
+	/// Performs mouse physical mouse functions against application being automated.  NOTE THAT THIS CLASS WHILL PHYSICALLY MANIPULATE YOUR MOUSE
+	/// </summary>
     public static class EzMouseFunctions
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
