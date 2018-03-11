@@ -2,13 +2,17 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Input;
 using EazyE2E.Element;
 
 namespace EazyE2E.HardwareManipulation
 {
-    public static class EzKeyboardFunctions
+	/// <summary>
+	/// Performs mouse physical keyboard functions against application being automated.  NOTE THAT THIS CLASS WHILL PHYSICALLY MANIPULATE YOUR KEYBOARD
+	/// </summary>
+	public static class EzKeyboardFunctions
     {
         /// <summary>
         /// Sends an individual key
@@ -32,7 +36,17 @@ namespace EazyE2E.HardwareManipulation
             SendKeys.SendWait(text);
         }
 
-        public class KeyboardKey
+		public static void SendText(EzElement element, string text, int timeInbetweenKeys)
+		{
+			element.BringIntoFocus();
+			foreach (var character in text)
+			{
+				SendKeys.SendWait(character.ToString());
+				Thread.Sleep(timeInbetweenKeys);
+			}
+		}
+
+        private class KeyboardKey
         {
             private readonly Dictionary<Key, string> _backingDictionary;
             private static readonly object LockObj = new object();
