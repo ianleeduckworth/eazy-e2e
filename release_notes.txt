@@ -13,4 +13,4 @@ EazyE2E 1.0.3 Release Notes
 
 EazyE2E 1.0.4 Release Notes
 1.  Added comments to EzMouseFunctions and EzKeyboardFunctions classes
-2.  Added SendKeys overload to EzKeyboardFunctions that allows timing to be manipulated; this can be used to simulate a slower typer
+2.  Updated EzkeyboardFunctions to include: SendWithWait, RepeatKey, ShiftCombination, CtrlCombination, AltCombination

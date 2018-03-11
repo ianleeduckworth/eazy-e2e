@@ -36,14 +36,102 @@ namespace EazyE2E.HardwareManipulation
             SendKeys.SendWait(text);
         }
 
-		public static void SendText(EzElement element, string text, int timeInbetweenKeys)
+		/// <summary>
+		/// Sends the string passed in with a wait (in milliseconds) inbetween each character.  Simulates a slower typer
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="text"></param>
+		/// <param name="wait"></param>
+		public static void SendTextWithWait(EzElement element, string text, int wait)
 		{
 			element.BringIntoFocus();
 			foreach (var character in text)
 			{
 				SendKeys.SendWait(character.ToString());
-				Thread.Sleep(timeInbetweenKeys);
+				Thread.Sleep(wait);
 			}
+		}
+
+		/// <summary>
+		/// Sends a key to the application a specific number of times
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="repeatNumber"></param>
+		/// <param name="key"></param>
+		public static void RepeatKey(EzElement element, int repeatNumber, Key key)
+		{
+			element.BringIntoFocus();
+			for (int i = 0; i < repeatNumber; i++)
+				PressKey(element, key);
+		}
+
+
+		/// <summary>
+		/// Performs a key combination; holds down shift while pressing all keys passed in
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="keys"></param>
+		public static void ShiftCombination(EzElement element, params Key[] keys)
+		{
+			ShiftCombination(element, Aggregate(keys));
+		}
+
+		/// <summary>
+		/// Performs a key combination; holds down shift while pressing all keys passed in
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="keys"></param>
+		public static void ShiftCombination(EzElement element, string keys)
+		{
+			element.BringIntoFocus();
+			SendKeys.SendWait($"+({keys})");
+		}
+
+		/// <summary>
+		/// Performs a key combination; holds down control while pressing all keys passed in
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="keys"></param>
+		public static void CtrlCombination(EzElement element, params Key[] keys)
+		{
+			CtrlCombination(element, Aggregate(keys));
+		}
+
+		/// <summary>
+		/// Performs a key combination; holds down control while pressing all keys passed in
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="keys"></param>
+		public static void CtrlCombination(EzElement element, string keys)
+		{
+			element.BringIntoFocus();
+			SendKeys.SendWait($"^({keys})");
+		}
+
+		/// <summary>
+		/// Performs a key combination; holds down alt while pressing all keys passed in
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="keys"></param>
+		public static void AltCombination(EzElement element, params Key[] keys)
+		{
+			AltCombination(element, Aggregate(keys));
+		}
+
+		/// <summary>
+		/// Performs a key combination; holds down alt while pressing all keys passed in
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="keys"></param>
+		public static void AltCombination(EzElement element, string keys)
+		{
+			element.BringIntoFocus();
+			SendKeys.SendWait($"%({keys})");
+		}
+
+		private static string Aggregate(params Key[] keys)
+		{
+			return keys.Select(x => x.ToString()).Aggregate((a, b) => a.ToString() + b.ToString());
 		}
 
         private class KeyboardKey
