@@ -17,3 +17,6 @@ EazyE2E 1.0.4 Release Notes
 3.  Added a new method to EzProcess called AttachToExistingProcess.  It is static so it can be used to create an instance of EzProcess
 4.  Added comments to EzMouseFunctions and EzKeyboardFunctions classes
 5.  Updated EzkeyboardFunctions to include: SendWithWait, RepeatKey, ShiftCombination, CtrlCombination, AltCombination
+
+EazyE2E 1.0.5 Release Notes
+1.  Updated documenation and copyrights
