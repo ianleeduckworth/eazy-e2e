@@ -1,7 +1,10 @@
-﻿//Copyright 2018 Ian Duckworth
+﻿//Copyright 2019 Ian Duckworth
 
 namespace EazyE2E.Enums
 {
+	/// <summary>
+	/// Memoyr types that can be measured
+	/// </summary>
     public enum MemoryType
     {
         NonpagedSystemMemorySize,

@@ -1,9 +1,12 @@
-﻿//Copyright 2018 Ian Duckworth
+﻿//Copyright 2019 Ian Duckworth
 
 using EazyE2E.Enums;
 
 namespace EazyE2E.Helper
 {
+	/// <summary>
+	/// Acts as a key value pair for searching by multiple criteria
+	/// </summary>
     public class SearchTypeProperty
     {
         /// <summary>

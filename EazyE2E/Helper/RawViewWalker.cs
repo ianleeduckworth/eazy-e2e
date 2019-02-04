@@ -1,4 +1,4 @@
-﻿//Copyright 2018 Ian Duckworth
+﻿//Copyright 2019 Ian Duckworth
 
 using System.Collections.Generic;
 using System.Windows.Automation;
@@ -7,10 +7,13 @@ using EazyE2E.Enums;
 
 namespace EazyE2E.Helper
 {
+	/// <summary>
+	/// Allows for walking the raw UI tree.  By default only control elements are visible; this class allows for everything to be visible
+	/// </summary>
     public static class RawViewWalker
     {
         /// <summary>
-        /// Finds a child based on TreeView.RawViewWalker; will get literally all elements in the application instead of just Control elements
+        /// Finds a child based on TreeView.RawViewWalker; will get literally all elements in the application instead of just control elements
         /// </summary>
         /// <param name="element"></param>
         /// <param name="type"></param>

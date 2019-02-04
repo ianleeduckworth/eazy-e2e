@@ -1,4 +1,4 @@
-﻿//Copyright 2018 Ian Duckworth
+﻿//Copyright 2019 Ian Duckworth
 
 using System;
 using System.Collections.Generic;
@@ -10,15 +10,25 @@ using EazyE2E.Process;
 
 namespace EazyE2E.Performance
 {
+	/// <summary>
+	/// Allows for an application to be profiled and monitored based on its memory metrics
+	/// </summary>
     public class EzPerformanceMonitor
     {
         private readonly EzProcess _process;
 
+		/// <summary>
+		/// Creates a new instance of EzPerformanceMonitor based on EzProcess
+		/// </summary>
+		/// <param name="process"></param>
         public EzPerformanceMonitor(EzProcess process)
         {
             _process = process;
         }
 
+		/// <summary>
+		/// Based on System.Process NonpagedSystemMemorySize64
+		/// </summary>
         public long NonpagedSystemMemorySize
         {
             get
@@ -28,7 +38,10 @@ namespace EazyE2E.Performance
             }
         }
 
-        public long PagedMemorySize
+		/// <summary>
+		/// Based on System.Process PagedMemorySize64
+		/// </summary>
+		public long PagedMemorySize
         {
             get
             {
@@ -37,7 +50,10 @@ namespace EazyE2E.Performance
             }
         }
 
-        public long PagedSystemMemorySize
+		/// <summary>
+		/// Based on System.Process PagedSystemMemorySize64
+		/// </summary>
+		public long PagedSystemMemorySize
         {
             get
             {
@@ -46,7 +62,10 @@ namespace EazyE2E.Performance
             }
         }
 
-        public long PeakPagedMemorySize
+		/// <summary>
+		/// Based on System.Process PeakPagedMemorySize64
+		/// </summary>
+		public long PeakPagedMemorySize
         {
             get
             {
@@ -55,7 +74,10 @@ namespace EazyE2E.Performance
             }  
         }
 
-        public long PeakVirtualMemorySize
+		/// <summary>
+		/// Based on System.Process PeakVirtualMemorySize64
+		/// </summary>
+		public long PeakVirtualMemorySize
         {
             get
             {
@@ -64,7 +86,10 @@ namespace EazyE2E.Performance
             }  
         }
 
-        public long PeakWorkingSet
+		/// <summary>
+		/// Based on System.Process PeakWorkingSet64
+		/// </summary>
+		public long PeakWorkingSet
         {
             get
             {
@@ -73,7 +98,10 @@ namespace EazyE2E.Performance
             }  
         }
 
-        public long PrivateMemorySize
+		/// <summary>
+		/// Based on System.Process PrivateMemorySize64
+		/// </summary>
+		public long PrivateMemorySize
         {
             get
             {
@@ -82,7 +110,10 @@ namespace EazyE2E.Performance
             }
         }
 
-        public long VirtualMemorySize
+		/// <summary>
+		/// Based on System.Process VirtualMemorySize64
+		/// </summary>
+		public long VirtualMemorySize
         {
             get
             {
@@ -91,7 +122,10 @@ namespace EazyE2E.Performance
             }
         }
 
-        public long WorkingSet
+		/// <summary>
+		/// Based on System.Process WorkingSet64
+		/// </summary>
+		public long WorkingSet
         {
             get
             {
@@ -163,9 +197,28 @@ namespace EazyE2E.Performance
             ifSuccess(memoryWatches, timeInSeconds);
         }
 
-        //named delegates to get correct parameter names for the end user
+        /// <summary>
+		/// Delegate to be run if a failure occurs
+		/// </summary>
+		/// <param name="type"></param>
+		/// <param name="original"></param>
+		/// <param name="actual"></param>
+		/// <param name="timeAtFailure"></param>
         public delegate void IfFail(MemoryType type, long original, long actual, int timeAtFailure);
+
+		/// <summary>
+		/// Delegate to run if a singular success occurs
+		/// </summary>
+		/// <param name="type"></param>
+		/// <param name="original"></param>
+		/// <param name="time"></param>
         public delegate void SingularSuccess(MemoryType type, long original, int time);
+
+		/// <summary>
+		/// Delegate to run if there are multiple successes
+		/// </summary>
+		/// <param name="watches"></param>
+		/// <param name="time"></param>
         public delegate void MultiSuccess(IEnumerable<MemoryWatch> watches, int time);
 
         // Note that for this method, true = a failure,  false = a success for the memory type checked.

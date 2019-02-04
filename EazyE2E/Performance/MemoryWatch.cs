@@ -1,9 +1,12 @@
-﻿//Copyright 2018 Ian Duckworth
+﻿//Copyright 2019 Ian Duckworth
 
 using EazyE2E.Enums;
 
 namespace EazyE2E.Performance
 {
+	/// <summary>
+	/// Houses memory watch information that will set EzPerformanceMonitor know what to search and what the memory amount should be
+	/// </summary>
     public class MemoryWatch
     {
         /// <summary>

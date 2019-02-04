@@ -1,9 +1,13 @@
-﻿//Copyright 2018 Ian Duckworth
+﻿//Copyright 2019 Ian Duckworth
 
 using System;
 
 namespace EazyE2E.ElementHelper
 {
+	/// <summary>
+	/// Houses the result of EzText.HandleResult
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
     public class EzTextResult<T>
     {
         /// <summary>

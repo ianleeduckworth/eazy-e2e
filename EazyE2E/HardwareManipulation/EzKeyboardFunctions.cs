@@ -1,4 +1,4 @@
-﻿//Copyright 2018 Ian Duckworth
+﻿//Copyright 2019 Ian Duckworth
 
 using System.Collections.Generic;
 using System.Linq;

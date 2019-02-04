@@ -1,4 +1,4 @@
-﻿//Copyright 2018 Ian Duckworth
+﻿//Copyright 2019 Ian Duckworth
 
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +7,9 @@ using EazyE2E.Enums;
 
 namespace EazyE2E.Helper
 {
+	/// <summary>
+	/// Provides some helper functionality that allows for easier searching
+	/// </summary>
     public static class SearchTypeHelper
     {
         private static Dictionary<PropertyType, AutomationProperty> _backingDictionary;

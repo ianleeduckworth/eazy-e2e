@@ -1,4 +1,4 @@
-﻿//Copyright 2018 Ian Duckworth
+﻿//Copyright 2019 Ian Duckworth
 
 using System;
 using System.Collections.Concurrent;
@@ -9,6 +9,9 @@ using EazyE2E.Process;
 
 namespace EazyE2E.Logwatch
 {
+	/// <summary>
+	/// Provides an ability to monitor logs and take actions based on whether or not log messages are received
+	/// </summary>
     public class EzLogMonitor : IDisposable
     {
         private static HashSet<int> _processRegistry;
@@ -50,12 +53,51 @@ namespace EazyE2E.Logwatch
             _process.BeginErrorReadLine();
         }
 
+		/// <summary>
+		/// Delegate to run if there is a single failure
+		/// </summary>
+		/// <param name="type"></param>
+		/// <param name="watchText"></param>
+		/// <param name="message"></param>
+		/// <param name="timeAtOccurance"></param>
         public delegate void IfFailSingular(OutputType type, string watchText, string message, int timeAtOccurance);
-        public delegate void IfFailMultiple(IEnumerable<string> watches, int time);
-        public delegate void IfFailNonOccurance(string watch, int time);
-        public delegate void IfSuccessSingular(OutputType type, string watchText, string message, int timeAtOccurance);
-        public delegate void IfSuccessMultiple(IEnumerable<string> watches, int time);
-        public delegate void IfSuccessNonOccurance(string watch, int time);
+
+		/// <summary>
+		/// Delegate to run if  there are multiple failures
+		/// </summary>
+		/// <param name="watches"></param>
+		/// <param name="time"></param>
+		public delegate void IfFailMultiple(IEnumerable<string> watches, int time);
+
+		/// <summary>
+		/// Delegate to run if a log message does not occur
+		/// </summary>
+		/// <param name="watch"></param>
+		/// <param name="time"></param>
+		public delegate void IfFailNonOccurance(string watch, int time);
+
+		/// <summary>
+		/// Delegate to run if there is a singular success
+		/// </summary>
+		/// <param name="type"></param>
+		/// <param name="watchText"></param>
+		/// <param name="message"></param>
+		/// <param name="timeAtOccurance"></param>
+		public delegate void IfSuccessSingular(OutputType type, string watchText, string message, int timeAtOccurance);
+
+		/// <summary>
+		/// Delegate to run if there are multiple successes
+		/// </summary>
+		/// <param name="watches"></param>
+		/// <param name="time"></param>
+		public delegate void IfSuccessMultiple(IEnumerable<string> watches, int time);
+
+		/// <summary>
+		/// Delegate to run if there is a successful non-occurance
+		/// </summary>
+		/// <param name="watch"></param>
+		/// <param name="time"></param>
+		public delegate void IfSuccessNonOccurance(string watch, int time);
 
         /// <summary>
         /// Begins a synchronized watch of process' error and standard output for log message.  Calls ifFail if message does not occur and calls ifSuccess if it does
@@ -239,6 +281,9 @@ namespace EazyE2E.Logwatch
             return _comparer.Compare(watch, data);
         }
 
+		/// <summary>
+		/// Dispose method which should be called when class is no longer in use
+		/// </summary>
         public void Dispose()
         {
             _isWatching = false;
@@ -247,8 +292,17 @@ namespace EazyE2E.Logwatch
             _processRegistry.Remove(_process.Id);
         }
 
+		/// <summary>
+		/// Represents when a log message is found
+		/// </summary>
         public class FoundItem
         {
+			/// <summary>
+			/// Constructor to create FoundItem instance and set backing properties
+			/// </summary>
+			/// <param name="isError"></param>
+			/// <param name="message"></param>
+			/// <param name="watch"></param>
             public FoundItem(bool isError, string message, string watch)
             {
                 this.IsError = isError;
@@ -256,8 +310,19 @@ namespace EazyE2E.Logwatch
                 this.Watch = watch;
             }
 
+			/// <summary>
+			/// The watch text that was being looked for
+			/// </summary>
             public string Watch { get; }
+
+			/// <summary>
+			/// If this is an error message.  If this value is false, it is an info message
+			/// </summary>
             public bool IsError { get; }
+
+			/// <summary>
+			/// The actual log message that was found
+			/// </summary>
             public string Message { get; }
         }
     }

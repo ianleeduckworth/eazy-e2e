@@ -1,4 +1,4 @@
-﻿//Copyright 2018 Ian Duckworth
+﻿//Copyright 2019 Ian Duckworth
 
 using System.Windows.Automation;
 using EazyE2E.Configuration;
@@ -6,7 +6,10 @@ using EazyE2E.Helper;
 
 namespace EazyE2E.Element
 {
-    public class EzGridItem : EzElement
+	/// <summary>
+	/// Houses all functionality for grid item elements.  Note that the underlying element must have a ControlType of DataItem
+	/// </summary>
+	public class EzGridItem : EzElement
     {
         private readonly GridItemPattern _gridItemPattern;
 

@@ -3,21 +3,19 @@
   <metadata>
     <!-- Required elements-->
     <id>EazyE2E</id>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <description>Easy and powerful WPF application automation</description>
     <authors>Ian Duckworth</authors>
     <licenseUrl>https://ianleeduckworth.github.io/eazy-e2e/license.html</licenseUrl>
     <projectUrl>https://ianleeduckworth.github.io/eazy-e2e/index.html</projectUrl>
     <owners>Ian Duckworth</owners>
     <!-- Optional elements -->
-    <copyright>Copyright (c) 2018 Ian Duckworth</copyright>
+    <copyright>Copyright (c) 2019 Ian Duckworth</copyright>
     <tags>WPF Automation UIAutomation</tags>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <releaseNotes>
-      EazyE2E 1.0.4 Release Notes
-      1.  Updated Argumets property to be a getter only.  Also modified EzProcess.StartProcess to include an optional string to pass arguments when the process is started
-      2.  Added new EzProcess constructor which creates an EzProcess instance based on a System.Diagnostics.Process
-      3.  Added a new method to EzProcess called AttachToExistingProcess.  It is static so it can be used to create an instance of EzProcess
+      EazyE2E 1.0.5 Release Notes
+      1.  Updated documenation and copyrights
     </releaseNotes>
   </metadata>
   <!-- Optional 'files' node -->

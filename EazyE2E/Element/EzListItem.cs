@@ -1,4 +1,4 @@
-﻿//Copyright 2018 Ian Duckworth
+﻿//Copyright 2019 Ian Duckworth
 
 using System.Windows.Automation;
 using EazyE2E.Configuration;
@@ -6,7 +6,10 @@ using EazyE2E.Helper;
 
 namespace EazyE2E.Element
 {
-    public class EzListItem : EzElement
+	/// <summary>
+	/// Houses all functionality for list item elements.  Note that the underlying element must have a ControlType of ListItem
+	/// </summary>
+	public class EzListItem : EzElement
     {
         private readonly SelectionItemPattern _selectionItemPattern;
         private readonly ScrollItemPattern _scrollItemPattern;
@@ -16,6 +19,10 @@ namespace EazyE2E.Element
 
         private bool _parentCanSelectMultiple;
 
+		/// <summary>
+		/// Creates a new instance of EzListItem based on EzElement
+		/// </summary>
+		/// <param name="element"></param>
         public EzListItem(EzElement element) : base(element)
         {
             TypeChecker.CheckElementType(element.BackingAutomationElement, ControlType.ListItem);
@@ -26,7 +33,12 @@ namespace EazyE2E.Element
 
             SetBackingProperties();
         }
-        public EzListItem(EzRoot root) : base(root)
+
+		/// <summary>
+		/// Creates a new instance of EzListItem based on EzRoot
+		/// </summary>
+		/// <param name="root"></param>
+		public EzListItem(EzRoot root) : base(root)
         {
             TypeChecker.CheckElementType(root.RootElement.BackingAutomationElement, ControlType.ListItem);
             _selectionItemPattern = root.RootElement.BackingAutomationElement.GetCurrentPattern(SelectionItemPattern.Pattern) as SelectionItemPattern;
@@ -37,7 +49,11 @@ namespace EazyE2E.Element
             SetBackingProperties();
         }
 
-        public EzListItem(AutomationElement element) : base(element)
+		/// <summary>
+		/// Creates a new instance of EzListItem based on AutomationElement from Windows' automation framework
+		/// </summary>
+		/// <param name="element"></param>
+		public EzListItem(AutomationElement element) : base(element)
         {
             TypeChecker.CheckElementType(element, ControlType.ListItem);
             _selectionItemPattern = element.GetCurrentPattern(SelectionItemPattern.Pattern) as SelectionItemPattern;

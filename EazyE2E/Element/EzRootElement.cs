@@ -1,4 +1,4 @@
-﻿//Copyright 2018 Ian Duckworth
+﻿//Copyright 2019 Ian Duckworth
 
 using System;
 using System.Runtime.InteropServices;
@@ -7,6 +7,9 @@ using EazyE2E.Process;
 
 namespace EazyE2E.Element
 {
+	/// <summary>
+	/// Represents the root element of an application.  When traversing the UI tree, this represents the highest level node
+	/// </summary>
     public class EzRoot
     {
         private readonly EzProcess _process;
